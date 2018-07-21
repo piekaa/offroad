@@ -437,9 +437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: 0
-  Pushed: 0
-  Px: 0
-  Py: 0
 --- !u!1 &584310345
 GameObject:
   m_ObjectHideFlags: 0
