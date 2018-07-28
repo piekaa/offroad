@@ -6,8 +6,7 @@ public class Drop : MonoBehaviour {
  
 	private SpriteRenderer spriteRenderer;
 
-	public GameObject Spawnable;
-	public float Angle;
+	public GameObject Spawnable; 
 
 	void Start () {
 		spriteRenderer = GetComponentInChildren<SpriteRenderer> ();
@@ -17,6 +16,7 @@ public class Drop : MonoBehaviour {
 	public void Spawn() {
 
 		Spawnable.transform.position = spriteRenderer.transform.position;
+		Spawnable.transform.rotation = transform.rotation = Quaternion.identity;
 
 	}
 }
