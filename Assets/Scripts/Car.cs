@@ -4,31 +4,47 @@ using UnityEngine;
 
 public class Car : MonoBehaviour {
 
-	private WheelJoint2D rightWheelJoint;
-	private WheelJoint2D leftWheelJoint;
+	[SerializeField]
+	private Wheel frontWheel;
 
+	[SerializeField]
+	private Wheel rearWheel;
+
+	public Wheel FrontWheel 
+	{
+		get
+		{
+			return frontWheel;
+		}
+			
+	}
+
+	public Wheel RearWheel 
+	{
+		get
+		{
+			return rearWheel;
+		}
+
+	}
+
+	//TODO: remove from Car component
 	[SerializeField]
 	private PiekaSlider rightWheelSlider;
 
+	//TODO: remove from Car component
 	[SerializeField]
 	private PiekaSlider leftWheelSlider;
 
-	// Use this for initialization
-	void Start () {
-		var joints = GetComponentsInChildren<WheelJoint2D> ();
-		rightWheelJoint = joints [0];
-		leftWheelJoint = joints [1];
-	}
-	
 	// Update is called once per frame
 	void Update () {
 
-		var suspension = rightWheelJoint.suspension;
+		var suspension = frontWheel.Joint.suspension;
 		suspension.frequency = rightWheelSlider.Value;
-		rightWheelJoint.suspension = suspension;
+		frontWheel.Joint.suspension = suspension;
 
-		suspension = leftWheelJoint.suspension;
+		suspension = rearWheel.Joint.suspension;
 		suspension.frequency = leftWheelSlider.Value;
-		leftWheelJoint.suspension = suspension;
+		rearWheel.Joint.suspension = suspension;
 	}
 }
