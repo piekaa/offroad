@@ -17,12 +17,12 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 	private Direction Direction;
  
 
-	public bool Pushed { get; private set;}
+	private bool pushed;	
 	public float Value { get; private set;}
 
 	public void Start() {
 		
-		Pushed = false;
+		pushed = false;
 
 		pedalHeight = (int)((RectTransform)transform).rect.height;
 		pedalWidth = (int)((RectTransform)transform).rect.width;
@@ -33,17 +33,18 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		Pushed = true;
+		pushed = true;
 	}
 
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		Pushed = false;
+		pushed = false;
+		Value = 0;
 	}
 
 
 	public void Update() { 
-		if (Pushed)
+		if (pushed)
 		{
 			int mx = (int)Input.mousePosition.x;
 			int my = (int)Input.mousePosition.y;
