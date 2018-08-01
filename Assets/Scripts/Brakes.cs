@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Temp implementation
-public class Engine : OrderedScript {
+public class Brakes : OrderedScript {
 
 	[SerializeField]
-	private Pedal accelerationPedal;
+	private Pedal brakePedal;
 
 	[SerializeField]
 	private Drive drive;
 
 	public override void OrderedFixedUpdate() 
 	{
-		drive.AccelerateFront (accelerationPedal.Value);
+		drive.BrakeFront (brakePedal.Value);
+		drive.BrakeRear (brakePedal.Value);
 	}
-
 }
