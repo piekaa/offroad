@@ -30,21 +30,31 @@ public class Car : MonoBehaviour {
 
 	//TODO: remove from Car component
 	[SerializeField]
-	private PiekaSlider rightWheelSlider;
+	private PiekaSlider frontWheelSlider;
 
 	//TODO: remove from Car component
 	[SerializeField]
-	private PiekaSlider leftWheelSlider;
+	private PiekaSlider rearWheelSlider;
+
+	//TODO: remove from Car component
+	[SerializeField]
+	private PiekaSlider frontWheelDampSlider;
+
+	//TODO: remove from Car component
+	[SerializeField]
+	private PiekaSlider rearWheelDampSlider;
 
 	// Update is called once per frame
 	void Update () {
 
 		var suspension = frontWheel.Joint.suspension;
-		suspension.frequency = rightWheelSlider.Value;
+		suspension.frequency = frontWheelSlider.Value;
+		suspension.dampingRatio = frontWheelDampSlider.Value;
 		frontWheel.Joint.suspension = suspension;
 
 		suspension = rearWheel.Joint.suspension;
-		suspension.frequency = leftWheelSlider.Value;
+		suspension.frequency = rearWheelSlider.Value;
+		suspension.dampingRatio = rearWheelDampSlider.Value;
 		rearWheel.Joint.suspension = suspension;
 	}
 }
