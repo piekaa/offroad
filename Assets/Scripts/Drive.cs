@@ -8,9 +8,6 @@ public class Drive : OrderedScript
 	[SerializeField]
 	public Car Car;
 
-	public float FrontAccelerationPower = 5;
-	public float RearAccelerationPower = 5;
-
 	public float FrontBreakPower = 50;
 	public float RearBreakPower = 50;
 
@@ -22,19 +19,19 @@ public class Drive : OrderedScript
 	/// <summary>
 	/// Accelerates the front. Invoke only in FixedUpdate
 	/// </summary>
-	/// <param name="power">0-1</param>
+	/// <param name="power">Torque</param>
 	public void AccelerateFront (float power)
 	{
-		Car.FrontWheel.RB.AddTorque (-power * FrontAccelerationPower);
+		Car.FrontWheel.RB.AddTorque (-power);
 	}
 
 	/// <summary>
 	/// Accelerates the front. Invoke only in FixedUpdate
 	/// </summary>
-	/// <param name="power">0-1</param>
+	/// <param name="power">Torque</param>
 	public void AccelerateRear (float power)
 	{
-		Car.RearWheel.RB.AddTorque (-power * FrontAccelerationPower);
+		Car.RearWheel.RB.AddTorque (-power);
 	}
 
 	/// <summary>
@@ -79,6 +76,14 @@ public class Drive : OrderedScript
 		wheel.Joint.motor = motor;
 		 
 	}
+
+	public float FrontWheelSpeed { get { return Car.FrontWheel.RB.angularVelocity; } }
+
+	public float RearWheelSpeed { get { return Car.RearWheel.RB.angularVelocity; } }
+
+	public float FrontWheelRPM { get { return Car.FrontWheel.RB.angularVelocity / 6; } }
+
+	public float RearWheelRPM { get { return Car.RearWheel.RB.angularVelocity /6; } }
 
 
 	public override void OrderedFixedUpdate ()
