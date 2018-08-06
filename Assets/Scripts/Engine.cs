@@ -24,6 +24,9 @@ public class Engine : OrderedScript {
 	[SerializeField]
 	private float explosionPower = 10;
 
+	[SerializeField]
+	private Meter tachometer;
+
 	void Start(){
 
 		Torque = 0.1f;
@@ -89,7 +92,11 @@ public class Engine : OrderedScript {
 		//drive.AccelerateFront (accelerationPedal.Value);
 	}
 
+	void Update() {
 
+		tachometer.Value = RPM/1000;
+
+	}
 
 
 }
