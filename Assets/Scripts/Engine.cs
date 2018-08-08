@@ -87,9 +87,6 @@ public class Engine : OrderedScript {
 
 		Debug.Log ("RPM: " + RPM);
 		Debug.Log ("FW RPM: " + WRPM);
-
-		//drive.AccelerateRear (accelerationPedal.Value);
-		//drive.AccelerateFront (accelerationPedal.Value);
 	}
 
 	void Update() {
