@@ -83,7 +83,7 @@ public class Drive : OrderedScript
 
 	public float FrontWheelRPM { get { return Car.FrontWheel.RB.angularVelocity / 6; } }
 
-	public float RearWheelRPM { get { return Car.RearWheel.RB.angularVelocity /6; } }
+	public float RearWheelRPM { get { return Car.RearWheel.RB.angularVelocity / 6; } }
 
 
 	public override void OrderedFixedUpdate ()

@@ -3,97 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Temp implementation
-public class Engine : OrderedScript {
+public class Engine : OrderedScript
+{
 
-	public float RPM { get; private set; }
+    public float RPM { get; private set; }
 
-	public float Torque { get; private set; }
+    public float Torque { get; private set; }
 
-	public float Drag { set; private get; }
+    public float Drag { set; private get; }
 
-	/// <summary>
-	/// 0-1
-	/// </summary>
-	private float throttle;
+    /// <summary>
+    /// 0-1
+    /// </summary>
+    private float throttle;
 
-	private bool clutchEngaged;
+    private bool clutchEngaged;
 
-	[SerializeField]
-	private int cylinders = 4;
+    [SerializeField]
+    private int cylinders = 4;
 
-	[SerializeField]
-	private float explosionPower = 10;
+    [SerializeField]
+    private float explosionPower =1f;
 
-	[SerializeField]
-	private Meter tachometer;
+    [SerializeField]
+    private Meter tachometer;
 
-	void Start(){
+    [SerializeField]
+    private Meter speedMeter;
 
-		Torque = 0.1f;
-		Drag = 10;
-		RPM = 2000;
-		throttle = 0;
-	}
+    void Start()
+    {
+        Torque = 0.1f;
+        Drag = 10;
+        throttle = 0;
+    }
 
-	[SerializeField]
-	private Pedal accelerationPedal;
+    [SerializeField]
+    private Pedal accelerationPedal;
 
-	[SerializeField]
-	private Pedal clutchPedal;
+    [SerializeField]
+    private Drive drive;
 
-	[SerializeField]
-	private Drive drive;
 
-	float ratio = 0.01f;
+    public override void OrderedFixedUpdate()
+    {
+        float WRPM = Mathf.Abs(drive.FrontWheelRPM);
 
-	public override void OrderedFixedUpdate() 
-	{
-		clutchEngaged = false;
-		if (clutchPedal.Value > 0.8)
-		{
-			clutchEngaged = true;
-		}
+        //todo
+        float wheelDiameterInMeters = 0.5f;
+        float speedInKmPerHour = WRPM * wheelDiameterInMeters * 60 * 3.14f / 1000;
+        speedMeter.Value = speedInKmPerHour;
 
-		float WRPM = Mathf.Abs (drive.FrontWheelRPM);
+        RPM = WRPM;
+        if (RPM < 10)
+        {
+            RPM = 10;
+        }
+        throttle = accelerationPedal.Value;
+        Debug.Log(explosionPower);
+        float currentExpPower = cylinders * throttle * explosionPower;
+        Debug.Log(currentExpPower);
+        drive.AccelerateFront(currentExpPower);
+    }
 
-		if (clutchEngaged)
-		{
-			RPM = WRPM / ratio;
-		} else
-		{
-			
-			throttle = accelerationPedal.Value;
-			if (RPM < 1000)
-			{
-				throttle = Mathf.Max (0.3f, accelerationPedal.Value);
-			}
-
-			float currentExpPower = 120000 / (cylinders * RPM) * throttle * explosionPower;
-
-			RPM += currentExpPower;
-
-			RPM -= Drag;
-
-			float t = (RPM * Torque * clutchPedal.Value) * ratio;
-
-			float diff = 1 - (WRPM / (RPM * ratio));
-
-			Debug.Log("Torque:" + t); 
-			Debug.Log("Diff:" + diff); 
-
-			drive.AccelerateFront (t * diff);
-
-		}
-
-		Debug.Log ("RPM: " + RPM);
-		Debug.Log ("FW RPM: " + WRPM);
-	}
-
-	void Update() {
-
-		tachometer.Value = RPM/1000;
-
-	}
+    void Update()
+    {
+        tachometer.Value = RPM / 1000;
+    }
 
 
 }
