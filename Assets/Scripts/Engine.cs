@@ -26,9 +26,6 @@ public class Engine : OrderedScript
     private float explosionPower =1f;
 
     [SerializeField]
-    private Meter tachometer;
-
-    [SerializeField]
     private Meter speedMeter;
 
     void Start()
@@ -59,17 +56,8 @@ public class Engine : OrderedScript
         {
             RPM = 10;
         }
-        throttle = accelerationPedal.Value;
-        Debug.Log(explosionPower);
-        float currentExpPower = cylinders * throttle * explosionPower;
-        Debug.Log(currentExpPower);
+        throttle = accelerationPedal.Value; 
+        float currentExpPower = cylinders * throttle * explosionPower; 
         drive.AccelerateFront(currentExpPower);
     }
-
-    void Update()
-    {
-        tachometer.Value = RPM / 1000;
-    }
-
-
 }
