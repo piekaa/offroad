@@ -23,10 +23,13 @@ public class Engine : OrderedScript
     private int cylinders = 4;
 
     [SerializeField]
-    private float explosionPower =1f;
+    private float explosionPower = 1f;
 
     [SerializeField]
     private Meter speedMeter;
+
+    [SerializeField]
+    public float maxSpeed;
 
     void Start()
     {
@@ -56,8 +59,12 @@ public class Engine : OrderedScript
         {
             RPM = 10;
         }
-        throttle = accelerationPedal.Value; 
-        float currentExpPower = cylinders * throttle * explosionPower; 
-        drive.AccelerateFront(currentExpPower);
+        throttle = accelerationPedal.Value;
+        float currentExpPower = cylinders * throttle * explosionPower;
+        if (speedInKmPerHour < maxSpeed)
+        {
+            drive.AccelerateFront(currentExpPower);
+            drive.AccelerateRear(currentExpPower);
+        }
     }
 }
