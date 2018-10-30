@@ -2,32 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PiekaSlider : MonoBehaviour {
+public class PiekaSlider : MonoBehaviour
+{
 
-	[SerializeField]
-	private float minValue = 0;
+    [SerializeField]
+    private float min = 0;
 
-	[SerializeField]
-	private float maxValue = 1;
+    [SerializeField]
+    private float max = 1;
 
-	private Slider slider;
-	private Text text;
+    [SerializeField]
+    private float init = 0.5f;
 
-	public float Value { get; private set; }
+    private Slider slider;
+    private Text text;
 
-	// Use this for initialization
-	void Start () {
-		slider = GetComponentInChildren<Slider> ();
-		text = GetComponentInChildren<Text> ();
-		slider.minValue = minValue;
-		slider.maxValue = maxValue;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    public float Value { get; private set; }
 
-		Value = slider.value;
-		text.text = Value.ToString("0.00");
+    // Use this for initialization
+    void Start()
+    {
+        slider = GetComponentInChildren<Slider>();
+        text = GetComponentInChildren<Text>();
+        slider.minValue = min;
+        slider.maxValue = max;
+		slider.value = init;
+    }
 
-	}
+    // Update is called once per frame
+    void Update()
+    {
+        Value = slider.value;
+        text.text = Value.ToString("0.00");
+
+    }
 }
