@@ -10,8 +10,7 @@ public class Car : Resetable
 
     [SerializeField]
     private Wheel rearWheel;
-
-    private Body body;
+ 
 	private Vector3 bodyInitialPosition;
 
     public Wheel FrontWheel
@@ -48,12 +47,6 @@ public class Car : Resetable
     [SerializeField]
     private PiekaSlider rearWheelDampSlider;
 
-    void Start()
-    {
-		body = GetComponentInChildren<Body>();
-		bodyInitialPosition = body.transform.position;
-    }
-
     void Update()
     {
         var suspension = frontWheel.Joint.suspension;
@@ -66,10 +59,4 @@ public class Car : Resetable
         suspension.dampingRatio = rearWheelDampSlider.Value;
         rearWheel.Joint.suspension = suspension;
     }
-
-	public override void Reset() 
-	{
-		body.transform.position = bodyInitialPosition;		
-		body.transform.rotation = Quaternion.identity;
-	}
 }
