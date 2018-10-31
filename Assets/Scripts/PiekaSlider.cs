@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PiekaSlider : MonoBehaviour
+using UnityEngine.EventSystems;
+public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
 
     [SerializeField]
@@ -17,23 +18,38 @@ public class PiekaSlider : MonoBehaviour
     private Slider slider;
     private Text text;
 
-    public float Value { get; private set; }
+    //todo set private set
+    // public float Value { get; private set; }
+    public float Value;
+    
+    private Image image;
 
-    // Use this for initialization
+    private float pointerStartX;
+    private float startValue;
+
+    private float sensivity = 1/300.0f;
+
     void Start()
     {
-        slider = GetComponentInChildren<Slider>();
-        text = GetComponentInChildren<Text>();
-        slider.minValue = min;
-        slider.maxValue = max;
-		slider.value = init;
+        Value = init;
+        image = GetComponent<Image>();
+        float percent = (Value - min) / (max - min);
+        image.color = new Color(percent, 1-percent, 0);
+    }
+ 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pointerStartX = eventData.position.x;
+        startValue = Value; 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDrag(PointerEventData eventData)
     {
-        Value = slider.value;
-        text.text = Value.ToString("0.00");
-
+        float shiftInPixels = (eventData.position.x - pointerStartX);
+        float normalizedShift = Mathf.Clamp( shiftInPixels * sensivity, -1, 1 );
+        Value = startValue + (max-min)*normalizedShift;
+        Value = Mathf.Clamp(Value, min, max);
+        float percent = (Value - min) / (max - min); 
+        image.color = new Color(percent, 1-percent, 0);
     }
 }
