@@ -18,9 +18,7 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
     private Slider slider;
     private Text text;
 
-    //todo set private set
-    // public float Value { get; private set; }
-    public float Value;
+    public float Value { get; private set; }
     
     private Image image;
 
