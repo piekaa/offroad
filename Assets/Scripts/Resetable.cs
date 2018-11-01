@@ -13,8 +13,7 @@ public class Resetable : MonoBehaviour
         foreach (var child in children)
         {
             laggage.Add(new KeyValuePair<Rigidbody2D, Vector3>(child, child.transform.position));
-        }
-        Debug.Log(laggage.Count);
+        } 
     }
 
     public virtual void Reset()
