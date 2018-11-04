@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
+public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDragHandler
 {
 
     [SerializeField]
@@ -19,35 +19,46 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IDragHandler
     private Text text;
 
     public float Value { get; private set; }
-    
+
     private Image image;
 
     private float pointerStartX;
     private float startValue;
 
-    private float sensivity = 1/300.0f;
+    private float sensivity = 1 / 300.0f;
+
+    private OnSlide onSlide;
 
     void Start()
     {
         Value = init;
         image = GetComponent<Image>();
         float percent = (Value - min) / (max - min);
-        image.color = new Color(percent, 1-percent, 0);
+        image.color = new Color(percent, 1 - percent, 0);
     }
- 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerStartX = eventData.position.x;
-        startValue = Value; 
+        startValue = Value;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         float shiftInPixels = (eventData.position.x - pointerStartX);
-        float normalizedShift = Mathf.Clamp( shiftInPixels * sensivity, -1, 1 );
-        Value = startValue + (max-min)*normalizedShift;
+        float normalizedShift = Mathf.Clamp(shiftInPixels * sensivity, -1, 1);
+        Value = startValue + (max - min) * normalizedShift;
         Value = Mathf.Clamp(Value, min, max);
-        float percent = (Value - min) / (max - min); 
-        image.color = new Color(percent, 1-percent, 0);
+        float percent = (Value - min) / (max - min);
+        image.color = new Color(percent, 1 - percent, 0);
+        if (onSlide != null)
+        {
+            onSlide(Value);
+        }
+    }
+
+    public void setOnSlide(OnSlide onSlide)
+    {
+        this.onSlide = onSlide;
     }
 }

@@ -1,4 +1,4 @@
 public interface IPedal
 {
-    float Value{get;}
+    float Value { get; }
 }

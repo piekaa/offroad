@@ -12,21 +12,21 @@ public class Engine : OrderedScript
     /// 0-1
     /// </summary>
     private float throttle;
+
     private bool clutchEngaged;
+
     [SerializeField]
     private int cylinders = 4;
+
     [SerializeField]
     private float explosionPower = 1f;
+
     [SerializeField]
     private Meter speedMeter;
+
     [SerializeField]
     public float maxSpeed;
-    void Start()
-    {
-        Torque = 0.1f;
-        Drag = 10;
-        throttle = 0;
-    }
+
     [SerializeField]
     private Pedal accelerationPedal;
 
@@ -38,6 +38,13 @@ public class Engine : OrderedScript
     void Awake()
     {
         AccelerationPedal = accelerationPedal;
+    }
+
+    void Start()
+    {
+        Torque = 0.1f;
+        Drag = 10;
+        throttle = 0;
     }
 
     public override void OrderedFixedUpdate()
