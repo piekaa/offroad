@@ -5,7 +5,7 @@ public enum Direction {
 	up, right, down, left
 }
 
-public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPedal {
  
 	int pedalPositionX;
 	int pedalPositionY;
@@ -15,13 +15,11 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
 
 	[SerializeField]
 	private Direction Direction;
- 
 
 	private bool pushed;	
-	public float Value { get; private set;}
+	public float Value {get; private set;}
 
-	public void Start() {
-		
+	public void Awake() {
 		pushed = false;
 
 		pedalHeight = (int)((RectTransform)transform).rect.height;

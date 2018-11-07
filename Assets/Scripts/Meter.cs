@@ -17,7 +17,7 @@ public class Meter : MonoBehaviour {
 	private float startAngle = 130;
 	private float endAngle = -130;
 
-	RectTransform pointerRectTransform;
+	private RectTransform pointerRectTransform;
 
 	// Use this for initialization
 	void Start () {

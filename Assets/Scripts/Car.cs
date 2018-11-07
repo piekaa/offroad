@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : Resetable
+public class Car : MonoBehaviour
 {
-
     [SerializeField]
     private Wheel frontWheel;
-
     [SerializeField]
-    private Wheel rearWheel;
- 
-	private Vector3 bodyInitialPosition;
-
+    private Wheel rearWheel; 
+    //TODO: think about it
     public Wheel FrontWheel
     {
         get
@@ -21,7 +17,7 @@ public class Car : Resetable
         }
 
     }
-
+    //TODO: think about it
     public Wheel RearWheel
     {
         get

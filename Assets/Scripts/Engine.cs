@@ -5,13 +5,9 @@ using UnityEngine;
 // Temp implementation
 public class Engine : OrderedScript
 {
-
     public float RPM { get; private set; }
-
     public float Torque { get; private set; }
-
     public float Drag { set; private get; }
-
     /// <summary>
     /// 0-1
     /// </summary>
@@ -31,19 +27,25 @@ public class Engine : OrderedScript
     [SerializeField]
     public float maxSpeed;
 
+    [SerializeField]
+    private Pedal accelerationPedal;
+
+    public IPedal AccelerationPedal;
+
+    [SerializeField]
+    private Drive drive;
+
+    void Awake()
+    {
+        AccelerationPedal = accelerationPedal;
+    }
+
     void Start()
     {
         Torque = 0.1f;
         Drag = 10;
         throttle = 0;
     }
-
-    [SerializeField]
-    private Pedal accelerationPedal;
-
-    [SerializeField]
-    private Drive drive;
-
 
     public override void OrderedFixedUpdate()
     {
@@ -59,7 +61,7 @@ public class Engine : OrderedScript
         {
             RPM = 10;
         }
-        throttle = accelerationPedal.Value;
+        throttle = AccelerationPedal.Value;
         float currentExpPower = cylinders * throttle * explosionPower;
         if (speedInKmPerHour < maxSpeed)
         {
