@@ -7,6 +7,8 @@ public class Wheel : MonoBehaviour {
 	public Rigidbody2D RB { get; private set; }
 	public WheelJoint2D Joint { get; private set; }
 
+	public float DiameterInMeters = 0.5f;
+
 	// Use this for initialization
 	void Start () {
 		RB = GetComponent<Rigidbody2D> ();

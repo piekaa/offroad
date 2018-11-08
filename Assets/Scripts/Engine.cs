@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Temp implementation
 public class Engine : OrderedScript
 {
     public float RPM { get; private set; }
@@ -24,9 +23,7 @@ public class Engine : OrderedScript
     [SerializeField]
     private Meter speedMeter;
 
-    [SerializeField]
-    public float maxSpeed;
-
+    //todo move pedal to controller, create IEngine
     [SerializeField]
     private Pedal accelerationPedal;
 
@@ -34,11 +31,6 @@ public class Engine : OrderedScript
 
     [SerializeField]
     private Drive drive;
-
-    private bool reverse;
-
-    //todo should be in wheel
-    private float wheelDiameterInMeters = 0.5f;
 
     void Awake()
     {
@@ -54,39 +46,8 @@ public class Engine : OrderedScript
 
     public override void OrderedFixedUpdate()
     {
-        float wheelRPM = Mathf.Abs(drive.FrontWheelRPM);
-
-        float speedInKmPerHour = wheelRpmToKmPerHour(wheelRPM, wheelDiameterInMeters);
-        speedMeter.Value = speedInKmPerHour;
-
         throttle = AccelerationPedal.Value;
         float currentExpPower = cylinders * throttle * explosionPower;
-        if (speedInKmPerHour < maxSpeed)
-        {
-            var sign = reverse ? -1 : 1;
-            drive.AccelerateFront(currentExpPower * sign);
-            drive.AccelerateRear(currentExpPower * sign);
-        }
+        drive.Accelerate(currentExpPower);
     }
-
-    //true if engine is on reverse
-    public bool ToggleReverse()
-    {
-        float frontWheelRPM = Mathf.Abs(drive.FrontWheelRPM);
-        float rearWheelRPM = Mathf.Abs(drive.RearWheelRPM);
-        float frontWheelKmPerHour = wheelRpmToKmPerHour(frontWheelRPM, wheelDiameterInMeters);
-        float rearWheelKmPerHour = wheelRpmToKmPerHour(rearWheelRPM, wheelDiameterInMeters);
-
-        if (frontWheelKmPerHour < 5 && rearWheelKmPerHour < 5)
-        {
-            reverse = !reverse;
-        }
-        return reverse;
-    }
-
-    private float wheelRpmToKmPerHour(float wheelRPM, float wheelDiameterInMeters)
-    {
-        return wheelRPM * wheelDiameterInMeters * 60 * 3.14f / 1000;
-    }
-
 }

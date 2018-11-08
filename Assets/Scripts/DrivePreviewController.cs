@@ -59,7 +59,7 @@ public class DrivePreviewController : Resetable
         pedal = new FakePedal();
         car.GetComponentInChildren<Engine>().AccelerationPedal = pedal;
         floors.Enqueue(floor);
-        BumpScaleSlider.setOnSlide((v) => scaleBumps(v));
+        BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
         carBodyInitialPos = carBody.transform.position;
     }
 

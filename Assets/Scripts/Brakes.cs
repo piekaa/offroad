@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Brakes : OrderedScript {
 
+	//todo move pedal to CarController
 	[SerializeField]
 	private Pedal brakePedal;
 
