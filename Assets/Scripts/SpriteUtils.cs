@@ -19,4 +19,19 @@ public class SpriteUtils
         var center = (bottomLeft + topRight) / 2;
         return new SpritePositions(topLeft, topRight, bottomLeft, bottomRight, center);
     }
+
+    public static SpritePositions getWolrdPositions(Sprite sprite)
+    {
+        //todo handle pivot
+        //todo handle rotation
+
+        var bottomLeft = sprite.bounds.min;
+        var topRight = sprite.bounds.max;
+        var bottomRight = topRight;
+        bottomRight.y = bottomLeft.y;
+        var topLeft = bottomLeft;
+        topLeft.y = topRight.y;
+        var center = (bottomLeft + topRight) / 2;
+        return new SpritePositions(topLeft, topRight, bottomLeft, bottomRight, center);
+    }
 }

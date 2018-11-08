@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
+public enum SliderTextType
+{
+    NONE,
+    PERCENT,
+    VALUE
+}
+
 public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDragHandler
 {
+
+    public SliderTextType SliderTextType;
 
     [SerializeField]
     private float min = 0;
@@ -15,7 +25,6 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
     [SerializeField]
     private float init = 0.5f;
 
-    private Slider slider;
     private Text text;
 
     public float Value { get; private set; }
@@ -29,12 +38,16 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
 
     private OnSlide onSlide;
 
+    private Image pointerImage;
+
     void Start()
     {
         Value = init;
         image = GetComponent<Image>();
         float percent = (Value - min) / (max - min);
-        image.color = new Color(percent, 1 - percent, 0);
+        pointerImage = transform.GetChild(0).GetComponent<Image>();
+        text = GetComponentInChildren<Text>(); 
+        setPointerPositionAndText(percent);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -50,7 +63,7 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
         Value = startValue + (max - min) * normalizedShift;
         Value = Mathf.Clamp(Value, min, max);
         float percent = (Value - min) / (max - min);
-        image.color = new Color(percent, 1 - percent, 0);
+        setPointerPositionAndText(percent);
         if (onSlide != null)
         {
             onSlide(Value);
@@ -61,4 +74,24 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
     {
         this.onSlide = onSlide;
     }
+
+    private void setPointerPositionAndText(float percent)
+    {
+        var width = image.GetComponent<RectTransform>().rect.width - pointerImage.GetComponent<RectTransform>().rect.width;
+        pointerImage.GetComponent<RectTransform>().localPosition = new Vector3(width * percent - width / 2, 0, 0);
+
+        switch (SliderTextType)
+        {
+            case SliderTextType.PERCENT:
+                text.text = (100*percent).ToString("0.00") + "%";
+                break;
+            case SliderTextType.VALUE:
+                text.text = Value.ToString("0.00");
+                break;
+            default:
+                text.text = "";
+                break;
+        }
+    }
+
 }
