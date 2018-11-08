@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 120472895}
   - component: {fileID: 120472897}
   - component: {fileID: 120472896}
+  - component: {fileID: 120472898}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -265,7 +266,7 @@ RectTransform:
   m_AnchorMin: {x: 0.21481302, y: 0.77826613}
   m_AnchorMax: {x: 0.24312197, y: 0.81054264}
   m_AnchoredPosition: {x: 0.050048828, y: -0.08029175}
-  m_SizeDelta: {x: -0.1000061, y: 1.8900146}
+  m_SizeDelta: {x: -0.1000061, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &120472896
 MonoBehaviour:
@@ -301,6 +302,19 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 120472894}
   m_CullTransparentMesh: 0
+--- !u!114 &120472898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 120472894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1.0239365
 --- !u!1001 &318107793
 Prefab:
   m_ObjectHideFlags: 0
@@ -401,6 +415,16 @@ Prefab:
     - target: {fileID: 1093368227456544, guid: eac97e04e0adbee41ba43ebdc436310f, type: 2}
       propertyPath: m_Name
       value: BumpSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
+        type: 2}
+      propertyPath: max
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
+        type: 2}
+      propertyPath: init
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
         type: 2}
@@ -828,41 +852,6 @@ Prefab:
       propertyPath: m_Name
       value: SpeedSlider
       objectReference: {fileID: 0}
-    - target: {fileID: 224310329164575230, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224310329164575230, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 1.43
-      objectReference: {fileID: 0}
-    - target: {fileID: 224310329164575230, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 2.64
-      objectReference: {fileID: 0}
-    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: min
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: max
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: init
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
-        type: 2}
-      propertyPath: SliderTextType
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac97e04e0adbee41ba43ebdc436310f, type: 2}
   m_IsPrefabAsset: 0
@@ -1188,18 +1177,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 224757874512434860, guid: cf64025b8bbbf4311a52ee155f4d14d1,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.1000061
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224253528660430878, guid: cf64025b8bbbf4311a52ee155f4d14d1,
+    - target: {fileID: 224229667496156924, guid: cf64025b8bbbf4311a52ee155f4d14d1,
         type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.9840088
-      objectReference: {fileID: 0}
-    - target: {fileID: 224253528660430878, guid: cf64025b8bbbf4311a52ee155f4d14d1,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.5655136
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf64025b8bbbf4311a52ee155f4d14d1, type: 2}
@@ -1274,7 +1258,7 @@ Prefab:
     - target: {fileID: 224550326607831112, guid: 9658ff325df244a90beb36cf5e524acb,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -0.58000183
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224550326607831112, guid: 9658ff325df244a90beb36cf5e524acb,
         type: 2}
@@ -1305,6 +1289,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224435908347858660, guid: 9658ff325df244a90beb36cf5e524acb,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9658ff325df244a90beb36cf5e524acb, type: 2}
@@ -1761,6 +1750,7 @@ GameObject:
   - component: {fileID: 1613073592}
   - component: {fileID: 1613073594}
   - component: {fileID: 1613073593}
+  - component: {fileID: 1613073595}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1784,7 +1774,7 @@ RectTransform:
   m_AnchorMin: {x: 0.21481302, y: 0.9002043}
   m_AnchorMax: {x: 0.24312197, y: 0.93500006}
   m_AnchoredPosition: {x: -0.55999756, y: 0.55999756}
-  m_SizeDelta: {x: -0.1000061, y: -0.10998535}
+  m_SizeDelta: {x: -0.1000061, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1613073593
 MonoBehaviour:
@@ -1820,6 +1810,19 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1613073591}
   m_CullTransparentMesh: 0
+--- !u!114 &1613073595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1613073591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1
 --- !u!114 &1800430452 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114532614132328856, guid: cf64025b8bbbf4311a52ee155f4d14d1,

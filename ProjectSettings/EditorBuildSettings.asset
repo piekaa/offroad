@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/main.unity
     guid: 4ee16849d409f9b40b835d59fb585d9d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/suspensionDrivePreview.unity
     guid: 61bcd6e397ad441e6a18db0d14cf8dfa
   m_configObjects: {}
