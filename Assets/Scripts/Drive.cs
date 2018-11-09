@@ -22,10 +22,6 @@ public class Drive : OrderedScript, IDrive
 
     public float FrontRearRatio { get; set; }
 
-    /// <summary>
-    /// Accelerates the front. Invoke only in FixedUpdate
-    /// </summary>
-    /// <param name="power">Torque</param>
     public void Accelerate(float power)
     {
         float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
@@ -69,17 +65,12 @@ public class Drive : OrderedScript, IDrive
     {
         wheel.AngularDrag = power;
 
-        var motor = wheel.Joint.motor;
         float sign = Mathf.Sign(wheel.AngularVelocity);
         float newSpeed = Mathf.Abs(wheel.AngularVelocity) - power;
 
         newSpeed = Mathf.Max(newSpeed, 0);
-
-        motor.motorSpeed = newSpeed * sign;
-
-        wheel.Joint.useMotor = true;
-        wheel.Joint.motor = motor;
-
+        wheel.SetUseMotor(true);
+        wheel.SetMotorSpeed(newSpeed * sign);
     }
 
     public float FrontWheelRPM { get { return frontWheel.AngularVelocity / 6; } }
@@ -91,13 +82,13 @@ public class Drive : OrderedScript, IDrive
     {
         if (!brakeingFront)
         {
-            frontWheel.Joint.useMotor = false;
+            frontWheel.SetUseMotor(false);
             frontWheel.AngularDrag = 0;
         }
 
         if (!brakeingRear)
         {
-            rearWheel.Joint.useMotor = false;
+            rearWheel.SetUseMotor(false);
             rearWheel.AngularDrag = 0;
         }
         brakeingFront = false;

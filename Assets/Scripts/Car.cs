@@ -5,13 +5,20 @@ using UnityEngine;
 public class Car : MonoBehaviour, ICar
 {
     public IDrive Drive { get; set; }
-    
+
     public IEngine Engine { get; set; }
 
     [SerializeField]
     private Wheel frontWheel;
+
     [SerializeField]
     private Wheel rearWheel;
+
+    [SerializeField]
+    private WheelJoint2D FrontWheelJoint;
+
+    [SerializeField]
+    private WheelJoint2D RearWheelJoint;
 
     void Awake()
     {
@@ -21,8 +28,35 @@ public class Car : MonoBehaviour, ICar
         Drive.SetRearWheel(rearWheel);
     }
 
-    //todo return Interface
-    public Wheel FrontWheel
+    public void SetFrontSuspensionFrequency(float frequency)
+    {
+        var suspension = FrontWheelJoint.suspension;
+        suspension.frequency = frequency;
+        FrontWheelJoint.suspension = suspension;
+    }
+
+    public void SetFrontDampingRatio(float dampingRatio)
+    {
+        var suspension = FrontWheelJoint.suspension;
+        suspension.frequency = dampingRatio;
+        FrontWheelJoint.suspension = suspension;
+    }
+
+    public void SetRearSuspensionFrequency(float frequency)
+    {
+        var suspension = RearWheelJoint.suspension;
+        suspension.frequency = frequency;
+        RearWheelJoint.suspension = suspension;
+    }
+
+    public void SetRearDampingRatio(float dampingRatio)
+    {
+        var suspension = RearWheelJoint.suspension;
+        suspension.frequency = dampingRatio;
+        RearWheelJoint.suspension = suspension;
+    }
+
+    public IWheel FrontWheel
     {
         get
         {
@@ -30,7 +64,7 @@ public class Car : MonoBehaviour, ICar
         }
 
     }
-    public Wheel RearWheel
+    public IWheel RearWheel
     {
         get
         {

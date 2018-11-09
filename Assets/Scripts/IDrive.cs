@@ -1,8 +1,10 @@
 public interface IDrive
 {
-    // 0 means rear wheel drive, 1 means front wheel drive
+
+    /// <value>0 means rear wheel drive, 1 means front wheel drive</value>
     float FrontRearRatio { get; set; }
-    //true if engine is on reverse
+
+    /// <returns>true if engine is on reverse</returns>
     bool ToggleReverse();
 
     float FrontWheelRPM { get; }
@@ -13,6 +15,10 @@ public interface IDrive
 
     void SetRearWheel(IWheel wheel);
 
+    /// <summary>
+    /// Accelerates the front. Invoke only in FixedUpdate
+    /// </summary>
+    /// <param name="power">Torque</param>
     void Accelerate(float power);
 
     /// <summary>

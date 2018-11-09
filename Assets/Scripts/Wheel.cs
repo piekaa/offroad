@@ -78,4 +78,15 @@ public class Wheel : MonoBehaviour, IWheel
 
     }
 
+    public void SetMotorSpeed(float speed)
+    {
+        var motor = Joint.motor;
+        motor.motorSpeed = speed;
+        Joint.motor = motor;
+    }
+
+    public void SetUseMotor(bool useMotor)
+    {
+        Joint.useMotor = useMotor;
+    }
 }

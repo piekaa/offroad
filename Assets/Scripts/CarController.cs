@@ -34,14 +34,12 @@ public class CarController : MonoBehaviour, ICarController
 
     [SerializeField]
     private Pedal accelerationPedal;
-
     public IPedal AccelerationPedal { get; set; }
 
     [SerializeField]
     private Pedal brakePedal;
 
     public IPedal BrakePedal { get; set; }
-
 
     //todo change to common ui element eg. toggle button
     [SerializeField]
@@ -59,10 +57,11 @@ public class CarController : MonoBehaviour, ICarController
         BrakePedal = brakePedal;
 
         setOnSlideFunctionIfNotNull(FrontRearDriveRatioSlider, (v) => car.Drive.FrontRearRatio = v, "FrontRearDriveRatioSlider");
-        setOnSlideFunctionIfNotNull(FrontWheelSlider, (v) => { var j = car.FrontWheel.Joint; var s = j.suspension; s.frequency = v; j.suspension = s; }, "FrontWheelSlider");
-        setOnSlideFunctionIfNotNull(RearWheelSlider, (v) => { var j = car.RearWheel.Joint; var s = j.suspension; s.frequency = v; j.suspension = s; }, "RearWheelSlider");
-        setOnSlideFunctionIfNotNull(FrontWheelDampSlider, (v) => { var j = car.FrontWheel.Joint; var s = j.suspension; s.dampingRatio = v; j.suspension = s; }, "FrontWheelDampSlider");
-        setOnSlideFunctionIfNotNull(RearWheelDampSlider, (v) => { var j = car.RearWheel.Joint; var s = j.suspension; s.dampingRatio = v; j.suspension = s; }, "RearWheelDampSlider");
+        setOnSlideFunctionIfNotNull(FrontWheelSlider, (v) => car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
+        setOnSlideFunctionIfNotNull(RearWheelSlider, (v) => car.SetRearSuspensionFrequency(v), "RearWheelSlider");
+        setOnSlideFunctionIfNotNull(FrontWheelDampSlider, (v) => car.SetFrontDampingRatio(v), "FrontWheelDampSlider");
+        setOnSlideFunctionIfNotNull(RearWheelDampSlider, (v) => car.SetRearDampingRatio(v), "RearWheelDampSlider");
+
         if (reverse != null)
         {
             reverse.SetOnReverseToggle(() => car.Drive.ToggleReverse());
@@ -100,6 +99,4 @@ public class CarController : MonoBehaviour, ICarController
             car.Drive.Brake(BrakePedal.Value);
         }
     }
-
-
 }

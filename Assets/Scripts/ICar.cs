@@ -4,7 +4,15 @@ public interface ICar
 
     IEngine Engine { get; set; }
 
-    Wheel FrontWheel { get; }
+    IWheel FrontWheel { get; }
 
-    Wheel RearWheel { get; }
+    IWheel RearWheel { get; }
+
+    void SetFrontSuspensionFrequency(float frequency);
+
+    void SetFrontDampingRatio(float dampingRatio);
+
+    void SetRearSuspensionFrequency(float frequency);
+
+    void SetRearDampingRatio(float dampingRatio);
 }

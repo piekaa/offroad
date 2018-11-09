@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class Meter : MonoBehaviour, IMeter
 {
-
     public float Value { get; set; }
 
     [SerializeField]
     private float min;
+
     [SerializeField]
     private float max;
+
     [SerializeField]
     private float interval;
 
     private float startAngle = 130;
+
     private float endAngle = -130;
 
     private RectTransform pointerRectTransform;

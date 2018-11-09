@@ -10,7 +10,6 @@ public class DrivePreviewController : Resetable
 
     [SerializeField]
     private CarController carController;
-
     public ICarController CarController;
 
     [SerializeField]
@@ -18,6 +17,7 @@ public class DrivePreviewController : Resetable
 
     [SerializeField]
     private Meter speedMeter;
+
     [SerializeField]
     private PiekaSlider speedSlider;
     public IPiekaSlider SpeedSlider;
@@ -27,11 +27,17 @@ public class DrivePreviewController : Resetable
     public IPiekaSlider BumpScaleSlider;
 
     private GameObject floor;
+
     private GameObject currentFloor;
+
     private SpriteRenderer carSpriteRenderer;
+
     private SpriteRenderer floorSpriteRenderer;
+
     private FakePedal pedal;
-    Queue<GameObject> floors = new Queue<GameObject>();
+
+    private Queue<GameObject> floors = new Queue<GameObject>();
+
     private float dropHeight;
 
     private Rigidbody2D carBody;
