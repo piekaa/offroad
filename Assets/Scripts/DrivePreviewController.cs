@@ -9,7 +9,13 @@ public class DrivePreviewController : Resetable
     private GameObject laggage;
 
     [SerializeField]
+    private CarController carController;
+
+    public ICarController CarController;
+
+    [SerializeField]
     private Car car;
+
     [SerializeField]
     private Meter speedMeter;
     [SerializeField]
@@ -36,6 +42,7 @@ public class DrivePreviewController : Resetable
 
     void Awake()
     {
+        CarController = carController;
         SpeedSlider = speedSlider;
         BumpScaleSlider = bumpScaleSlider;
         dropHeight = car.transform.position.y;
@@ -57,7 +64,7 @@ public class DrivePreviewController : Resetable
         carSpriteRenderer = car.GetComponentInChildren<SpriteRenderer>();
         floorSpriteRenderer = floor.GetComponent<SpriteRenderer>();
         pedal = new FakePedal();
-        car.GetComponentInChildren<Engine>().AccelerationPedal = pedal;
+        CarController.AccelerationPedal = pedal;
         floors.Enqueue(floor);
         BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
         carBodyInitialPos = carBody.transform.position;
@@ -116,7 +123,7 @@ public class DrivePreviewController : Resetable
             item.Key.transform.rotation = Quaternion.identity;
             item.Key.velocity = Vector3.zero;
             item.Key.angularVelocity = 0;
-        } 
+        }
     }
 
     private void resetRigiedbodies(Rigidbody2D[] rigidbodies)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//Should return if toggle was successful
+//Returns true if gear is reverse after toggle
 public delegate bool OnReverseToggle();
 
 public class Reverse : MonoBehaviour, IPointerClickHandler

@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Engine : OrderedScript
+public class Engine : OrderedScript, IEngine
 {
     public float RPM { get; private set; }
     public float Torque { get; private set; }
     public float Drag { set; private get; }
-    /// <summary>
-    /// 0-1
-    /// </summary>
-    private float throttle;
+
+    public float Throttle { get; set; }
 
     private bool clutchEngaged;
 
@@ -21,33 +19,24 @@ public class Engine : OrderedScript
     private float explosionPower = 1f;
 
     [SerializeField]
-    private Meter speedMeter;
-
-    //todo move pedal to controller, create IEngine
-    [SerializeField]
-    private Pedal accelerationPedal;
-
-    public IPedal AccelerationPedal;
-
-    [SerializeField]
     private Drive drive;
+
+    public IDrive Drive { get; set; }
 
     void Awake()
     {
-        AccelerationPedal = accelerationPedal;
+        Drive = drive; 
     }
 
     void Start()
     {
         Torque = 0.1f;
         Drag = 10;
-        throttle = 0;
     }
 
     public override void OrderedFixedUpdate()
     {
-        throttle = AccelerationPedal.Value;
-        float currentExpPower = cylinders * throttle * explosionPower;
-        drive.Accelerate(currentExpPower);
+        float currentExpPower = cylinders * Throttle * explosionPower;
+        Drive.Accelerate(currentExpPower);
     }
 }

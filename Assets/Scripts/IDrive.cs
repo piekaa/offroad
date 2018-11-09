@@ -5,11 +5,19 @@ public interface IDrive
     //true if engine is on reverse
     bool ToggleReverse();
 
-    float FrontWheelSpeed { get; }
-
-    float RearWheelSpeed { get; }
-
     float FrontWheelRPM { get; }
 
     float RearWheelRPM { get; }
+
+    void SetFrontWheel(IWheel wheel);
+
+    void SetRearWheel(IWheel wheel);
+
+    void Accelerate(float power);
+
+    /// <summary>
+    /// Invoke only in FixedUpdate
+    /// </summary>
+    /// <param name="power">0-1</param>
+    void Brake(float power);
 }

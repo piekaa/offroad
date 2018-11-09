@@ -65,6 +65,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1244777441375660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4087315311962670}
+  - component: {fileID: 114262502517683350}
+  m_Layer: 0
+  m_Name: OrderedScriptExecutor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1325967784006000
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +109,7 @@ GameObject:
   - component: {fileID: 92807762896229980}
   - component: {fileID: 124736781865408770}
   - component: {fileID: 81451334888457706}
+  - component: {fileID: 114082853079285582}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -163,22 +180,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1927246976182666
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4847315117781690}
-  - component: {fileID: 114211272692008360}
-  m_Layer: 0
-  m_Name: Breaks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1975769072390316
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +217,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4087315311962670
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244777441375660}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 310.22626, y: -51.1786, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4209085378723428}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4209085378723428
 Transform:
   m_ObjectHideFlags: 1
@@ -223,13 +237,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1325967784006000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.7, y: 91, z: 0}
+  m_LocalPosition: {x: 0.7991952, y: -0.33341077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4891762947451676}
-  - {fileID: 4847315117781690}
   - {fileID: 4427903664353060}
   - {fileID: 4950530552234146}
+  - {fileID: 4087315311962670}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -257,7 +271,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4209085378723428}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4587609102769558
 Transform:
@@ -313,19 +327,6 @@ Transform:
   m_Father: {fileID: 4891762947451676}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4847315117781690
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1927246976182666}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4209085378723428}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4891762947451676
 Transform:
   m_ObjectHideFlags: 1
@@ -353,7 +354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4209085378723428}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4991716412724550
 Transform:
@@ -602,19 +603,31 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1569441036107594}
   m_Enabled: 1
---- !u!114 &114211272692008360
+--- !u!114 &114082853079285582
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1927246976182666}
+  m_GameObject: {fileID: 1569441036107594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a426c691ebd7d4fbe5658a7ea03f49, type: 3}
+  m_Script: {fileID: 11500000, guid: 78ec9ea0171184ca8bfedbddf713a87b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brakePedal: {fileID: 0}
-  drive: {fileID: 114802957169657976}
+--- !u!114 &114262502517683350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244777441375660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f24dcf38b412f84d9d1ce33a980ed6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderedScripts:
+  - {fileID: 114396525930101928}
+  - {fileID: 114802957169657976}
 --- !u!114 &114320109945826484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -626,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dc0e616204a764baa4a586798cb06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diameterInMeters: 0.5
 --- !u!114 &114396525930101928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -639,9 +653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cylinders: 4
   explosionPower: 0.58
-  speedMeter: {fileID: 0}
-  maxSpeed: 100
-  accelerationPedal: {fileID: 0}
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -656,10 +667,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontWheel: {fileID: 114320109945826484}
   rearWheel: {fileID: 114565905030530170}
-  frontWheelSlider: {fileID: 0}
-  rearWheelSlider: {fileID: 0}
-  frontWheelDampSlider: {fileID: 0}
-  rearWheelDampSlider: {fileID: 0}
 --- !u!114 &114565905030530170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,6 +678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14dc0e616204a764baa4a586798cb06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diameterInMeters: 0.5
 --- !u!114 &114802957169657976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -682,7 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d80df6fdbf451e4287e319b5a89516b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Car: {fileID: 114547219594557604}
+  maxSpeed: 100
   FrontBreakPower: 70
   RearBreakPower: 30
 --- !u!124 &124736781865408770

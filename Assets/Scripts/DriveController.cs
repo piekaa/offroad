@@ -9,6 +9,6 @@ public class DriveController : Resetable
 
     void Awake()
     {
-		SetTarget(car.gameObject);
+        SetTarget(car.gameObject);
     }
 }

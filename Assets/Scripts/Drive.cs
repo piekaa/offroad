@@ -6,20 +6,19 @@ public class Drive : OrderedScript, IDrive
 {
 
     [SerializeField]
-    public Car Car;
+    public float maxSpeed = 100;
 
     public float FrontBreakPower = 50;
     public float RearBreakPower = 50;
-
-    private int registered;
 
     private bool brakeingFront;
     private bool brakeingRear;
 
     private bool reverse;
 
-	[SerializeField]
-    public float maxSpeed = 100;
+    private IWheel frontWheel;
+
+    private IWheel rearWheel;
 
     public float FrontRearRatio { get; set; }
 
@@ -31,49 +30,48 @@ public class Drive : OrderedScript, IDrive
     {
         float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
         float rearWheelRPM = Mathf.Abs(RearWheelRPM);
-        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, Car.FrontWheel.DiameterInMeters);
-        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, Car.RearWheel.DiameterInMeters);
+        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
         if (frontWheelKmPerHour < maxSpeed && rearWheelKmPerHour < maxSpeed)
         {
-			var sign = reverse ? 1 : -1;
-            Car.FrontWheel.RB.AddTorque(power * FrontRearRatio * sign);
-            Car.RearWheel.RB.AddTorque(power * (1 - FrontRearRatio) * sign);
+            var sign = reverse ? 1 : -1;
+            frontWheel.AddTorque(power * FrontRearRatio * sign);
+            rearWheel.AddTorque(power * (1 - FrontRearRatio) * sign);
         }
     }
 
-    /// <summary>
-    /// Brakes the front. Invoke only in FixedUpdate
-    /// </summary>
-    /// <param name="power">0-1</param>
-    public void BrakeFront(float power)
+    public void Brake(float power)
+    {
+        //todo add FrontRearBrakeRatio
+        BrakeFront(power);
+        BrakeRear(power);
+    }
+
+    private void BrakeFront(float power)
     {
         if (power > 0)
         {
             brakeingFront = true;
         }
-        doBrake(Car.FrontWheel, power * FrontBreakPower);
+        doBrake(frontWheel, power * FrontBreakPower);
     }
 
-    /// <summary>
-    /// Brakes the front. Invoke only in FixedUpdate
-    /// </summary>
-    /// <param name="power">0-1</param>
-    public void BrakeRear(float power)
+    private void BrakeRear(float power)
     {
         if (power > 0)
         {
             brakeingRear = true;
         }
-        doBrake(Car.RearWheel, power * RearBreakPower);
+        doBrake(rearWheel, power * RearBreakPower);
     }
 
-    private void doBrake(Wheel wheel, float power)
+    private void doBrake(IWheel wheel, float power)
     {
-        wheel.RB.angularDrag = power;
+        wheel.AngularDrag = power;
 
         var motor = wheel.Joint.motor;
-        float sign = Mathf.Sign(wheel.RB.angularVelocity);
-        float newSpeed = Mathf.Abs(wheel.RB.angularVelocity) - power;
+        float sign = Mathf.Sign(wheel.AngularVelocity);
+        float newSpeed = Mathf.Abs(wheel.AngularVelocity) - power;
 
         newSpeed = Mathf.Max(newSpeed, 0);
 
@@ -83,28 +81,24 @@ public class Drive : OrderedScript, IDrive
         wheel.Joint.motor = motor;
 
     }
- 
-    public float FrontWheelSpeed { get { return Car.FrontWheel.RB.angularVelocity; } }
 
-    public float RearWheelSpeed { get { return Car.RearWheel.RB.angularVelocity; } }
+    public float FrontWheelRPM { get { return frontWheel.AngularVelocity / 6; } }
 
-    public float FrontWheelRPM { get { return Car.FrontWheel.RB.angularVelocity / 6; } }
-
-    public float RearWheelRPM { get { return Car.RearWheel.RB.angularVelocity / 6; } }
+    public float RearWheelRPM { get { return rearWheel.AngularVelocity / 6; } }
 
 
     public override void OrderedFixedUpdate()
     {
         if (!brakeingFront)
         {
-            Car.FrontWheel.Joint.useMotor = false;
-            Car.FrontWheel.RB.angularDrag = 0;
+            frontWheel.Joint.useMotor = false;
+            frontWheel.AngularDrag = 0;
         }
 
         if (!brakeingRear)
         {
-            Car.RearWheel.Joint.useMotor = false;
-            Car.RearWheel.RB.angularDrag = 0;
+            rearWheel.Joint.useMotor = false;
+            rearWheel.AngularDrag = 0;
         }
         brakeingFront = false;
         brakeingRear = false;
@@ -114,8 +108,8 @@ public class Drive : OrderedScript, IDrive
     {
         float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
         float rearWheelRPM = Mathf.Abs(RearWheelRPM);
-        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, Car.FrontWheel.DiameterInMeters);
-        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, Car.RearWheel.DiameterInMeters);
+        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
         if (frontWheelKmPerHour < 5 && rearWheelKmPerHour < 5)
         {
             reverse = !reverse;
@@ -123,10 +117,13 @@ public class Drive : OrderedScript, IDrive
         return reverse;
     }
 
-    //TODO: Move to other component
-    void LateUpdate()
+    public void SetFrontWheel(IWheel wheel)
     {
-        Camera.main.transform.rotation = Quaternion.identity;
+        frontWheel = wheel;
     }
 
+    public void SetRearWheel(IWheel wheel)
+    {
+        rearWheel = wheel;
+    }
 }
