@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IDrive
 {
 
@@ -26,4 +28,6 @@ public interface IDrive
     /// </summary>
     /// <param name="power">0-1</param>
     void Brake(float power);
+
+    void SetJoints(WheelJoint2D front, WheelJoint2D back);
 }

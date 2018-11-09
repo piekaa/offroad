@@ -22,6 +22,10 @@ public class Drive : OrderedScript, IDrive
 
     public float FrontRearRatio { get; set; }
 
+    private WheelJoint2D frontJoint;
+
+    private WheelJoint2D rearJoint;
+
     public void Accelerate(float power)
     {
         float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
@@ -49,7 +53,7 @@ public class Drive : OrderedScript, IDrive
         {
             brakeingFront = true;
         }
-        doBrake(frontWheel, power * FrontBreakPower);
+        doBrake(frontWheel, frontJoint, power * FrontBreakPower);
     }
 
     private void BrakeRear(float power)
@@ -58,10 +62,10 @@ public class Drive : OrderedScript, IDrive
         {
             brakeingRear = true;
         }
-        doBrake(rearWheel, power * RearBreakPower);
+        doBrake(rearWheel, rearJoint, power * RearBreakPower);
     }
 
-    private void doBrake(IWheel wheel, float power)
+    private void doBrake(IWheel wheel, WheelJoint2D wheelJoint, float power)
     {
         wheel.AngularDrag = power;
 
@@ -69,8 +73,8 @@ public class Drive : OrderedScript, IDrive
         float newSpeed = Mathf.Abs(wheel.AngularVelocity) - power;
 
         newSpeed = Mathf.Max(newSpeed, 0);
-        wheel.SetUseMotor(true);
-        wheel.SetMotorSpeed(newSpeed * sign);
+        setUseMotor(wheelJoint, true);
+        setMotorSpeed(wheelJoint, newSpeed * sign);
     }
 
     public float FrontWheelRPM { get { return frontWheel.AngularVelocity / 6; } }
@@ -82,13 +86,13 @@ public class Drive : OrderedScript, IDrive
     {
         if (!brakeingFront)
         {
-            frontWheel.SetUseMotor(false);
+            setUseMotor(frontJoint, false);
             frontWheel.AngularDrag = 0;
         }
 
         if (!brakeingRear)
         {
-            rearWheel.SetUseMotor(false);
+            setUseMotor(rearJoint, false);
             rearWheel.AngularDrag = 0;
         }
         brakeingFront = false;
@@ -116,5 +120,24 @@ public class Drive : OrderedScript, IDrive
     public void SetRearWheel(IWheel wheel)
     {
         rearWheel = wheel;
+    }
+
+
+    private void setMotorSpeed(WheelJoint2D joint, float speed)
+    {
+        var motor = joint.motor;
+        motor.motorSpeed = speed;
+        joint.motor = motor;
+    }
+
+    private void setUseMotor(WheelJoint2D joint, bool useMotor)
+    {
+        joint.useMotor = useMotor;
+    }
+
+    public void SetJoints(WheelJoint2D front, WheelJoint2D rear)
+    {
+        frontJoint = front;
+        rearJoint = rear;
     }
 }

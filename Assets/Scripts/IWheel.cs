@@ -8,11 +8,5 @@ public interface IWheel
 
     float AngularVelocity { get; set; }
 
-    //todo questionable
-    void SetMotorSpeed(float speed);
-
-    //todo questionable
-    void SetUseMotor(bool useMotor);
-
     float DiameterInMeters { get; }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 public class Wheel : MonoBehaviour, IWheel
 {
 
-    private Rigidbody2D Rigidbody;
-    public WheelJoint2D Joint { get; private set; }
+    private Rigidbody2D rb;
 
     //todo maybe take that from sprite
     public float DiameterInMeters { get; set; }
@@ -17,23 +16,24 @@ public class Wheel : MonoBehaviour, IWheel
     public void Awake()
     {
         DiameterInMeters = diameterInMeters;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void AddTorque(float torque)
     {
-        Rigidbody.AddTorque(torque);
+        rb.AddTorque(torque);
     }
 
     public float AngularDrag
     {
         get
         {
-            return Rigidbody.angularDrag;
+            return rb.angularDrag;
         }
 
         set
         {
-            Rigidbody.angularDrag = value;
+            rb.angularDrag = value;
         }
     }
 
@@ -41,52 +41,12 @@ public class Wheel : MonoBehaviour, IWheel
     {
         get
         {
-            return Rigidbody.angularVelocity;
+            return rb.angularVelocity;
         }
 
         set
         {
-            Rigidbody.angularVelocity = value;
+            rb.angularVelocity = value;
         }
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        Rigidbody = GetComponent<Rigidbody2D>();
-
-        var joints = GetComponentsInParent<WheelJoint2D>();
-
-        if (joints.Length != 2)
-        {
-            Debug.Log("Car has wrong number of WheelJoints2D: " + joints.Length);
-        }
-
-        foreach (var joint in joints)
-        {
-            if (joint.connectedBody == Rigidbody)
-            {
-                Joint = joint;
-            }
-        }
-
-        if (Joint == null)
-        {
-            Debug.Log("Failed to connect WheelJoint2D");
-        }
-
-
-    }
-
-    public void SetMotorSpeed(float speed)
-    {
-        var motor = Joint.motor;
-        motor.motorSpeed = speed;
-        Joint.motor = motor;
-    }
-
-    public void SetUseMotor(bool useMotor)
-    {
-        Joint.useMotor = useMotor;
     }
 }

@@ -14,11 +14,9 @@ public class Car : MonoBehaviour, ICar
     [SerializeField]
     private Wheel rearWheel;
 
-    [SerializeField]
-    private WheelJoint2D FrontWheelJoint;
+    private WheelJoint2D frontWheelJoint;
 
-    [SerializeField]
-    private WheelJoint2D RearWheelJoint;
+    private WheelJoint2D rearWheelJoint;
 
     void Awake()
     {
@@ -26,34 +24,54 @@ public class Car : MonoBehaviour, ICar
         Engine = GetComponentInChildren<Engine>();
         Drive.SetFrontWheel(frontWheel);
         Drive.SetRearWheel(rearWheel);
+
+        var joints = GetComponentsInChildren<WheelJoint2D>();
+        if (joints.Length != 2)
+        {
+            Debug.Log("Car has wrong number of WheelJoints2D: " + joints.Length);
+        }
+        foreach (var joint in joints)
+        {
+            if (joint.connectedBody == frontWheel.GetComponent<Rigidbody2D>())
+            {
+                frontWheelJoint = joint;
+            }
+            if (joint.connectedBody == rearWheel.GetComponent<Rigidbody2D>())
+            {
+                rearWheelJoint = joint;
+            }
+        }
+
+        Drive.SetJoints(frontWheelJoint, rearWheelJoint);
+
     }
 
     public void SetFrontSuspensionFrequency(float frequency)
     {
-        var suspension = FrontWheelJoint.suspension;
+        var suspension = frontWheelJoint.suspension;
         suspension.frequency = frequency;
-        FrontWheelJoint.suspension = suspension;
+        frontWheelJoint.suspension = suspension;
     }
 
     public void SetFrontDampingRatio(float dampingRatio)
     {
-        var suspension = FrontWheelJoint.suspension;
-        suspension.frequency = dampingRatio;
-        FrontWheelJoint.suspension = suspension;
+        var suspension = frontWheelJoint.suspension;
+        suspension.dampingRatio = dampingRatio;
+        frontWheelJoint.suspension = suspension;
     }
 
     public void SetRearSuspensionFrequency(float frequency)
     {
-        var suspension = RearWheelJoint.suspension;
+        var suspension = rearWheelJoint.suspension;
         suspension.frequency = frequency;
-        RearWheelJoint.suspension = suspension;
+        rearWheelJoint.suspension = suspension;
     }
 
     public void SetRearDampingRatio(float dampingRatio)
     {
-        var suspension = RearWheelJoint.suspension;
-        suspension.frequency = dampingRatio;
-        RearWheelJoint.suspension = suspension;
+        var suspension = rearWheelJoint.suspension;
+        suspension.dampingRatio = dampingRatio;
+        rearWheelJoint.suspension = suspension;
     }
 
     public IWheel FrontWheel
@@ -62,7 +80,6 @@ public class Car : MonoBehaviour, ICar
         {
             return frontWheel;
         }
-
     }
     public IWheel RearWheel
     {
