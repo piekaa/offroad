@@ -1,4 +1,4 @@
-public interface ICarController
+public interface ICarSettingsController
 {
     IPiekaSlider FrontWheelSlider { get; set; }
 
@@ -10,10 +10,7 @@ public interface ICarController
 
     IPiekaSlider FrontRearDriveRatioSlider { get; set; }
 
-    IMeter SpeedMeter { get; set; }
+    IPiekaSlider RearSuspensionHeightSlider { get; set; }
 
-    IPedal AccelerationPedal { get; set; }
-
-    IPedal BrakePedal { get; set; }
-
+    IPiekaSlider FrontSuspensionHeightSlider { get; set; }
 }

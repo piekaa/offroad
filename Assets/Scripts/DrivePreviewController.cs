@@ -9,8 +9,8 @@ public class DrivePreviewController : Resetable
     private GameObject laggage;
 
     [SerializeField]
-    private CarController carController;
-    public ICarController CarController;
+    private CarDriveController carDriveController;
+    public ICarDriveController CarDriveController;
 
     [SerializeField]
     private Car car;
@@ -28,8 +28,6 @@ public class DrivePreviewController : Resetable
 
     private GameObject floor;
 
-    private GameObject currentFloor;
-
     private SpriteRenderer carSpriteRenderer;
 
     private SpriteRenderer floorSpriteRenderer;
@@ -37,8 +35,6 @@ public class DrivePreviewController : Resetable
     private FakePedal pedal;
 
     private Queue<GameObject> floors = new Queue<GameObject>();
-
-    private float dropHeight;
 
     private Rigidbody2D carBody;
 
@@ -48,10 +44,9 @@ public class DrivePreviewController : Resetable
 
     void Awake()
     {
-        CarController = carController;
+        CarDriveController = carDriveController;
         SpeedSlider = speedSlider;
         BumpScaleSlider = bumpScaleSlider;
-        dropHeight = car.transform.position.y;
         carBody = car.GetComponentInChildren<Rigidbody2D>();
 
         var children = laggage.GetComponentsInChildren<Rigidbody2D>();
@@ -66,11 +61,10 @@ public class DrivePreviewController : Resetable
     {
         base.Start();
         floor = transform.GetChild(0).gameObject;
-        currentFloor = floor;
         carSpriteRenderer = car.GetComponentInChildren<SpriteRenderer>();
         floorSpriteRenderer = floor.GetComponent<SpriteRenderer>();
         pedal = new FakePedal();
-        CarController.AccelerationPedal = pedal;
+        CarDriveController.AccelerationPedal = pedal;
         floors.Enqueue(floor);
         BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
         carBodyInitialPos = carBody.transform.position;
