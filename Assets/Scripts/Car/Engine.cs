@@ -38,8 +38,7 @@ namespace Pieka.Car
 
         public override void OrderedFixedUpdate()
         {
-            float currentExpPower = cylinders * Throttle * explosionPower;
-            Debug.Log(explosionPower + " " + currentExpPower);
+            float currentExpPower = cylinders * Throttle * explosionPower; 
             Drive.Accelerate(currentExpPower);
         }
     }
