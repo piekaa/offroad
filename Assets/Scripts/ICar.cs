@@ -15,4 +15,8 @@ public interface ICar
     void SetRearSuspensionFrequency(float frequency);
 
     void SetRearDampingRatio(float dampingRatio);
+
+    void SetFrontSuspensionHeight(float height);
+
+    void SetRearSuspensionHeight(float height);
 }

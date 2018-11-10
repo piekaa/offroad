@@ -74,6 +74,16 @@ public class Car : MonoBehaviour, ICar
         rearWheelJoint.suspension = suspension;
     }
 
+    public void SetFrontSuspensionHeight(float height)
+    {
+        frontWheelJoint.anchor = new Vector2(frontWheelJoint.anchor.x, -height);
+    }
+
+    public void SetRearSuspensionHeight(float height)
+    {
+        rearWheelJoint.anchor = new Vector2(rearWheelJoint.anchor.x, -height);
+    }
+
     public IWheel FrontWheel
     {
         get
