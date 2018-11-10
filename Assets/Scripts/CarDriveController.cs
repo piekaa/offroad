@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Pieka.Car;
 public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveController
 {
     [SerializeField]
@@ -38,12 +38,12 @@ public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDrive
 
     protected override void OnFirstFrame()
     {
-        registerOnPedalIsPressedIfNotNull(AccelerationPedal, (v) => Car.Engine.Throttle = v, "AccelerationPedal");
+        registerOnPedalIsPressedIfNotNull(AccelerationPedal, (v) => Car.Accelerate(v), "AccelerationPedal");
         registerOnPedalIsPressedIfNotNull(BrakePedal, (v) => Car.Brake(v), "BrakePedal");
 
         if (reverse != null)
         {
-            reverse.SetOnReverseToggle(() => Car.Drive.ToggleReverse());
+            reverse.SetOnReverseToggle(() => Car.ToggleReverse());
         }
         else
         {
@@ -68,7 +68,8 @@ public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDrive
         base.Update();
         if (SpeedMeter != null)
         {
-            SpeedMeter.Value = Mathf.Abs(Utils.WheelRpmToKmPerHour(Car.Drive.FrontWheelRPM, Car.FrontWheel.DiameterInMeters));
+            var carInfo = Car.GetCarInfo();
+            SpeedMeter.Value = Mathf.Abs(Utils.WheelRpmToKmPerHour(carInfo.FrontWheelRpm, carInfo.FrontWheelDiameterInMeters));
         }
     }
 }

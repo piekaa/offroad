@@ -537,7 +537,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1244071490313546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14dc0e616204a764baa4a586798cb06d, type: 3}
+  m_Script: {fileID: 11500000, guid: 79ebac4a245174b80ae8de684f775685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   diameterInMeters: 0.5
@@ -549,11 +549,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1805367895450130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc77931d8d3d94489b51fb6c65d43ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 5694c37cf8aed4d71b479602baf426f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cylinders: 4
-  explosionPower: 0.58
+  explosionPower: 1.51
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -563,7 +563,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1325967784006000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22f6abf09b2af254f8054beded951609, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e207afc74e514b10a05bbaee8e9e15a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frontWheel: {fileID: 114320109945826484}
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1223109817733344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14dc0e616204a764baa4a586798cb06d, type: 3}
+  m_Script: {fileID: 11500000, guid: 79ebac4a245174b80ae8de684f775685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   diameterInMeters: 0.5
@@ -588,7 +588,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1156169547888644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d80df6fdbf451e4287e319b5a89516b, type: 3}
+  m_Script: {fileID: 11500000, guid: e79603c329116442e9cecaa63a9b8323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 100
