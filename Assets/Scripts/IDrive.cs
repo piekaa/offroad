@@ -29,5 +29,5 @@ public interface IDrive
     /// <param name="power">0-1</param>
     void Brake(float power);
 
-    void SetJoints(WheelJoint2D front, WheelJoint2D back);
+    void SetJoints(WheelJoint2D front, WheelJoint2D rear);
 }
