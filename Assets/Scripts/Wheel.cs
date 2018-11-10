@@ -2,36 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wheel : MonoBehaviour {
+public class Wheel : MonoBehaviour, IWheel
+{
 
-	public Rigidbody2D RB { get; private set; }
-	public WheelJoint2D Joint { get; private set; }
+    private Rigidbody2D rb;
 
-	// Use this for initialization
-	void Start () {
-		RB = GetComponent<Rigidbody2D> ();
+    //todo maybe take that from sprite
+    public float DiameterInMeters { get; set; }
 
-		var joints = GetComponentsInParent<WheelJoint2D> ();
+    [SerializeField]
+    private float diameterInMeters;
 
-		if (joints.Length != 2)
-		{
-			Debug.Log ("Car has wrong number of WheelJoints2D: " + joints.Length);
-		}	
+    public void Awake()
+    {
+        DiameterInMeters = diameterInMeters;
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-		foreach (var joint in joints)
-		{
-			if (joint.connectedBody == RB)
-			{
-				Joint = joint;	
-			}
-		}
+    public void AddTorque(float torque)
+    {
+        rb.AddTorque(torque);
+    }
 
-		if (Joint == null)
-		{
-			Debug.Log ("Failed to connect WheelJoint2D");
-		}
+    public float AngularDrag
+    {
+        get
+        {
+            return rb.angularDrag;
+        }
 
+        set
+        {
+            rb.angularDrag = value;
+        }
+    }
 
-	}
+    public float AngularVelocity
+    {
+        get
+        {
+            return rb.angularVelocity;
+        }
 
+        set
+        {
+            rb.angularVelocity = value;
+        }
+    }
 }

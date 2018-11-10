@@ -1033,31 +1033,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114396525930101928, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: speedMeter
-      value: 
-      objectReference: {fileID: 1313487421}
-    - target: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: frontWheelSlider
-      value: 
-      objectReference: {fileID: 24484044}
-    - target: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: rearWheelSlider
-      value: 
-      objectReference: {fileID: 113582087}
-    - target: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: frontWheelDampSlider
-      value: 
-      objectReference: {fileID: 1800430452}
-    - target: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: rearWheelDampSlider
-      value: 
-      objectReference: {fileID: 1430241724}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
   m_IsPrefabAsset: 0
@@ -1089,6 +1064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laggage: {fileID: 974650875}
+  carController: {fileID: 1861456613}
   car: {fileID: 1354468702}
   speedMeter: {fileID: 1313487421}
   speedSlider: {fileID: 599936347}
@@ -1539,6 +1515,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5feaab4cebffe425baf4e98f50e63a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1239187148
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.06795794
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 7.3406878
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.09393902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: frontWheelSlider
+      value: 
+      objectReference: {fileID: 24484044}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: rearWheelSlider
+      value: 
+      objectReference: {fileID: 113582087}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: frontWheelDampSlider
+      value: 
+      objectReference: {fileID: 1800430452}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: rearWheelDampSlider
+      value: 
+      objectReference: {fileID: 1430241724}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: speedMeter
+      value: 
+      objectReference: {fileID: 1313487421}
+    - target: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+        type: 2}
+      propertyPath: car
+      value: 
+      objectReference: {fileID: 1354468702}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1297059228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,6 +1906,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 934808490}
   m_Script: {fileID: 11500000, guid: 55d1e7511433ce14298b25644b109720, type: 3}
+--- !u!114 &1861456613 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239187148}
+  m_Script: {fileID: 11500000, guid: 5051f170c3f3743d597b47f67406ccde, type: 3}
 --- !u!224 &1941821267 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224550326607831112, guid: 9658ff325df244a90beb36cf5e524acb,

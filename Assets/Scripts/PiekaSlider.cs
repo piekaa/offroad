@@ -48,6 +48,10 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
         pointerImage = transform.GetChild(0).GetComponent<Image>();
         text = GetComponentInChildren<Text>(); 
         setPointerPositionAndText(percent);
+        if (onSlide != null)
+        {
+            onSlide(Value);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -70,9 +74,9 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
         }
     }
 
-    public void setOnSlide(OnSlide onSlide)
+    public void RegisterOnSlide(OnSlide onSlide)
     {
-        this.onSlide = onSlide;
+        this.onSlide += onSlide;
     }
 
     private void setPointerPositionAndText(float percent)

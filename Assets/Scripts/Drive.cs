@@ -2,113 +2,142 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drive : OrderedScript
+public class Drive : OrderedScript, IDrive
 {
 
-	[SerializeField]
-	public Car Car;
+    [SerializeField]
+    public float maxSpeed = 100;
 
-	public float FrontBreakPower = 50;
-	public float RearBreakPower = 50;
+    public float FrontBreakPower = 50;
+    public float RearBreakPower = 50;
 
-	private int registered;
+    private bool brakeingFront;
+    private bool brakeingRear;
 
-	private bool brakeingFront;
-	private bool brakeingRear;
+    private bool reverse;
 
-	/// <summary>
-	/// Accelerates the front. Invoke only in FixedUpdate
-	/// </summary>
-	/// <param name="power">Torque</param>
-	public void AccelerateFront (float power)
-	{
-		Car.FrontWheel.RB.AddTorque (-power);
-	}
+    private IWheel frontWheel;
 
-	/// <summary>
-	/// Accelerates the front. Invoke only in FixedUpdate
-	/// </summary>
-	/// <param name="power">Torque</param>
-	public void AccelerateRear (float power)
-	{
-		Car.RearWheel.RB.AddTorque (-power);
-	}
+    private IWheel rearWheel;
 
-	/// <summary>
-	/// Brakes the front. Invoke only in FixedUpdate
-	/// </summary>
-	/// <param name="power">0-1</param>
-	public void BrakeFront (float power)
-	{
-		if (power > 0)
-		{
-			brakeingFront = true;
-		}
-		doBrake (Car.FrontWheel, power * FrontBreakPower);
-	}
+    public float FrontRearRatio { get; set; }
 
-	/// <summary>
-	/// Brakes the front. Invoke only in FixedUpdate
-	/// </summary>
-	/// <param name="power">0-1</param>
-	public void BrakeRear (float power)
-	{
-		if (power > 0)
-		{
-			brakeingRear = true;
-		}
-		doBrake (Car.RearWheel, power * RearBreakPower);
-	}
+    private WheelJoint2D frontJoint;
 
-	private void doBrake (Wheel wheel, float power)
-	{
-		wheel.RB.angularDrag = power;
+    private WheelJoint2D rearJoint;
 
-		var motor = wheel.Joint.motor;
-		float sign = Mathf.Sign (wheel.RB.angularVelocity);
-		float newSpeed = Mathf.Abs (wheel.RB.angularVelocity) - power;
+    public void Accelerate(float power)
+    {
+        float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
+        float rearWheelRPM = Mathf.Abs(RearWheelRPM);
+        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
+        if (frontWheelKmPerHour < maxSpeed && rearWheelKmPerHour < maxSpeed)
+        {
+            var sign = reverse ? 1 : -1;
+            frontWheel.AddTorque(power * FrontRearRatio * sign);
+            rearWheel.AddTorque(power * (1 - FrontRearRatio) * sign);
+        }
+    }
 
-		newSpeed = Mathf.Max (newSpeed, 0);
+    public void Brake(float power)
+    {
+        //todo add FrontRearBrakeRatio
+        BrakeFront(power);
+        BrakeRear(power);
+    }
 
-		motor.motorSpeed = newSpeed * sign;
+    private void BrakeFront(float power)
+    {
+        if (power > 0)
+        {
+            brakeingFront = true;
+        }
+        doBrake(frontWheel, frontJoint, power * FrontBreakPower);
+    }
 
-		wheel.Joint.useMotor = true;
-		wheel.Joint.motor = motor;
-		 
-	}
+    private void BrakeRear(float power)
+    {
+        if (power > 0)
+        {
+            brakeingRear = true;
+        }
+        doBrake(rearWheel, rearJoint, power * RearBreakPower);
+    }
 
-	public float FrontWheelSpeed { get { return Car.FrontWheel.RB.angularVelocity; } }
+    private void doBrake(IWheel wheel, WheelJoint2D wheelJoint, float power)
+    {
+        wheel.AngularDrag = power;
 
-	public float RearWheelSpeed { get { return Car.RearWheel.RB.angularVelocity; } }
+        float sign = Mathf.Sign(wheel.AngularVelocity);
+        float newSpeed = Mathf.Abs(wheel.AngularVelocity) - power;
 
-	public float FrontWheelRPM { get { return Car.FrontWheel.RB.angularVelocity / 6; } }
+        newSpeed = Mathf.Max(newSpeed, 0);
+        setUseMotor(wheelJoint, true);
+        setMotorSpeed(wheelJoint, newSpeed * sign);
+    }
 
-	public float RearWheelRPM { get { return Car.RearWheel.RB.angularVelocity / 6; } }
+    public float FrontWheelRPM { get { return frontWheel.AngularVelocity / 6; } }
+
+    public float RearWheelRPM { get { return rearWheel.AngularVelocity / 6; } }
 
 
-	public override void OrderedFixedUpdate ()
-	{ 
-		if (!brakeingFront)
-		{
-			Car.FrontWheel.Joint.useMotor = false;
-			Car.FrontWheel.RB.angularDrag = 0;
-		}
+    public override void OrderedFixedUpdate()
+    {
+        if (!brakeingFront)
+        {
+            setUseMotor(frontJoint, false);
+            frontWheel.AngularDrag = 0;
+        }
 
-		if (!brakeingRear)
-		{
-			Car.RearWheel.Joint.useMotor = false;
-			Car.RearWheel.RB.angularDrag = 0;
-		}
+        if (!brakeingRear)
+        {
+            setUseMotor(rearJoint, false);
+            rearWheel.AngularDrag = 0;
+        }
+        brakeingFront = false;
+        brakeingRear = false;
+    }
+
+    public bool ToggleReverse()
+    {
+        float frontWheelRPM = Mathf.Abs(FrontWheelRPM);
+        float rearWheelRPM = Mathf.Abs(RearWheelRPM);
+        float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+        float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
+        if (frontWheelKmPerHour < 5 && rearWheelKmPerHour < 5)
+        {
+            reverse = !reverse;
+        }
+        return reverse;
+    }
+
+    public void SetFrontWheel(IWheel wheel)
+    {
+        frontWheel = wheel;
+    }
+
+    public void SetRearWheel(IWheel wheel)
+    {
+        rearWheel = wheel;
+    }
 
 
-		brakeingFront = false;
-		brakeingRear = false;
-	}
+    private void setMotorSpeed(WheelJoint2D joint, float speed)
+    {
+        var motor = joint.motor;
+        motor.motorSpeed = speed;
+        joint.motor = motor;
+    }
 
-	//TODO: Move to other component
-	void LateUpdate ()
-	{
-		Camera.main.transform.rotation = Quaternion.identity;
-	}
+    private void setUseMotor(WheelJoint2D joint, bool useMotor)
+    {
+        joint.useMotor = useMotor;
+    }
 
+    public void SetJoints(WheelJoint2D front, WheelJoint2D rear)
+    {
+        frontJoint = front;
+        rearJoint = rear;
+    }
 }
