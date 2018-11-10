@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
+using Pieka.Car;
 
 public class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSettingsController
 {
@@ -47,13 +48,11 @@ public class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSe
         FrontSuspensionHeightSlider = frontSuspensionHeightSlider;
         RearSuspensionHeightSlider = rearSuspensionHeightSlider;
         Car = car;
-
-
     }
 
     protected override void OnFirstFrame()
     {
-        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.Drive.FrontRearRatio = v, "FrontRearDriveRatioSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.SetFrontRearDriveRatio(v), "FrontRearDriveRatioSlider");
         setOnSlideFunctionAndInvokeIfNotNull(FrontWheelSlider, (v) => Car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
         setOnSlideFunctionAndInvokeIfNotNull(RearWheelSlider, (v) => Car.SetRearSuspensionFrequency(v), "RearWheelSlider");
         setOnSlideFunctionAndInvokeIfNotNull(FrontWheelDampSlider, (v) => Car.SetFrontDampingRatio(v), "FrontWheelDampSlider");

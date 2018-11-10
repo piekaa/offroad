@@ -9,8 +9,6 @@ public delegate bool OnReverseToggle();
 
 public class Reverse : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField]
-    private IDrive engine;
     private Image image;
     private OnReverseToggle onReverseToggle;
     void Start()

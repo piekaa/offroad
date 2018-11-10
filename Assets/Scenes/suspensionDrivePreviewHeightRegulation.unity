@@ -1207,6 +1207,11 @@ Prefab:
       propertyPath: explosionPower
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114396525930101928, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: cylinders
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
   m_IsPrefabAsset: 0
@@ -1616,7 +1621,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
     type: 2}
   m_PrefabInternal: {fileID: 990551783}
-  m_Script: {fileID: 11500000, guid: 22f6abf09b2af254f8054beded951609, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e207afc74e514b10a05bbaee8e9e15a, type: 3}
 --- !u!114 &1398347931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
