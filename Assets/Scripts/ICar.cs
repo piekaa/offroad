@@ -19,4 +19,6 @@ public interface ICar
     void SetFrontSuspensionHeight(float height);
 
     void SetRearSuspensionHeight(float height);
+
+    void Brake(float power);
 }

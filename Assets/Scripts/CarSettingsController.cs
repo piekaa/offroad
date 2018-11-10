@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-public class CarSettingsController : MonoBehaviour, ICarSettingsController
+public class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSettingsController
 {
     [SerializeField]
     private Car car;
@@ -48,20 +48,26 @@ public class CarSettingsController : MonoBehaviour, ICarSettingsController
         RearSuspensionHeightSlider = rearSuspensionHeightSlider;
         Car = car;
 
-        setOnSlideFunctionIfNotNull(FrontRearDriveRatioSlider, (v) => Car.Drive.FrontRearRatio = v, "FrontRearDriveRatioSlider");
-        setOnSlideFunctionIfNotNull(FrontWheelSlider, (v) => Car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
-        setOnSlideFunctionIfNotNull(RearWheelSlider, (v) => Car.SetRearSuspensionFrequency(v), "RearWheelSlider");
-        setOnSlideFunctionIfNotNull(FrontWheelDampSlider, (v) => Car.SetFrontDampingRatio(v), "FrontWheelDampSlider");
-        setOnSlideFunctionIfNotNull(RearWheelDampSlider, (v) => Car.SetRearDampingRatio(v), "RearWheelDampSlider");
-        setOnSlideFunctionIfNotNull(FrontSuspensionHeightSlider, (v) => Car.SetFrontSuspensionHeight(v), "FrontSuspensionHeightSlider");
-        setOnSlideFunctionIfNotNull(RearSuspensionHeightSlider, (v) => Car.SetRearSuspensionHeight(v), "RearSuspensionHeightSlider");
+
     }
 
-    private void setOnSlideFunctionIfNotNull(IPiekaSlider slider, OnSlide onSlide, string name)
+    protected override void OnFirstFrame()
+    {
+        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.Drive.FrontRearRatio = v, "FrontRearDriveRatioSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontWheelSlider, (v) => Car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(RearWheelSlider, (v) => Car.SetRearSuspensionFrequency(v), "RearWheelSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontWheelDampSlider, (v) => Car.SetFrontDampingRatio(v), "FrontWheelDampSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(RearWheelDampSlider, (v) => Car.SetRearDampingRatio(v), "RearWheelDampSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontSuspensionHeightSlider, (v) => Car.SetFrontSuspensionHeight(v), "FrontSuspensionHeightSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(RearSuspensionHeightSlider, (v) => Car.SetRearSuspensionHeight(v), "RearSuspensionHeightSlider");
+    }
+
+    private void setOnSlideFunctionAndInvokeIfNotNull(IPiekaSlider slider, OnSlide onSlide, string name)
     {
         if (slider != null)
         {
             slider.RegisterOnSlide(onSlide);
+            onSlide(slider.Value);
         }
         else
         {

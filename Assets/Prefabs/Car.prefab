@@ -217,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1325967784006000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.7, y: 90.84, z: 0}
+  m_LocalPosition: {x: 0.7991952, y: -0.33341077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4891762947451676}
@@ -837,8 +837,8 @@ WheelJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0.3068032, y: -1.1499939}
-  m_ConnectedAnchor: {x: 0.00000047840877, y: 0.05000305}
+  m_Anchor: {x: 0.30680534, y: -1.25}
+  m_ConnectedAnchor: {x: 0.000000013397425, y: 0}
   m_Suspension:
     m_DampingRatio: 1
     m_Frequency: 20

@@ -84,6 +84,11 @@ public class Car : MonoBehaviour, ICar
         rearWheelJoint.anchor = new Vector2(rearWheelJoint.anchor.x, -height);
     }
 
+    public void Brake(float power)
+    {
+        Drive.Brake(power);
+    }
+
     public IWheel FrontWheel
     {
         get

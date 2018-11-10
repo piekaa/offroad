@@ -92,6 +92,9 @@ public class DrivePreviewController : Resetable
                 Destroy(floors.Dequeue());
             }
         }
+
+        pedal.Update();
+
     }
 
     void scaleBumps(float value)
@@ -105,7 +108,23 @@ public class DrivePreviewController : Resetable
 
     private class FakePedal : IPedal
     {
+        private OnIsPressed onIsPressed;
+
         public float Value { get; private set; }
+
+        public void RegisterOnIsPressed(OnIsPressed onIsPressed)
+        {
+            this.onIsPressed += onIsPressed;
+        }
+
+        public void Update()
+        {
+            if (onIsPressed != null)
+            {
+                onIsPressed(Value);
+            }
+        }
+
         public void setValue(float v)
         {
             Value = v;
