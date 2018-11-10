@@ -152,6 +152,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114396525930101928, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: explosionPower
+      value: 1.51
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
   m_IsPrefabAsset: 0
@@ -539,7 +544,7 @@ Prefab:
     - target: {fileID: 224585018908316560, guid: eac97e04e0adbee41ba43ebdc436310f,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.20000076
+      value: 0.19999695
       objectReference: {fileID: 0}
     - target: {fileID: 224585018908316560, guid: eac97e04e0adbee41ba43ebdc436310f,
         type: 2}

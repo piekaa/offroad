@@ -11,7 +11,7 @@ public enum SliderTextType
     VALUE
 }
 
-public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDragHandler
+public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IPointerUpHandler
 {
 
     public SliderTextType SliderTextType;
@@ -40,37 +40,44 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
 
     private Image pointerImage;
 
+    private bool pushed;
+
     void Start()
     {
         Value = init;
         image = GetComponent<Image>();
         float percent = (Value - min) / (max - min);
         pointerImage = transform.GetChild(0).GetComponent<Image>();
-        text = GetComponentInChildren<Text>(); 
+        text = GetComponentInChildren<Text>();
         setPointerPositionAndText(percent);
-        if (onSlide != null)
-        {
-            onSlide(Value);
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerStartX = eventData.position.x;
         startValue = Value;
+        pushed = true;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
-        float shiftInPixels = (eventData.position.x - pointerStartX);
-        float normalizedShift = Mathf.Clamp(shiftInPixels * sensivity, -1, 1);
-        Value = startValue + (max - min) * normalizedShift;
-        Value = Mathf.Clamp(Value, min, max);
-        float percent = (Value - min) / (max - min);
-        setPointerPositionAndText(percent);
-        if (onSlide != null)
+        pushed = false;
+    }
+
+    void Update()
+    {
+        if (pushed)
         {
-            onSlide(Value);
+            float shiftInPixels = (Input.mousePosition.x - pointerStartX);
+            float normalizedShift = Mathf.Clamp(shiftInPixels * sensivity, -1, 1);
+            Value = startValue + (max - min) * normalizedShift;
+            Value = Mathf.Clamp(Value, min, max);
+            float percent = (Value - min) / (max - min);
+            setPointerPositionAndText(percent);
+            if (onSlide != null)
+            {
+                onSlide(Value);
+            }
         }
     }
 
@@ -87,7 +94,7 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
         switch (SliderTextType)
         {
             case SliderTextType.PERCENT:
-                text.text = (100*percent).ToString("0.00") + "%";
+                text.text = (100 * percent).ToString("0.00") + "%";
                 break;
             case SliderTextType.VALUE:
                 text.text = Value.ToString("0.00");
@@ -97,5 +104,6 @@ public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IDr
                 break;
         }
     }
+
 
 }

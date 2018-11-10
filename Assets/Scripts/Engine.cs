@@ -25,7 +25,7 @@ public class Engine : OrderedScript, IEngine
 
     void Awake()
     {
-        Drive = drive; 
+        Drive = drive;
     }
 
     void Start()

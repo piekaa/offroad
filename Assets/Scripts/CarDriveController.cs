@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarDriveController : MonoBehaviour, ICarDriveController
+public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveController
 {
     [SerializeField]
     private Car car;
@@ -28,9 +28,18 @@ public class CarDriveController : MonoBehaviour, ICarDriveController
     void Awake()
     {
         Car = car;
+
         AccelerationPedal = accelerationPedal;
         BrakePedal = brakePedal;
         SpeedMeter = speedMeter;
+
+
+    }
+
+    protected override void OnFirstFrame()
+    {
+        registerOnPedalIsPressedIfNotNull(AccelerationPedal, (v) => Car.Engine.Throttle = v, "AccelerationPedal");
+        registerOnPedalIsPressedIfNotNull(BrakePedal, (v) => Car.Brake(v), "BrakePedal");
 
         if (reverse != null)
         {
@@ -42,19 +51,24 @@ public class CarDriveController : MonoBehaviour, ICarDriveController
         }
     }
 
-    void Update()
+    private void registerOnPedalIsPressedIfNotNull(IPedal pedal, OnIsPressed onIsPressed, string name)
     {
+        if (pedal != null)
+        {
+            pedal.RegisterOnIsPressed(onIsPressed);
+        }
+        else
+        {
+            Debug.Log(name + " is null");
+        }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
         if (SpeedMeter != null)
         {
             SpeedMeter.Value = Mathf.Abs(Utils.WheelRpmToKmPerHour(Car.Drive.FrontWheelRPM, Car.FrontWheel.DiameterInMeters));
-        }
-        if (AccelerationPedal != null)
-        {
-            Car.Engine.Throttle = AccelerationPedal.Value;
-        }
-        if (BrakePedal != null)
-        {
-            Car.Drive.Brake(BrakePedal.Value);
         }
     }
 }
