@@ -6,9 +6,8 @@ namespace Pieka.Car
 {
     class Drive : MonoBehaviour, IDrive
     {
-
-        //TODO rename
-        private Dictionary<IWheel, List<float>> dic = new Dictionary<IWheel, List<float>>();
+ 
+        private Dictionary<IWheel, List<float>> wheelVelocitySignHistory = new Dictionary<IWheel, List<float>>();
 
         public float fullStopThreshold = 70;
 
@@ -65,7 +64,7 @@ namespace Pieka.Car
         private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
         {
             var angularVelocity = wheel.AngularVelocity;
-            dic[wheel].Add(Mathf.Sign(angularVelocity));
+            wheelVelocitySignHistory[wheel].Add(Mathf.Sign(angularVelocity));
 
             if (power * fullStopThreshold > Mathf.Abs(angularVelocity))
             {
@@ -74,9 +73,9 @@ namespace Pieka.Car
             }
             else
             {
-                var sign0 = dic[wheel][0];
-                var sign1 = dic[wheel][1];
-                var sign2 = dic[wheel][2];
+                var sign0 = wheelVelocitySignHistory[wheel][0];
+                var sign1 = wheelVelocitySignHistory[wheel][1];
+                var sign2 = wheelVelocitySignHistory[wheel][2];
 
                 if (sign0 * sign1 == -1 && sign1 * sign2 == -1)
                 {
@@ -92,14 +91,14 @@ namespace Pieka.Car
             }
             if (power == 0)
             {
-                dic[wheel].Clear();
-                dic[wheel].Add(0);
-                dic[wheel].Add(0);
+                wheelVelocitySignHistory[wheel].Clear();
+                wheelVelocitySignHistory[wheel].Add(0);
+                wheelVelocitySignHistory[wheel].Add(0);
             }
 
-            while (dic[wheel].Count > 3)
+            while (wheelVelocitySignHistory[wheel].Count > 3)
             {
-                dic[wheel].RemoveAt(0);
+                wheelVelocitySignHistory[wheel].RemoveAt(0);
             }
         }
 
@@ -123,17 +122,17 @@ namespace Pieka.Car
         public void SetFrontWheel(IWheel wheel)
         {
             frontWheel = wheel;
-            dic.Add(wheel, new List<float>());
-            dic[wheel].Add(0);
-            dic[wheel].Add(0);
+            wheelVelocitySignHistory.Add(wheel, new List<float>());
+            wheelVelocitySignHistory[wheel].Add(0);
+            wheelVelocitySignHistory[wheel].Add(0);
         }
 
         public void SetRearWheel(IWheel wheel)
         {
             rearWheel = wheel;
-            dic.Add(wheel, new List<float>());
-            dic[wheel].Add(0);
-            dic[wheel].Add(0);
+            wheelVelocitySignHistory.Add(wheel, new List<float>());
+            wheelVelocitySignHistory[wheel].Add(0);
+            wheelVelocitySignHistory[wheel].Add(0);
         }
 
 
