@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    class Drive : OrderedScript, IDrive
+    class Drive : MonoBehaviour, IDrive
     {
+ 
+        private Dictionary<IWheel, List<float>> wheelVelocitySignHistory = new Dictionary<IWheel, List<float>>();
 
-        [SerializeField]
+        public float fullStopThreshold = 70;
+
         public float maxSpeed = 100;
 
-        public float FrontBreakPower = 50;
-        public float RearBreakPower = 50;
+        public float BreakPower = 3;
 
         private bool brakeingFront;
         private bool brakeingRear;
@@ -27,6 +29,8 @@ namespace Pieka.Car
         private WheelJoint2D frontJoint;
 
         private WheelJoint2D rearJoint;
+
+        private float brakeThrottle;
 
         public void Accelerate(float power)
         {
@@ -45,64 +49,62 @@ namespace Pieka.Car
             }
         }
 
-        public void Brake(float power)
+        public void Brake(float throttle)
+        {
+            brakeThrottle = throttle;
+        }
+
+        void FixedUpdate()
         {
             //todo add FrontRearBrakeRatio
-            BrakeFront(power);
-            BrakeRear(power);
+            doBrake(frontWheel, frontJoint, brakeThrottle * BreakPower);
+            doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower);
         }
 
-        private void BrakeFront(float power)
+        private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
         {
-            if (power > 0)
+            var angularVelocity = wheel.AngularVelocity;
+            wheelVelocitySignHistory[wheel].Add(Mathf.Sign(angularVelocity));
+
+            if (power * fullStopThreshold > Mathf.Abs(angularVelocity))
             {
-                brakeingFront = true;
+                wheel.AngularVelocity = 0;
+                joint.useMotor = true;
             }
-            doBrake(frontWheel, frontJoint, power * FrontBreakPower);
-        }
-
-        private void BrakeRear(float power)
-        {
-            if (power > 0)
+            else
             {
-                brakeingRear = true;
+                var sign0 = wheelVelocitySignHistory[wheel][0];
+                var sign1 = wheelVelocitySignHistory[wheel][1];
+                var sign2 = wheelVelocitySignHistory[wheel][2];
+
+                if (sign0 * sign1 == -1 && sign1 * sign2 == -1)
+                {
+                    wheel.AngularVelocity = 0;
+                    joint.useMotor = true;
+                }
+                else
+                {
+                    var sign = Mathf.Sign(angularVelocity);
+                    wheel.AddTorque(power * -sign);
+                    joint.useMotor = false;
+                }
             }
-            doBrake(rearWheel, rearJoint, power * RearBreakPower);
-        }
+            if (power == 0)
+            {
+                wheelVelocitySignHistory[wheel].Clear();
+                wheelVelocitySignHistory[wheel].Add(0);
+                wheelVelocitySignHistory[wheel].Add(0);
+            }
 
-        private void doBrake(IWheel wheel, WheelJoint2D wheelJoint, float power)
-        {
-            wheel.AngularDrag = power;
-
-            float sign = Mathf.Sign(wheel.AngularVelocity);
-            float newSpeed = Mathf.Abs(wheel.AngularVelocity) - power;
-
-            newSpeed = Mathf.Max(newSpeed, 0);
-            setUseMotor(wheelJoint, true);
-            setMotorSpeed(wheelJoint, newSpeed * sign);
+            while (wheelVelocitySignHistory[wheel].Count > 3)
+            {
+                wheelVelocitySignHistory[wheel].RemoveAt(0);
+            }
         }
 
         public float FrontWheelRpm { get { return frontWheel.AngularVelocity / 6; } }
 
         public float RearWheelRpm { get { return rearWheel.AngularVelocity / 6; } }
-
-
-        public override void OrderedFixedUpdate()
-        {
-            if (!brakeingFront)
-            {
-                setUseMotor(frontJoint, false);
-                frontWheel.AngularDrag = 0;
-            }
-
-            if (!brakeingRear)
-            {
-                setUseMotor(rearJoint, false);
-                rearWheel.AngularDrag = 0;
-            }
-            brakeingFront = false;
-            brakeingRear = false;
-        }
 
         public bool ToggleReverse()
         {
@@ -120,11 +122,17 @@ namespace Pieka.Car
         public void SetFrontWheel(IWheel wheel)
         {
             frontWheel = wheel;
+            wheelVelocitySignHistory.Add(wheel, new List<float>());
+            wheelVelocitySignHistory[wheel].Add(0);
+            wheelVelocitySignHistory[wheel].Add(0);
         }
 
         public void SetRearWheel(IWheel wheel)
         {
             rearWheel = wheel;
+            wheelVelocitySignHistory.Add(wheel, new List<float>());
+            wheelVelocitySignHistory[wheel].Add(0);
+            wheelVelocitySignHistory[wheel].Add(0);
         }
 
 
