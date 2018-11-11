@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cylinders: 4
-  explosionPower: 1.51
+  explosionPower: 2.36
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -592,8 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 100
-  FrontBreakPower: 70
-  RearBreakPower: 30
+  BreakPower: 3
 --- !u!212 &212161659773389446
 SpriteRenderer:
   m_ObjectHideFlags: 1
