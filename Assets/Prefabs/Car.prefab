@@ -65,22 +65,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1244777441375660
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4087315311962670}
-  - component: {fileID: 114262502517683350}
-  m_Layer: 0
-  m_Name: OrderedScriptExecutor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1325967784006000
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,19 +181,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4087315311962670
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1244777441375660}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 310.22626, y: -51.1786, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4209085378723428}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4209085378723428
 Transform:
   m_ObjectHideFlags: 1
@@ -223,7 +194,6 @@ Transform:
   - {fileID: 4891762947451676}
   - {fileID: 4427903664353060}
   - {fileID: 4950530552234146}
-  - {fileID: 4087315311962670}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -515,20 +485,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114262502517683350
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1244777441375660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f24dcf38b412f84d9d1ce33a980ed6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orderedScripts:
-  - {fileID: 114396525930101928}
-  - {fileID: 114802957169657976}
 --- !u!114 &114320109945826484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -553,7 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cylinders: 4
-  explosionPower: 2.36
+  explosionPower: 3
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -591,8 +547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79603c329116442e9cecaa63a9b8323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullStopThreshold: 15
   maxSpeed: 100
-  BreakPower: 3
+  BreakPower: 8
 --- !u!212 &212161659773389446
 SpriteRenderer:
   m_ObjectHideFlags: 1

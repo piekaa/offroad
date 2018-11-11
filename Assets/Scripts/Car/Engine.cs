@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    class Engine : OrderedScript, IEngine
+    class Engine : MonoBehaviour, IEngine
     {
         public float RPM { get; private set; }
         public float Torque { get; private set; }
@@ -36,9 +36,9 @@ namespace Pieka.Car
             Drag = 10;
         }
 
-        public override void OrderedFixedUpdate()
+        void FixedUpdate()
         {
-            float currentExpPower = cylinders * Throttle * explosionPower; 
+            float currentExpPower = cylinders * Throttle * explosionPower;
             Drive.Accelerate(currentExpPower);
         }
     }

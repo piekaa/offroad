@@ -4,11 +4,14 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    class Drive : OrderedScript, IDrive
+    class Drive : MonoBehaviour, IDrive
     {
-        private float FullStopThreshold = 70;
 
-        [SerializeField]
+        //TODO rename
+        private Dictionary<IWheel, List<float>> dic = new Dictionary<IWheel, List<float>>();
+
+        public float fullStopThreshold = 70;
+
         public float maxSpeed = 100;
 
         public float BreakPower = 3;
@@ -61,16 +64,42 @@ namespace Pieka.Car
 
         private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
         {
-            if (power * FullStopThreshold > Mathf.Abs(wheel.AngularVelocity))
+            var angularVelocity = wheel.AngularVelocity;
+            dic[wheel].Add(Mathf.Sign(angularVelocity));
+
+            if (power * fullStopThreshold > Mathf.Abs(angularVelocity))
             {
                 wheel.AngularVelocity = 0;
                 joint.useMotor = true;
             }
             else
             {
-                var sign = Mathf.Sign(wheel.AngularVelocity);
-                wheel.AddTorque(power * -sign);
-                joint.useMotor = false;
+                var sign0 = dic[wheel][0];
+                var sign1 = dic[wheel][1];
+                var sign2 = dic[wheel][2];
+
+                if (sign0 * sign1 == -1 && sign1 * sign2 == -1)
+                {
+                    wheel.AngularVelocity = 0;
+                    joint.useMotor = true;
+                }
+                else
+                {
+                    var sign = Mathf.Sign(angularVelocity);
+                    wheel.AddTorque(power * -sign);
+                    joint.useMotor = false;
+                }
+            }
+            if (power == 0)
+            {
+                dic[wheel].Clear();
+                dic[wheel].Add(0);
+                dic[wheel].Add(0);
+            }
+
+            while (dic[wheel].Count > 3)
+            {
+                dic[wheel].RemoveAt(0);
             }
         }
 
@@ -94,11 +123,17 @@ namespace Pieka.Car
         public void SetFrontWheel(IWheel wheel)
         {
             frontWheel = wheel;
+            dic.Add(wheel, new List<float>());
+            dic[wheel].Add(0);
+            dic[wheel].Add(0);
         }
 
         public void SetRearWheel(IWheel wheel)
         {
             rearWheel = wheel;
+            dic.Add(wheel, new List<float>());
+            dic[wheel].Add(0);
+            dic[wheel].Add(0);
         }
 
 
