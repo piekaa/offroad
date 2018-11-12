@@ -20,10 +20,9 @@ public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDrive
     [SerializeField]
     private Meter speedMeter;
     public IMeter SpeedMeter { get; set; }
-
-    //todo change to common ui element eg. toggle button
+ 
     [SerializeField]
-    private Reverse reverse;
+    private ToggleButton reverseToggleButton;
 
     void Awake()
     {
@@ -41,9 +40,9 @@ public class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDrive
         registerOnPedalIsPressedIfNotNull(AccelerationPedal, (v) => Car.Accelerate(v), "AccelerationPedal");
         registerOnPedalIsPressedIfNotNull(BrakePedal, (v) => Car.Brake(v), "BrakePedal");
 
-        if (reverse != null)
+        if (reverseToggleButton != null)
         {
-            reverse.SetOnReverseToggle(() => Car.ToggleReverse());
+            reverseToggleButton.SetOnToggle(() => Car.ToggleReverse());
         }
         else
         {
