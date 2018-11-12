@@ -16,6 +16,8 @@ namespace Pieka.Car
 
         void SetFrontRearDriveRatio(float ratio);
 
+        void SetFrontRearBrakeRatio(float ratio);
+
         void Accelerate(float throttle);
 
         void Brake(float throttle);

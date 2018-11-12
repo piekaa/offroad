@@ -108,7 +108,12 @@ namespace Pieka.Car
 
         public void SetFrontRearDriveRatio(float ratio)
         {
-            Drive.FrontRearRatio = ratio;
+            Drive.FrontRearDriveRatio = ratio;
+        }
+
+        public void SetFrontRearBrakeRatio(float ratio)
+        {
+            Drive.FrontRearBrakeRatio = ratio;
         }
     }
 }
