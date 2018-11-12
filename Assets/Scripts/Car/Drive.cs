@@ -57,8 +57,8 @@ namespace Pieka.Car
 
         void FixedUpdate()
         {
-            doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower * (1 - FrontRearBrakeRatio));
             doBrake(frontWheel, frontJoint, brakeThrottle * BreakPower * FrontRearBrakeRatio);
+            doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower * (1 - FrontRearBrakeRatio));
         }
 
         private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
