@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//Returns true if gear is reverse after toggle
-public delegate bool OnReverseToggle();
+/// <returns>state after toggle</returns>
+public delegate bool OnToggle();
 
-public class Reverse : MonoBehaviour, IPointerClickHandler
+public class ToggleButton : MonoBehaviour, IPointerClickHandler
 {
     private Image image;
-    private OnReverseToggle onReverseToggle;
+    private OnToggle onToggle;
     void Start()
     {
         image = GetComponent<Image>();
@@ -18,21 +18,21 @@ public class Reverse : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (onReverseToggle != null)
+        if (onToggle != null)
         {
-            var reverse = onReverseToggle();
-            setColor(reverse);
+            var state = onToggle();
+            setColor(state);
         }
     }
 
-    public void SetOnReverseToggle(OnReverseToggle onReverseToggle)
+    public void SetOnToggle(OnToggle onToggle)
     {
-        this.onReverseToggle = onReverseToggle;
+        this.onToggle = onToggle;
     }
 
-    private void setColor(bool reverse)
+    private void setColor(bool state)
     {
-        if (reverse)
+        if (state)
         {
             image.color = Color.green;
         }
