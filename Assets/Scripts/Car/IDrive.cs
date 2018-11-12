@@ -6,7 +6,11 @@ namespace Pieka.Car
     {
 
         /// <value>0 means rear wheel drive, 1 means front wheel drive</value>
-        float FrontRearRatio { get; set; }
+        float FrontRearDriveRatio { get; set; }
+
+
+        /// <value>0 means rear wheel only brake, 1 means front wheel only brake</value>
+        float FrontRearBrakeRatio { get; set; }
 
         /// <returns>true if engine is on reverse</returns>
         bool ToggleReverse();

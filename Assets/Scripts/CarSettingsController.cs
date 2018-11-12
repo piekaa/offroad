@@ -38,27 +38,34 @@ public class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSe
     private PiekaSlider frontRearDriveRatioSlider;
     public IPiekaSlider FrontRearDriveRatioSlider { get; set; }
 
+    [SerializeField]
+    private PiekaSlider frontRearBrakeRatioSlider;
+    public IPiekaSlider FrontRearBrakeRatioSlider { get; set; }
+
+
     void Awake()
     {
         FrontWheelSlider = frontWheelSlider;
         RearWheelSlider = rearWheelSlider;
         FrontWheelDampSlider = frontWheelDampSlider;
         RearWheelDampSlider = rearWheelDampSlider;
-        FrontRearDriveRatioSlider = frontRearDriveRatioSlider;
         FrontSuspensionHeightSlider = frontSuspensionHeightSlider;
         RearSuspensionHeightSlider = rearSuspensionHeightSlider;
+        FrontRearDriveRatioSlider = frontRearDriveRatioSlider;
+        FrontRearBrakeRatioSlider = frontRearBrakeRatioSlider;
         Car = car;
     }
 
     protected override void OnFirstFrame()
     {
-        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.SetFrontRearDriveRatio(v), "FrontRearDriveRatioSlider");
         setOnSlideFunctionAndInvokeIfNotNull(FrontWheelSlider, (v) => Car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
         setOnSlideFunctionAndInvokeIfNotNull(RearWheelSlider, (v) => Car.SetRearSuspensionFrequency(v), "RearWheelSlider");
         setOnSlideFunctionAndInvokeIfNotNull(FrontWheelDampSlider, (v) => Car.SetFrontDampingRatio(v), "FrontWheelDampSlider");
         setOnSlideFunctionAndInvokeIfNotNull(RearWheelDampSlider, (v) => Car.SetRearDampingRatio(v), "RearWheelDampSlider");
         setOnSlideFunctionAndInvokeIfNotNull(FrontSuspensionHeightSlider, (v) => Car.SetFrontSuspensionHeight(v), "FrontSuspensionHeightSlider");
         setOnSlideFunctionAndInvokeIfNotNull(RearSuspensionHeightSlider, (v) => Car.SetRearSuspensionHeight(v), "RearSuspensionHeightSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.SetFrontRearDriveRatio(v), "FrontRearDriveRatioSlider");
+        setOnSlideFunctionAndInvokeIfNotNull(FrontRearBrakeRatioSlider, (v) => Car.SetFrontRearBrakeRatio(v), "FrontRearBrakeRatioSlider");
     }
 
     private void setOnSlideFunctionAndInvokeIfNotNull(IPiekaSlider slider, OnSlide onSlide, string name)

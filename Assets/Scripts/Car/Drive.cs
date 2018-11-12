@@ -6,7 +6,6 @@ namespace Pieka.Car
 {
     class Drive : MonoBehaviour, IDrive
     {
- 
         private Dictionary<IWheel, List<float>> wheelVelocitySignHistory = new Dictionary<IWheel, List<float>>();
 
         public float fullStopThreshold = 70;
@@ -24,7 +23,9 @@ namespace Pieka.Car
 
         private IWheel rearWheel;
 
-        public float FrontRearRatio { get; set; }
+        public float FrontRearDriveRatio { get; set; }
+
+        public float FrontRearBrakeRatio { get; set; }
 
         private WheelJoint2D frontJoint;
 
@@ -41,11 +42,11 @@ namespace Pieka.Car
             var sign = reverse ? 1 : -1;
             if (frontWheelKmPerHour < maxSpeed)
             {
-                frontWheel.AddTorque(power * FrontRearRatio * sign);
+                frontWheel.AddTorque(power * FrontRearDriveRatio * sign);
             }
             if (rearWheelKmPerHour < maxSpeed)
             {
-                rearWheel.AddTorque(power * (1 - FrontRearRatio) * sign);
+                rearWheel.AddTorque(power * (1 - FrontRearDriveRatio) * sign);
             }
         }
 
@@ -56,9 +57,8 @@ namespace Pieka.Car
 
         void FixedUpdate()
         {
-            //todo add FrontRearBrakeRatio
-            doBrake(frontWheel, frontJoint, brakeThrottle * BreakPower);
-            doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower);
+            doBrake(frontWheel, frontJoint, brakeThrottle * BreakPower * FrontRearBrakeRatio);
+            doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower * (1 - FrontRearBrakeRatio));
         }
 
         private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
