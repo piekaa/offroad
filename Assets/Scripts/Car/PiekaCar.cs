@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    public class Car : MonoBehaviour, ICar
+    public class PiekaCar : MonoBehaviour, ICar
     {
         private IDrive Drive { get; set; }
 
