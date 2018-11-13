@@ -7,10 +7,6 @@ namespace Pieka.CarControl
 {
     class DrivePreviewController : Resetable
     {
-
-        [SerializeField]
-        private GameObject laggage;
-
         [SerializeField]
         private CarDriveController carDriveController;
         public ICarDriveController CarDriveController;
@@ -39,8 +35,6 @@ namespace Pieka.CarControl
         [SerializeField]
         private Rigidbody2D carBody;
 
-        private List<KeyValuePair<Rigidbody2D, Vector3>> laggageRigidbodiesWithPositions = new List<KeyValuePair<Rigidbody2D, Vector3>>();
-
         private Vector3 carBodyInitialPos;
 
         private Vector3 floorInitPos;
@@ -52,12 +46,6 @@ namespace Pieka.CarControl
             CarDriveController = carDriveController;
             SpeedSlider = speedSlider;
             BumpScaleSlider = bumpScaleSlider;
-
-            var children = laggage.GetComponentsInChildren<Rigidbody2D>();
-            foreach (var child in children)
-            {
-                laggageRigidbodiesWithPositions.Add(new KeyValuePair<Rigidbody2D, Vector3>(child, child.transform.position));
-            }
         }
 
         protected override void Start()
