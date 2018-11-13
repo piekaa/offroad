@@ -43,7 +43,10 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPed
     {
         pushed = false;
         Value = 0;
-        onIsPressed(Value);
+        if (onIsPressed != null)
+        {
+            onIsPressed(Value);
+        }
     }
 
     public void RegisterOnIsPressed(OnIsPressed onIsPressed)
@@ -53,7 +56,7 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPed
 
     public void Update()
     {
-        if (pushed)
+        if (pushed && enabled)
         {
             int mx = (int)Input.mousePosition.x;
             int my = (int)Input.mousePosition.y;
@@ -81,5 +84,21 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPed
             }
 
         }
+    }
+
+    public void Enable()
+    {
+        enabled = true;
+        gameObject.SetActive(enabled);
+    }
+
+    public void Disable()
+    {
+        enabled = false;
+        if (onIsPressed != null)
+        {
+            onIsPressed(0);
+        }
+        gameObject.SetActive(enabled);
     }
 }
