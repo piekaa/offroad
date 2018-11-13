@@ -310,11 +310,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1.0239365
---- !u!1 &225900857 stripped
+--- !u!1 &269703184
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1975769072390316, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-    type: 2}
-  m_PrefabInternal: {fileID: 548064764}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269703186}
+  - component: {fileID: 269703185}
+  m_Layer: 0
+  m_Name: LaggageController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &269703185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 269703184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1c3b9e864c34d58ae1cf60ad6df47e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laggage: {fileID: 974650875}
+--- !u!4 &269703186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 269703184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 777.0359, y: -7.0791116, z: -4.1875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &318107793
 Prefab:
   m_ObjectHideFlags: 0
@@ -645,6 +681,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5feaab4cebffe425baf4e98f50e63a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &542102038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1358500527234238, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239187148}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 542102040}
+  - component: {fileID: 542102039}
+  m_Layer: 0
+  m_Name: CarSettingsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &542102039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239187148}
+  m_GameObject: {fileID: 542102038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5051f170c3f3743d597b47f67406ccde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 1354468702}
+  frontWheelSlider: {fileID: 24484044}
+  rearWheelSlider: {fileID: 113582087}
+  frontWheelDampSlider: {fileID: 1800430452}
+  rearWheelDampSlider: {fileID: 1430241724}
+  frontSuspensionHeightSlider: {fileID: 730389730}
+  rearSuspensionHeightSlider: {fileID: 984746848}
+  frontRearDriveRatioSlider: {fileID: 0}
+  frontRearBrakeRatioSlider: {fileID: 0}
+--- !u!4 &542102040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239187148}
+  m_GameObject: {fileID: 542102038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06795794, y: 7.3406878, z: -0.09393902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &548064764
 Prefab:
   m_ObjectHideFlags: 0
@@ -683,11 +771,6 @@ Prefab:
     - target: {fileID: 4209085378723428, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114396525930101928, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
-        type: 2}
-      propertyPath: explosionPower
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
@@ -1071,15 +1154,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 837494892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31c35391b6b9f4773a1e1d3a3e66b06a, type: 3}
+  m_Script: {fileID: 11500000, guid: 36f18cc3522bf4169a420c79656feea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   laggage: {fileID: 974650875}
   carDriveController: {fileID: 2125299859}
-  car: {fileID: 1354468702}
   speedMeter: {fileID: 1313487421}
   speedSlider: {fileID: 599936347}
   bumpScaleSlider: {fileID: 1398347931}
+  carBody: {fileID: 1377561555}
 --- !u!4 &837494894
 Transform:
   m_ObjectHideFlags: 0
@@ -1616,7 +1699,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
     type: 2}
   m_PrefabInternal: {fileID: 548064764}
-  m_Script: {fileID: 11500000, guid: 7e207afc74e514b10a05bbaee8e9e15a, type: 3}
+  m_Script: {fileID: 11500000, guid: b124628d1c11c4755951c355659ecffb, type: 3}
+--- !u!1 &1377561550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1825824950618434, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+    type: 2}
+  m_PrefabInternal: {fileID: 548064764}
+--- !u!50 &1377561555 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 50174782920596386, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+    type: 2}
+  m_PrefabInternal: {fileID: 548064764}
 --- !u!114 &1398347931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114458286014326200, guid: eac97e04e0adbee41ba43ebdc436310f,
@@ -1769,7 +1862,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4458378411073950, guid: 97f6f11d484f2496fa188cd05e013b6a, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97f6f11d484f2496fa188cd05e013b6a, type: 2}
@@ -2034,13 +2127,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4021852969422978, guid: 584c11fd1e1f6498dbef62c68f9926ba, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114566389871876098, guid: 584c11fd1e1f6498dbef62c68f9926ba,
         type: 2}
       propertyPath: followed
       value: 
-      objectReference: {fileID: 225900857}
+      objectReference: {fileID: 1377561550}
     - target: {fileID: 1637554553556234, guid: 584c11fd1e1f6498dbef62c68f9926ba, type: 2}
       propertyPath: m_Name
       value: CameraController
@@ -2048,6 +2141,47 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 584c11fd1e1f6498dbef62c68f9926ba, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1891588961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1891588963}
+  - component: {fileID: 1891588962}
+  m_Layer: 0
+  m_Name: CarResetController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1891588962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891588961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b695c176d9148e2ac406da88a133b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 1354468702}
+--- !u!4 &1891588963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891588961}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 128.453, y: 97.35366, z: -0.4428094}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1941821267 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224550326607831112, guid: 9658ff325df244a90beb36cf5e524acb,
@@ -2254,11 +2388,23 @@ Prefab:
     - {fileID: 114911724054211588, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &2125299858 stripped
+--- !u!1 &2125299858
 GameObject:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 1358500527234238, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
     type: 2}
   m_PrefabInternal: {fileID: 2125299857}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2125299860}
+  - component: {fileID: 2125299859}
+  m_Layer: 0
+  m_Name: CarDriveController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!114 &2125299859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,3 +2421,17 @@ MonoBehaviour:
   brakePedal: {fileID: 0}
   speedMeter: {fileID: 1313487421}
   reverseToggleButton: {fileID: 0}
+--- !u!4 &2125299860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4789807558054046, guid: 61e6d4f5fcc614f73ac42b799b3fd0ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 2125299857}
+  m_GameObject: {fileID: 2125299858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06795794, y: 7.3406878, z: -0.09393902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
