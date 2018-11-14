@@ -586,7 +586,12 @@ Prefab:
     - target: {fileID: 224379206003694578, guid: 3fcef4dc720f448729a591be85769ce6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.2999916
+      value: 0.2999878
+      objectReference: {fileID: 0}
+    - target: {fileID: 224675346507086566, guid: 3fcef4dc720f448729a591be85769ce6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6000061
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fcef4dc720f448729a591be85769ce6, type: 2}
@@ -696,9 +701,9 @@ GameObject:
   - component: {fileID: 708531289}
   - component: {fileID: 708531288}
   - component: {fileID: 708531287}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor1
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1042,9 +1047,9 @@ GameObject:
   - component: {fileID: 821476614}
   - component: {fileID: 821476613}
   - component: {fileID: 821476612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: floor2 (1)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1583,6 +1588,42 @@ Prefab:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1257325937251766, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1932653534049498, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948997067176952, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875187125406606, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1542066526661844, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1086724392364156, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1275701723375224, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395914965705758, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975700487777400, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46a20abb74d5147f2b4db5f9f88212ea, type: 2}
   m_IsPrefabAsset: 0
@@ -1682,6 +1723,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1.0014143
+--- !u!50 &1322727336 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 50265835338594734, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+    type: 2}
+  m_PrefabInternal: {fileID: 1653379413}
 --- !u!1 &1326720937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,6 +2012,31 @@ Prefab:
     - target: {fileID: 4209085378723428, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 235624224498353398, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: m_ConnectedRigidBody
+      value: 
+      objectReference: {fileID: 1322727336}
+    - target: {fileID: 235624224498353398, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.00009119511
+      objectReference: {fileID: 0}
+    - target: {fileID: 235624224498353398, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: m_ConnectedAnchor.y
+      value: -0.00003528595
+      objectReference: {fileID: 0}
+    - target: {fileID: 235624224498353398, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: m_Anchor.x
+      value: -0.02231261
+      objectReference: {fileID: 0}
+    - target: {fileID: 235624224498353398, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: m_Anchor.y
+      value: -1.2100353
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}

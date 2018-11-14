@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4950530552234146}
   - component: {fileID: 114802957169657976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Drive
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,9 +39,9 @@ GameObject:
   - component: {fileID: 58614082401003262}
   - component: {fileID: 50265835338594734}
   - component: {fileID: 114565905030530170}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: rear
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 58778847807503930}
   - component: {fileID: 50673668352525960}
   - component: {fileID: 114320109945826484}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: front
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,9 +77,9 @@ GameObject:
   - component: {fileID: 50426294250421892}
   - component: {fileID: 235847868094908046}
   - component: {fileID: 61012389939174216}
-  m_Layer: 0
-  m_Name: Part3
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: frontPart
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,9 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4209085378723428}
   - component: {fileID: 114547219594557604}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,9 +113,9 @@ GameObject:
   - component: {fileID: 235624224498353398}
   - component: {fileID: 61928561962521650}
   - component: {fileID: 255738922824015842}
-  m_Layer: 0
-  m_Name: Part1
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: rearPart
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,9 +131,9 @@ GameObject:
   - component: {fileID: 212195730892190038}
   - component: {fileID: 61726326578746826}
   - component: {fileID: 50450242012604122}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontWall
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,9 +147,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4427903664353060}
   - component: {fileID: 114396525930101928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Engine
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,9 +162,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4628303931147586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wheels
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,9 +183,9 @@ GameObject:
   - component: {fileID: 255231414268536094}
   - component: {fileID: 255168963712288536}
   - component: {fileID: 61802532965634802}
-  m_Layer: 0
-  m_Name: Part2
-  m_TagString: Untagged
+  m_Layer: 8
+  m_Name: middlePart
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,9 +198,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4992958391771070}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Box
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,9 +213,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4891762947451676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: body
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,9 +231,9 @@ GameObject:
   - component: {fileID: 212634324006398958}
   - component: {fileID: 61282819034721806}
   - component: {fileID: 50491499588101702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RearWall
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -753,6 +753,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontWheel: {fileID: 114320109945826484}
   rearWheel: {fileID: 114565905030530170}
+  shockAbsorberPrefab: {fileID: 212430742489951808, guid: ca37476a2c86c496bba4ee52a51ff937,
+    type: 2}
+  frontPart: {fileID: 1245455007680362}
+  rearPart: {fileID: 1522065919614382}
 --- !u!114 &114565905030530170
 MonoBehaviour:
   m_ObjectHideFlags: 1

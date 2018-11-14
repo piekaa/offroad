@@ -99,8 +99,8 @@ namespace Pieka.CarControl
             {
                 pedal.setValue(0);
             }
-            var carPositions = SpriteUtils.getWolrdPositions(carSpriteRenderer);
-            var floorPositions = SpriteUtils.getWolrdPositions(floorSpriteRenderer);
+            var carPositions = SpriteUtils.GetWolrdPositions(carSpriteRenderer);
+            var floorPositions = SpriteUtils.GetWolrdPositions(floorSpriteRenderer);
             if (carPositions.TopRight.x >= floorPositions.Center.x)
             {
                 floor = Instantiate(floor, floor.transform.position + new Vector3(floorPositions.TopRight.x - floorPositions.TopLeft.x, 0), Quaternion.identity);
