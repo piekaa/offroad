@@ -258,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1325967784006000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.7, y: 90.84, z: 0}
+  m_LocalPosition: {x: 0.7991952, y: -0.33341077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4891762947451676}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cylinders: 4
-  explosionPower: 1
+  explosionPower: 3
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -1161,7 +1161,7 @@ FixedJoint2D:
   m_BreakTorque: 50
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.22, y: 0.51}
-  m_ConnectedAnchor: {x: -0.0942647, y: -0.45387042}
+  m_ConnectedAnchor: {x: -0.094247036, y: -0.45387372}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!255 &255231414268536094
@@ -1178,7 +1178,7 @@ FixedJoint2D:
   m_BreakTorque: 100
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.49, y: 0}
-  m_ConnectedAnchor: {x: 0.48334968, y: 0}
+  m_ConnectedAnchor: {x: 0.48335865, y: 0}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!255 &255738093098429250
@@ -1195,7 +1195,7 @@ FixedJoint2D:
   m_BreakTorque: 100
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.51, y: 0}
-  m_ConnectedAnchor: {x: -0.47034746, y: 0}
+  m_ConnectedAnchor: {x: -0.4703516, y: 0}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!255 &255738922824015842
@@ -1212,6 +1212,6 @@ FixedJoint2D:
   m_BreakTorque: 50
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.37, y: 0.5}
-  m_ConnectedAnchor: {x: 0.08379643, y: -0.48367974}
+  m_ConnectedAnchor: {x: 0.08373921, y: -0.48367974}
   m_DampingRatio: 0
   m_Frequency: 0

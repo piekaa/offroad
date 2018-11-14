@@ -93,7 +93,7 @@ namespace Pieka.CarControl
         {
             if (speedMeter.Value < SpeedSlider.Value)
             {
-                pedal.setValue(.6f);
+                pedal.setValue(.2f);
             }
             else
             {

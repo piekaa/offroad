@@ -8,7 +8,7 @@ public class ToggleButton : MonoBehaviour, IPointerClickHandler, IToggleButton
 {
     private Image image;
     private OnToggle onToggle;
-    void Start()
+    void Awake()
     {
         image = GetComponent<Image>();
     }
