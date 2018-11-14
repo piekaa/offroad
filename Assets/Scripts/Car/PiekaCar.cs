@@ -16,9 +16,24 @@ namespace Pieka.Car
         [SerializeField]
         private Wheel rearWheel;
 
+        [SerializeField]
+        private SpriteRenderer shockAbsorberPrefab;
+
+        [SerializeField]
+        private GameObject frontPart;
+
+        [SerializeField]
+        private GameObject rearPart;
+
         private WheelJoint2D frontWheelJoint;
 
         private WheelJoint2D rearWheelJoint;
+
+        private SpriteRenderer frontWheelShockAbsorber;
+
+        private SpriteRenderer rearWheelShockAbsorber;
+
+        private float shockAbsorberHeight;
 
         void Awake()
         {
@@ -43,6 +58,13 @@ namespace Pieka.Car
                     rearWheelJoint = joint;
                 }
             }
+
+            frontWheelShockAbsorber = Instantiate(shockAbsorberPrefab, frontWheel.transform.position, Quaternion.identity);
+
+            rearWheelShockAbsorber = Instantiate(shockAbsorberPrefab, rearWheel.transform.position, Quaternion.identity);
+
+            var shockAbsorberPositions = SpriteUtils.GetWolrdPositions(shockAbsorberPrefab);
+            shockAbsorberHeight = Vector2.Distance(shockAbsorberPositions.TopLeft, shockAbsorberPositions.BottomLeft);
 
             Drive.SetJoints(frontWheelJoint, rearWheelJoint);
 
@@ -114,6 +136,23 @@ namespace Pieka.Car
         public void SetFrontRearBrakeRatio(float ratio)
         {
             Drive.FrontRearBrakeRatio = ratio;
+        }
+
+        void Update()
+        {
+            updateShockAbsorber(frontWheelShockAbsorber, frontPart, frontWheel);
+            updateShockAbsorber(rearWheelShockAbsorber, rearPart, rearWheel);
+        }
+
+        private void updateShockAbsorber(SpriteRenderer shockAbsorber, GameObject carPart, Wheel wheel)
+        {
+            var wheelCenter = SpriteUtils.GetWolrdPositions(wheel.GetComponent<SpriteRenderer>()).Center;
+            var frontPartCenter = SpriteUtils.GetWolrdPositions(carPart.GetComponent<SpriteRenderer>()).Center;
+            var distance = Vector2.Distance(wheelCenter, frontPartCenter);
+
+            shockAbsorber.transform.localScale = new Vector3(shockAbsorberPrefab.transform.localScale.x, shockAbsorberPrefab.transform.localScale.y * (distance / shockAbsorberHeight));
+            shockAbsorber.transform.rotation = carPart.transform.rotation;
+            shockAbsorber.transform.position = wheel.transform.position;
         }
     }
 }

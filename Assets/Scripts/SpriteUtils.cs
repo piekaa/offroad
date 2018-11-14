@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpriteUtils
 {
     //Doesn't handle rotation and pivot
-    public static SpritePositions getWolrdPositions(SpriteRenderer spriteRenderer)
+    public static SpritePositions GetWolrdPositions(SpriteRenderer spriteRenderer)
     {
         //todo handle pivot
         //todo handle rotation
@@ -20,7 +20,7 @@ public class SpriteUtils
         return new SpritePositions(topLeft, topRight, bottomLeft, bottomRight, center);
     }
 
-    public static SpritePositions getWolrdPositions(Sprite sprite)
+    public static SpritePositions GetWolrdPositions(Sprite sprite)
     {
         //todo handle pivot
         //todo handle rotation
