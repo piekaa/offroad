@@ -4,10 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <returns>state after toggle</returns>
-public delegate bool OnToggle();
-
-public class ToggleButton : MonoBehaviour, IPointerClickHandler
+public class ToggleButton : MonoBehaviour, IPointerClickHandler, IToggleButton
 {
     private Image image;
     private OnToggle onToggle;
@@ -40,5 +37,10 @@ public class ToggleButton : MonoBehaviour, IPointerClickHandler
         {
             image.color = Color.white;
         }
+    }
+
+    public void SetInitialState(bool state)
+    {
+        setColor(state);
     }
 }

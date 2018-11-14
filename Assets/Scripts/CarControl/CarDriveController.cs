@@ -26,6 +26,7 @@ namespace Pieka.CarControl
 
         [SerializeField]
         private ToggleButton reverseToggleButton;
+        public IToggleButton ReverseToggleButton;
 
         void Awake()
         {
@@ -34,7 +35,7 @@ namespace Pieka.CarControl
             AccelerationPedal = accelerationPedal;
             BrakePedal = brakePedal;
             SpeedMeter = speedMeter;
-
+            ReverseToggleButton = reverseToggleButton;
 
         }
 
@@ -43,9 +44,9 @@ namespace Pieka.CarControl
             registerOnPedalIsPressedIfNotNull(AccelerationPedal, (v) => Car.Accelerate(v), "AccelerationPedal");
             registerOnPedalIsPressedIfNotNull(BrakePedal, (v) => Car.Brake(v), "BrakePedal");
 
-            if (reverseToggleButton != null)
+            if (ReverseToggleButton != null)
             {
-                reverseToggleButton.SetOnToggle(() => Car.ToggleReverse());
+                ReverseToggleButton.SetOnToggle(() => Car.ToggleReverse());
             }
             else
             {
