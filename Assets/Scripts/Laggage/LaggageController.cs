@@ -9,7 +9,7 @@ namespace Pieka.Laggage
         [SerializeField]
         private GameObject laggage;
 
-        Rigidbody2D[] rigidbodies;
+        private Rigidbody2D[] rigidbodies;
 
         void Awake()
         {
@@ -35,6 +35,14 @@ namespace Pieka.Laggage
             foreach (var rb in rigidbodies)
             {
                 rb.gravityScale = 1;
+            }
+        }
+
+        public void Fly()
+        {
+            foreach (var rb in rigidbodies)
+            {
+                rb.gravityScale = -2;
             }
         }
     }
