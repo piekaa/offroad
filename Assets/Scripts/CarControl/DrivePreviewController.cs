@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pieka.Car;
+using Pieka.Ui;
 
 namespace Pieka.CarControl
 {
