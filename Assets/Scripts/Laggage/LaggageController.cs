@@ -9,10 +9,12 @@ namespace Pieka.Laggage
         [SerializeField]
         private GameObject laggage;
 
+        Rigidbody2D[] rigidbodies;
+
         void Awake()
         {
             SetTarget(laggage);
-            var rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
+            rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
             foreach (var rb in rigidbodies)
             {
                 rb.gravityScale = 0;
@@ -22,7 +24,6 @@ namespace Pieka.Laggage
         public override void Reset()
         {
             base.Reset();
-            var rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
             foreach (var rb in rigidbodies)
             {
                 rb.gravityScale = 0;
@@ -31,7 +32,6 @@ namespace Pieka.Laggage
 
         public void Release()
         {
-            var rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
             foreach (var rb in rigidbodies)
             {
                 rb.gravityScale = 1;
