@@ -737,8 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5694c37cf8aed4d71b479602baf426f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cylinders: 4
-  explosionPower: 3
+  horsePower: 300
   drive: {fileID: 114802957169657976}
 --- !u!114 &114547219594557604
 MonoBehaviour:
@@ -1118,8 +1117,8 @@ WheelJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: -0.03660323, y: -1.2117691}
-  m_ConnectedAnchor: {x: -0.020074368, y: -0.0017690659}
+  m_Anchor: {x: -0.02231261, y: -1.2100353}
+  m_ConnectedAnchor: {x: -0.00009119511, y: -0.00003528595}
   m_Suspension:
     m_DampingRatio: 1
     m_Frequency: 20

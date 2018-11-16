@@ -15,10 +15,7 @@ namespace Pieka.Car
         private bool clutchEngaged;
 
         [SerializeField]
-        private int cylinders = 4;
-
-        [SerializeField]
-        private float explosionPower = 1f;
+        private float horsePower = 300f;
 
         [SerializeField]
         private Drive drive;
@@ -38,7 +35,7 @@ namespace Pieka.Car
 
         void FixedUpdate()
         {
-            float currentExpPower = cylinders * Throttle * explosionPower;
+            float currentExpPower = Throttle * horsePower / 25;
             Drive.Accelerate(currentExpPower);
         }
     }
