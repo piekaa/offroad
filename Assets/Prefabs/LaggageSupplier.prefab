@@ -11,22 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1489453435775724}
   m_IsPrefabAsset: 1
---- !u!1 &1053058728380076
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4660499838373186}
-  - component: {fileID: 114749268492063422}
-  m_Layer: 0
-  m_Name: LaggageController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1146993643902220
 GameObject:
   m_ObjectHideFlags: 1
@@ -72,7 +56,7 @@ GameObject:
   - component: {fileID: 212767379628428170}
   - component: {fileID: 58794961157611684}
   - component: {fileID: 50228060347048156}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +74,7 @@ GameObject:
   - component: {fileID: 212761422859525234}
   - component: {fileID: 58353742029922580}
   - component: {fileID: 50301067523035364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4022297588117648}
+  - component: {fileID: 114641477551496680}
   m_Layer: 0
   m_Name: LaggageSupplier
   m_TagString: Untagged
@@ -139,7 +124,7 @@ GameObject:
   - component: {fileID: 212726241987750798}
   - component: {fileID: 58048605232215470}
   - component: {fileID: 50066140913489848}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +142,7 @@ GameObject:
   - component: {fileID: 212657815210653708}
   - component: {fileID: 58797266508542828}
   - component: {fileID: 50320952004537366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +175,7 @@ GameObject:
   - component: {fileID: 212380713928647696}
   - component: {fileID: 58682632696714622}
   - component: {fileID: 50918275173613934}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +209,7 @@ GameObject:
   - component: {fileID: 212760218888498496}
   - component: {fileID: 58434201400946474}
   - component: {fileID: 50862814251883936}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +227,7 @@ GameObject:
   - component: {fileID: 212663060984964066}
   - component: {fileID: 58196120838336936}
   - component: {fileID: 50756051941882856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,7 +260,7 @@ GameObject:
   - component: {fileID: 212489142219901390}
   - component: {fileID: 58965995562814812}
   - component: {fileID: 50674598992558108}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +296,7 @@ GameObject:
   - component: {fileID: 212235116692812332}
   - component: {fileID: 58627814377790264}
   - component: {fileID: 50991514041452628}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LaggageBall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +345,6 @@ Transform:
   m_LocalPosition: {x: 6.726236, y: 14.35461, z: -0.09375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4660499838373186}
   - {fileID: 4253881121087516}
   - {fileID: 4508765209793738}
   m_Father: {fileID: 0}
@@ -432,7 +416,7 @@ Transform:
   - {fileID: 4607146153424136}
   - {fileID: 4389095537080636}
   m_Father: {fileID: 4022297588117648}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4255487923446558
 Transform:
@@ -488,7 +472,7 @@ Transform:
   - {fileID: 4985496153819164}
   - {fileID: 4660911908975910}
   m_Father: {fileID: 4022297588117648}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4607146153424136
 Transform:
@@ -498,23 +482,10 @@ Transform:
   m_GameObject: {fileID: 1343625412064344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.57976437, y: 2.5913887, z: 0.09375}
-  m_LocalScale: {x: 0.6937982, y: 5.612949, z: 1}
+  m_LocalScale: {x: 0.8585752, y: 5.612949, z: 1}
   m_Children: []
   m_Father: {fileID: 4253881121087516}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4660499838373186
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1053058728380076}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4022297588117648}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4660911908975910
 Transform:
@@ -523,7 +494,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170573135124170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.15, y: -7.8046103, z: 0.09375}
+  m_LocalPosition: {x: 8.06, y: -7.8046103, z: 0.09375}
   m_LocalScale: {x: 9.870979, y: 2.586, z: 1}
   m_Children: []
   m_Father: {fileID: 4508765209793738}
@@ -614,7 +585,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552240102869708}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.6337638, y: 6.6753902, z: 1.5327164}
+  m_LocalPosition: {x: 2.61, y: 2.621, z: 1.5327164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4825850048069764}
@@ -1055,19 +1026,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912ec54873f7b48f89aee5261cd0f85c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laggageController: {fileID: 114749268492063422}
---- !u!114 &114749268492063422
+--- !u!114 &114641477551496680
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1053058728380076}
+  m_GameObject: {fileID: 1489453435775724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7992429c9ba7b4d2cb4cefd96ed0b8b3, type: 3}
+  m_Script: {fileID: 11500000, guid: eb5c28566c6ac4e9eb02d38ac16bb0e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laggage: {fileID: 1552240102869708}
+  laggageController: {fileID: 0}
 --- !u!212 &212235116692812332
 SpriteRenderer:
   m_ObjectHideFlags: 1

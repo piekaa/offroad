@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pieka.Car;
 using Pieka.Ui;
+using Pieka.Utils;
 
 namespace Pieka.CarControl
 {
@@ -73,7 +74,7 @@ namespace Pieka.CarControl
             if (SpeedMeter != null)
             {
                 var carInfo = Car.GetCarInfo();
-                SpeedMeter.Value = Mathf.Abs(Utils.WheelRpmToKmPerHour(carInfo.FrontWheelRpm, carInfo.FrontWheelDiameterInMeters));
+                SpeedMeter.Value = Mathf.Abs(CalculateUtils.WheelRpmToKmPerHour(carInfo.FrontWheelRpm, carInfo.FrontWheelDiameterInMeters));
             }
         }
     }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floor
   - Car
+  - FrontWheel
   layers:
   - Default
   - TransparentFX

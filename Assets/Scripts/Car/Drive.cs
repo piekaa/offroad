@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pieka.Utils;
 using UnityEngine;
 
 namespace Pieka.Car
@@ -37,8 +38,8 @@ namespace Pieka.Car
         {
             float frontWheelRPM = Mathf.Abs(FrontWheelRpm);
             float rearWheelRPM = Mathf.Abs(RearWheelRpm);
-            float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
-            float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
+            float frontWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+            float rearWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
             var sign = reverse ? 1 : -1;
             if (frontWheelKmPerHour < maxSpeed)
             {
@@ -110,8 +111,8 @@ namespace Pieka.Car
         {
             float frontWheelRPM = Mathf.Abs(FrontWheelRpm);
             float rearWheelRPM = Mathf.Abs(RearWheelRpm);
-            float frontWheelKmPerHour = Utils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
-            float rearWheelKmPerHour = Utils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
+            float frontWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+            float rearWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
             if (frontWheelKmPerHour < 5 && rearWheelKmPerHour < 5)
             {
                 reverse = !reverse;
