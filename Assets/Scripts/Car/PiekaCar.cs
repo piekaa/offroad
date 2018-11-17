@@ -26,6 +26,11 @@ namespace Pieka.Car
         [SerializeField]
         private GameObject rearPart;
 
+        [SerializeField]
+        private GameObject middlePart;
+
+        private Rigidbody2D middlePartRigidbody;
+
         private WheelJoint2D frontWheelJoint;
 
         private WheelJoint2D rearWheelJoint;
@@ -69,6 +74,7 @@ namespace Pieka.Car
 
             Drive.SetJoints(frontWheelJoint, rearWheelJoint);
 
+            middlePartRigidbody = middlePart.GetComponent<Rigidbody2D>();
         }
 
         public void SetFrontSuspensionFrequency(float frequency)
@@ -154,6 +160,11 @@ namespace Pieka.Car
             shockAbsorber.transform.localScale = new Vector3(shockAbsorberPrefab.transform.localScale.x, shockAbsorberPrefab.transform.localScale.y * (distance / shockAbsorberHeight));
             shockAbsorber.transform.rotation = carPart.transform.rotation;
             shockAbsorber.transform.position = wheel.transform.position;
+        }
+
+        public Vector3 GetVelocity()
+        {
+            return middlePartRigidbody.velocity;
         }
     }
 }
