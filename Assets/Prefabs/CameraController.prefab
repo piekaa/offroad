@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtain: {fileID: 212745738152155328}
   followed: {fileID: 0}
+  car: {fileID: 0}
 --- !u!124 &124946670006235876
 Behaviour:
   m_ObjectHideFlags: 1

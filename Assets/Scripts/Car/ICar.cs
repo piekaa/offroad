@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Pieka.Car
 {
     public interface ICar
@@ -25,5 +27,7 @@ namespace Pieka.Car
         bool ToggleReverse();
 
         CarInfo GetCarInfo();
+
+        Vector3 GetVelocity();
     }
 }

@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 114320109945826484}
   m_Layer: 8
   m_Name: front
-  m_TagString: Car
+  m_TagString: FrontWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -756,6 +756,7 @@ MonoBehaviour:
     type: 2}
   frontPart: {fileID: 1245455007680362}
   rearPart: {fileID: 1522065919614382}
+  middlePart: {fileID: 1825824950618434}
 --- !u!114 &114565905030530170
 MonoBehaviour:
   m_ObjectHideFlags: 1
