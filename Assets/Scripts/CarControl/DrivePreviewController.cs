@@ -37,8 +37,6 @@ namespace Pieka.CarControl
         [SerializeField]
         private Rigidbody2D carBody;
 
-        private Vector3 carBodyInitialPos;
-
         private Vector3 floorInitPos;
 
         [SerializeField]
@@ -70,7 +68,6 @@ namespace Pieka.CarControl
             CarDriveController.AccelerationPedal = pedal;
             floors.Enqueue(floor);
             BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
-            carBodyInitialPos = carBody.transform.position;
             carSpriteRenderer = carBody.GetComponent<SpriteRenderer>();
             AccelerationPedal.Disable();
             CruiseControlToggleButton.SetInitialState(cruiseControl);
@@ -139,15 +136,12 @@ namespace Pieka.CarControl
         private class FakePedal : IPedal
         {
 
-            private IPedal realPedal;
-
             private bool enabled = true;
 
             private OnIsPressed onIsPressed;
 
             public FakePedal(IPedal realPedal)
             {
-                this.realPedal = realPedal;
                 realPedal.RegisterOnIsPressed((v) => Value = v);
             }
 

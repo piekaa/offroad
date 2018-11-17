@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 58614082401003262}
   - component: {fileID: 50265835338594734}
   - component: {fileID: 114565905030530170}
+  - component: {fileID: 114904761462978726}
   m_Layer: 8
   m_Name: rear
   m_TagString: Car
@@ -58,6 +59,7 @@ GameObject:
   - component: {fileID: 58778847807503930}
   - component: {fileID: 50673668352525960}
   - component: {fileID: 114320109945826484}
+  - component: {fileID: 114867796461533228}
   m_Layer: 8
   m_Name: front
   m_TagString: FrontWheel
@@ -275,7 +277,7 @@ Transform:
   m_GameObject: {fileID: 1244071490313546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.6, y: 0.17, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4628303931147586}
   m_RootOrder: 0
@@ -327,7 +329,7 @@ Transform:
   m_GameObject: {fileID: 1223109817733344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.58, y: 0.21, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 4628303931147586}
   m_RootOrder: 1
@@ -573,7 +575,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
 --- !u!58 &58778847807503930
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -588,7 +590,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
 --- !u!61 &61012389939174216
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -783,6 +785,40 @@ MonoBehaviour:
   fullStopThreshold: 15
   maxSpeed: 100
   BreakPower: 8
+--- !u!114 &114867796461533228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1244071490313546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a54985ba859d4719b926308e49d71ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 6ce424b38b38b44149bdd63730388b55, type: 3}
+  - {fileID: 21300000, guid: 8843a82bb0ffc468399097ed25af7a7a, type: 3}
+  - {fileID: 21300000, guid: cbd29c6db76464f87b7b418dc3b32687, type: 3}
+  - {fileID: 21300000, guid: b813e24315b854641b07d2136c5440da, type: 3}
+  - {fileID: 21300000, guid: 1d13fd80b5ca94c2a97dace6c4a9c27b, type: 3}
+--- !u!114 &114904761462978726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1223109817733344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a54985ba859d4719b926308e49d71ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 6ce424b38b38b44149bdd63730388b55, type: 3}
+  - {fileID: 21300000, guid: 8843a82bb0ffc468399097ed25af7a7a, type: 3}
+  - {fileID: 21300000, guid: cbd29c6db76464f87b7b418dc3b32687, type: 3}
+  - {fileID: 21300000, guid: b813e24315b854641b07d2136c5440da, type: 3}
+  - {fileID: 21300000, guid: 1d13fd80b5ca94c2a97dace6c4a9c27b, type: 3}
 --- !u!212 &212148959269782506
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -844,7 +880,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 674688319b52b45f7adbee537349f93f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -864,7 +900,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -3
-  m_Sprite: {fileID: 21300000, guid: febcf3fb43b63124eb3f78501fe1fe0b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eec3b5ffeb80d4c169b924c158de8a34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1074,7 +1110,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 674688319b52b45f7adbee537349f93f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1094,8 +1130,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -3
-  m_Sprite: {fileID: 21300000, guid: febcf3fb43b63124eb3f78501fe1fe0b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3e1a5bee7acf74f54873b578cd96dbf0, type: 3}
+  m_Color: {r: 0.40024167, g: 0.7075472, b: 0.26366144, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
