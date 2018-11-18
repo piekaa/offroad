@@ -1,21 +1,25 @@
-﻿Shader "Pieka/background"
+﻿Shader "Pieka/wheel"
 {
 
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white" {}
+		[PerRendererData] _ATex("ATex", 2D) = "white" {}
+		[PerRendererData] _BTex("BTex", 2D) = "white" {} 
+		[PerRendererData] _Trans("_Trans", float) = 0
 		_Color("Color", Color) = (1,1,1,1)
-		_Size("Size", range(1, 100000)) = 10
 	}
 
 	SubShader
 	{
 		Tags
 		{
+			"Queue" = "Transparent"
 			"PreviewType" = "Plane"
 		}
 		Pass
 		{
+			Blend SrcAlpha OneMinusSrcAlpha
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -42,14 +46,17 @@
 				return o;
 			}
 
-			sampler2D _MainTex;
+			sampler2D _ATex;
+			sampler2D _BTex;
+			float _Trans;
 			float4 _Color;
-			float _Size;
 
-			float4 frag(v2f i) : SV_Target
+			fixed4 frag(v2f i) : SV_Target
 			{ 
-				float4 color = tex2D(_MainTex, i.uv*_Size);
-				return color * _Color;
+				float4 colA = tex2D(_ATex, i.uv);
+				float4 colB = tex2D(_BTex, i.uv);
+				float4 col = colA * (1-_Trans) + colB * _Trans;
+				return col * _Color;
 			}
 			ENDCG
 		}

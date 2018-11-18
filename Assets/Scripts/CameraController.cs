@@ -12,10 +12,7 @@ public class CameraController : Resetable
 
     [SerializeField]
     private GameObject followed;
-
-    [SerializeField]
-    private PiekaCar car;
-    public ICar Car;
+    private Rigidbody2D followedRigidbody;
 
     private float cameraSize = 8;
 
@@ -23,7 +20,7 @@ public class CameraController : Resetable
 
     private int delay = 30;
 
-    private float cameraTranslationDivider = 10;
+    private float cameraTranslationDivider = 8;
 
 
     private InterpolatedSum sumX;
@@ -32,7 +29,7 @@ public class CameraController : Resetable
 
     void Awake()
     {
-        Car = car;
+        followedRigidbody = followed.GetComponent<Rigidbody2D>();
         Camera.main.transform.position = new Vector3(followed.transform.position.x, followed.transform.position.y);
         curtain.transform.position = new Vector3(followed.transform.position.x, followed.transform.position.y, 1);
         ResetSums();
@@ -55,7 +52,7 @@ public class CameraController : Resetable
                 resetDelta = 0;
             }
         }
-        var translation = Car.GetVelocity() / cameraTranslationDivider;
+        var translation = followedRigidbody.velocity / cameraTranslationDivider;
 
         sumX.Add(translation.x);
         sumY.Add(translation.y);
