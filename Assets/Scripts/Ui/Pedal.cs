@@ -9,6 +9,8 @@ namespace Pieka.Ui
 
     public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPedal
     {
+        [SerializeField]
+        private bool RightRotation = false;
 
         int pedalPositionX;
         int pedalPositionY;
@@ -24,6 +26,12 @@ namespace Pieka.Ui
 
         private OnIsPressed onIsPressed;
 
+        private RectTransform rectTransform;
+
+        private float xRotationMultiplier = 40;
+
+        private float yRotationMultiplier = -7;
+
         public void Awake()
         {
             pushed = false;
@@ -33,6 +41,8 @@ namespace Pieka.Ui
 
             pedalPositionY = (int)transform.position.y - pedalHeight / 2;
             pedalPositionX = (int)transform.position.x - pedalWidth / 2;
+
+            rectTransform = GetComponent<RectTransform>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -46,6 +56,7 @@ namespace Pieka.Ui
             Value = 0;
             if (onIsPressed != null)
             {
+                rotate();
                 onIsPressed(Value);
             }
         }
@@ -79,6 +90,9 @@ namespace Pieka.Ui
                         Value = 1 - Value;
                         break;
                 }
+
+                rotate();
+
                 if (onIsPressed != null)
                 {
                     onIsPressed(Value);
@@ -98,9 +112,16 @@ namespace Pieka.Ui
             enabled = false;
             if (onIsPressed != null)
             {
+                rotate();
                 onIsPressed(0);
             }
             gameObject.SetActive(enabled);
+        }
+
+        private void rotate()
+        {
+            var sign = RightRotation ? -1 : 1;
+            rectTransform.rotation = Quaternion.Euler(Value * xRotationMultiplier, Value * yRotationMultiplier * sign, 0);
         }
     }
 }

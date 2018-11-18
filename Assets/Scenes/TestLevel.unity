@@ -314,6 +314,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 224973885541606844, guid: 1d4e4f900cb0a4a899a0c77e85ca18d1,
+        type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224973885541606844, guid: 1d4e4f900cb0a4a899a0c77e85ca18d1,
+        type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d4e4f900cb0a4a899a0c77e85ca18d1, type: 2}
   m_IsPrefabAsset: 0
@@ -2253,6 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b020efe42a6e5224ebd59aec323b8305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RightRotation: 1
   Direction: 0
 --- !u!114 &1720676479
 MonoBehaviour:
