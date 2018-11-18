@@ -29,8 +29,6 @@ namespace Pieka.Effects
             RenderTexture temp = RenderTexture.GetTemporary(src.width, src.height);
             Graphics.Blit(src, temp);
 
-            Debug.Log(iterations);
-
             for (int i = 0; i < iterations; i++)
             {
                 RenderTexture temp2 = RenderTexture.GetTemporary((int)((float)temp.width * ratio), (int)((float)temp.height * ratio));
