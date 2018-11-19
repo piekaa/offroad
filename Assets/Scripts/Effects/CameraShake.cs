@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class CameraShake : MonoBehaviour
+namespace Pieka.Effects
 {
-
-    private Stopwatch stopwatch = new Stopwatch();
-    private int durationMillis;
-
-    private float power;
-
-    private bool shakeing = false;
-
-    /// <summary>
-    /// Shakes camera
-    /// </summary>
-    /// <param name="power">0-1</param>
-    public void Shake(float power)
+    public class CameraShake : MonoBehaviour
     {
-        this.power = power;
-        stopwatch.Reset();
-        stopwatch.Start();
-        durationMillis = (int)(100.0 * power);
-        shakeing = true;
-    }
 
-    void LateUpdate()
-    {
-        if (shakeing)
+        private Stopwatch stopwatch = new Stopwatch();
+        private int durationMillis;
+
+        private float power;
+
+        private bool shakeing = false;
+
+        /// <summary>
+        /// Shakes camera
+        /// </summary>
+        /// <param name="power">0-1</param>
+        public void Shake(float power)
         {
-            transform.position += new Vector3(Mathf.Sin(stopwatch.ElapsedMilliseconds) * power, Mathf.Cos(stopwatch.ElapsedMilliseconds) * power, 0);
-            if (stopwatch.ElapsedMilliseconds >= durationMillis)
+            this.power = power;
+            stopwatch.Reset();
+            stopwatch.Start();
+            durationMillis = (int)(100.0 * power);
+            shakeing = true;
+        }
+
+        void LateUpdate()
+        {
+            if (shakeing)
             {
-                stopwatch.Stop();
-                shakeing = false;
+                transform.position += new Vector3(Mathf.Sin(stopwatch.ElapsedMilliseconds) * power, Mathf.Cos(stopwatch.ElapsedMilliseconds) * power, 0);
+                if (stopwatch.ElapsedMilliseconds >= durationMillis)
+                {
+                    stopwatch.Stop();
+                    shakeing = false;
+                }
             }
         }
     }
