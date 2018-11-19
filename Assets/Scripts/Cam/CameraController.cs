@@ -52,7 +52,7 @@ namespace Pieka.Cam
             ResetSums();
         }
 
-        void FixedUpdate()
+        void Update()
         {
             if (resetDelta != 0)
             {
