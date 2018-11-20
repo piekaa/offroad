@@ -7,5 +7,8 @@ namespace Pieka.Utils
         public const int LaggageLayer = 10;
 
         public const string FrontWheelTag = "FrontWheel";
+
+        public const float MetersPerWroldUnit = 0.42f;
+
     }
 }

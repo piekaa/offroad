@@ -957,6 +957,61 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: ShapeModule.angle
+      value: 24.61205
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: ShapeModule.radius.value
+      value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: lengthInSec
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: TrailModule.lifetime.minScalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198654713193167640, guid: 3da631d9e14034315a42c7df4ccebab0,
+        type: 2}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 7.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3da631d9e14034315a42c7df4ccebab0, type: 2}
   m_IsPrefabAsset: 0

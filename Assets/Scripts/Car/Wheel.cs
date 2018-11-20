@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pieka.Utils;
 using UnityEngine;
 
 namespace Pieka.Car
@@ -9,15 +10,11 @@ namespace Pieka.Car
 
         private Rigidbody2D rb;
 
-        //todo maybe take that from sprite
-        public float DiameterInMeters { get; set; }
-
-        [SerializeField]
-        private float diameterInMeters;
+        public float DiameterInMeters { get; private set; }
 
         public void Awake()
         {
-            DiameterInMeters = diameterInMeters;
+            DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
             rb = GetComponent<Rigidbody2D>();
         }
 
