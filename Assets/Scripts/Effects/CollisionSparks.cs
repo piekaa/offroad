@@ -55,7 +55,7 @@ namespace Pieka.Effects
             else
             {
                 angle = Vector2.Angle(new Vector2(0, -1), rb.velocity);
-            } 
+            }
 
             if (Time.time > lastTime + 0.1)
             {
