@@ -13,5 +13,19 @@ namespace Pieka.Utils
         {
             return unitsPerSecond * 1.512f;
         }
+
+        public static float Vector2ToAngle(Vector2 vector)
+        {
+            float angle = 0;
+            if (vector.x <= 0)
+            {
+                angle = Vector2.Angle(new Vector2(0, 1), vector);
+            }
+            else
+            {
+                angle = Vector2.Angle(new Vector2(0, -1), vector);
+            }
+            return angle;
+        }
     }
 }

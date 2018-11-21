@@ -7,6 +7,10 @@ namespace Pieka.Effects
 {
     public class CollisionSparks : MonoBehaviour
     {
+        private const int EMISSION_RATE = 15;
+        private const float SCALE_RATE = 0.05f;
+        private const float Z_POSSITION = 10;
+
         public ParticleSystem SparksParticlePrefab;
 
         private ParticleSystem sparksParticle;
@@ -43,15 +47,7 @@ namespace Pieka.Effects
             {
                 return;
             }
-            float angle = 0;
-            if (rb.velocity.x <= 0)
-            {
-                angle = Vector2.Angle(new Vector2(0, 1), rb.velocity);
-            }
-            else
-            {
-                angle = Vector2.Angle(new Vector2(0, -1), rb.velocity);
-            }
+            float angle = CalculateUtils.Vector2ToAngle(rb.velocity);
             if (Time.time > lastTime + 0.1)
             {
                 lastTime = Time.time;
@@ -59,9 +55,9 @@ namespace Pieka.Effects
                 {
                     sparksParticle = Instantiate(SparksParticlePrefab);
                     var emission = sparksParticle.emission;
-                    emission.rateOverTime = kmPerH * 15;
-                    sparksParticle.transform.localScale = new Vector3(1, kmPerH / 20, 1);
-                    sparksParticle.transform.position = new Vector3(col.GetContact(i).point.x, col.GetContact(i).point.y, 10);
+                    emission.rateOverTime = kmPerH * EMISSION_RATE;
+                    sparksParticle.transform.localScale = new Vector3(1, kmPerH * SCALE_RATE, 1);
+                    sparksParticle.transform.position = new Vector3(col.GetContact(i).point.x, col.GetContact(i).point.y, Z_POSSITION);
                     sparksParticle.transform.rotation = Quaternion.Euler(0, 0, angle);
                     particleSystems.AddLast(sparksParticle);
                 }
