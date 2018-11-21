@@ -43,7 +43,6 @@ namespace Pieka.CarControl
             {
                 if (angleWasNear180 && wheelsOnFloorCount >= 1)
                 {
-                    UnityEngine.Debug.Log("Flip!!");
                     if (onFlip != null)
                     {
                         onFlip();
