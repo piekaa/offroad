@@ -19,7 +19,4 @@ public class SpritePositions
     public Vector2 Center { get; private set; }
     public float Width { get; private set; }
     public float Height { get; private set; }
-
-
-
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Pieka.Effects;
 using Pieka.Utils;
 using UnityEngine;
 
@@ -165,6 +166,11 @@ namespace Pieka.Car
         public Vector3 GetVelocity()
         {
             return middlePartRigidbody.velocity;
+        }
+
+        public Sparkable[] GetSparkables()
+        {
+            return GetComponentsInChildren<Sparkable>();
         }
     }
 }

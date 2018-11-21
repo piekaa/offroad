@@ -32,21 +32,17 @@ namespace Pieka.Effects
             instantiateSparks(col);
         }
 
-
         private void instantiateSparks(Collision2D col)
         {
             if (col.gameObject.layer != Consts.FloorLayer)
             {
                 return;
             }
-
             var kmPerH = CalculateUtils.UnitsPerSecondToKmPerH(rb.velocity.magnitude);
-
             if (kmPerH < 5)
             {
                 return;
             }
-
             float angle = 0;
             if (rb.velocity.x <= 0)
             {
@@ -56,7 +52,6 @@ namespace Pieka.Effects
             {
                 angle = Vector2.Angle(new Vector2(0, -1), rb.velocity);
             }
-
             if (Time.time > lastTime + 0.1)
             {
                 lastTime = Time.time;
@@ -85,6 +80,5 @@ namespace Pieka.Effects
                 return false;
             });
         }
-
     }
 }
