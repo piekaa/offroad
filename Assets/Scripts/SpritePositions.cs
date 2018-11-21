@@ -8,6 +8,8 @@ public class SpritePositions
         BottomLeft = bottomLeft;
         BottomRight = bottomRight;
         Center = center;
+        Width = TopRight.x - TopLeft.x;
+        Height = TopRight.y - BottomRight.y;
     }
 
     public Vector2 TopLeft { get; private set; }
@@ -15,7 +17,6 @@ public class SpritePositions
     public Vector2 BottomLeft { get; private set; }
     public Vector2 BottomRight { get; private set; }
     public Vector2 Center { get; private set; }
-
-
-
+    public float Width { get; private set; }
+    public float Height { get; private set; }
 }

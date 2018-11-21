@@ -1,3 +1,4 @@
+using Pieka.Effects;
 using UnityEngine;
 
 namespace Pieka.Car
@@ -29,5 +30,7 @@ namespace Pieka.Car
         CarInfo GetCarInfo();
 
         Vector3 GetVelocity();
+
+        Sparkable[] GetSparkables();
     }
 }
