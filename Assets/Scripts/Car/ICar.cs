@@ -32,5 +32,15 @@ namespace Pieka.Car
         Vector3 GetVelocity();
 
         Sparkable[] GetSparkables();
+
+        bool IsInAir();
+
+        /// <summary>
+        /// Rotating counterclockwise. 0 = Car standing on perfect horisontal floor
+        /// </summary>
+        /// <returns></returns>
+        float GetAngle();
+
+        int WheelsOnFloorCount();
     }
 }
