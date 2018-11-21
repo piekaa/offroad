@@ -42,6 +42,11 @@ namespace Pieka.Car
 
         private float shockAbsorberHeight;
 
+        private Collider2D[] colliders;
+
+        private Collider2D frontWheelCollider;
+        private Collider2D rearWheelCollider;
+
         void Awake()
         {
             Drive = GetComponentInChildren<Drive>();
@@ -76,6 +81,12 @@ namespace Pieka.Car
             Drive.SetJoints(frontWheelJoint, rearWheelJoint);
 
             middlePartRigidbody = middlePart.GetComponent<Rigidbody2D>();
+
+            colliders = GetComponentsInChildren<Collider2D>();
+
+            frontWheelCollider = frontWheel.GetComponent<Collider2D>();
+            rearWheelCollider = rearWheel.GetComponent<Collider2D>();
+
         }
 
         public void SetFrontSuspensionFrequency(float frequency)
@@ -171,6 +182,40 @@ namespace Pieka.Car
         public Sparkable[] GetSparkables()
         {
             return GetComponentsInChildren<Sparkable>();
+        }
+
+        public bool IsInAir()
+        {
+            foreach (var collider in colliders)
+            {
+                if (collider.IsTouchingLayers())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public float GetAngle()
+        {
+            var angle = middlePart.transform.rotation.eulerAngles.z;
+            while (angle < 0)
+            {
+                angle += 360;
+            }
+            while (angle >= 360)
+            {
+                angle -= 360;
+            }
+            return angle;
+        }
+
+        public int WheelsOnFloorCount()
+        {
+            var result = 0;
+            result += frontWheelCollider.IsTouchingLayers() ? 1 : 0;
+            result += rearWheelCollider.IsTouchingLayers() ? 1 : 0;
+            return result;
         }
     }
 }

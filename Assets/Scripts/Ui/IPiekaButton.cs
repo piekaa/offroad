@@ -1,8 +1,8 @@
-public delegate void OnClick();
+using Pieka.Utils;
 
 public interface IPiekaButton
 {
-    void RegisterOnClick(OnClick onClick);
+    void RegisterOnClick(Run onClick);
 
-    void UnregisterOnClick(OnClick onClick);
+    void UnregisterOnClick(Run onClick);
 }
