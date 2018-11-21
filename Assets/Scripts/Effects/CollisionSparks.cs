@@ -8,8 +8,12 @@ namespace Pieka.Effects
     public class CollisionSparks : MonoBehaviour
     {
         private const int EMISSION_RATE = 15;
+
         private const float SCALE_RATE = 0.05f;
+
         private const float Z_POSSITION = 10;
+
+        private const float SPARKS_INSTANTIATE_PERIOD = 0.1f;
 
         public ParticleSystem SparksParticlePrefab;
 
@@ -48,7 +52,7 @@ namespace Pieka.Effects
                 return;
             }
             float angle = CalculateUtils.Vector2ToAngle(rb.velocity);
-            if (Time.time > lastTime + 0.1)
+            if (Time.time > lastTime + SPARKS_INSTANTIATE_PERIOD)
             {
                 lastTime = Time.time;
                 for (int i = 0; i < col.contactCount; i++)
