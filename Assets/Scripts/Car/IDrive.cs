@@ -19,6 +19,10 @@ namespace Pieka.Car
 
         float RearWheelRpm { get; }
 
+        float FrontWheelKmPerH { get; }
+
+        float RearWheelKmPerH { get; }
+
         void SetFrontWheel(IWheel wheel);
 
         void SetRearWheel(IWheel wheel);

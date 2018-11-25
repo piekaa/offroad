@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Pieka.Utils;
 
 namespace Pieka.Ui
 {
@@ -38,7 +39,7 @@ namespace Pieka.Ui
 
         private float sensivity = 1 / 300.0f;
 
-        private OnSlide onSlide;
+        private RunFloat onSlide;
 
         private Image pointerImage;
 
@@ -83,7 +84,7 @@ namespace Pieka.Ui
             }
         }
 
-        public void RegisterOnSlide(OnSlide onSlide)
+        public void RegisterOnSlide(RunFloat onSlide)
         {
             this.onSlide += onSlide;
         }

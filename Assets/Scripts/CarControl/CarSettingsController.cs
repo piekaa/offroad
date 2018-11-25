@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Reflection;
 using Pieka.Car;
 using Pieka.Ui;
+using Pieka.Utils;
 
 namespace Pieka.CarControl
 {
@@ -71,7 +72,7 @@ namespace Pieka.CarControl
             setOnSlideFunctionAndInvokeIfNotNull(FrontRearBrakeRatioSlider, (v) => Car.SetFrontRearBrakeRatio(v), "FrontRearBrakeRatioSlider");
         }
 
-        private void setOnSlideFunctionAndInvokeIfNotNull(IPiekaSlider slider, OnSlide onSlide, string name)
+        private void setOnSlideFunctionAndInvokeIfNotNull(IPiekaSlider slider, RunFloat onSlide, string name)
         {
             if (slider != null)
             {
