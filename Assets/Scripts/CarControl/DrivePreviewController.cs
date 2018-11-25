@@ -138,7 +138,7 @@ namespace Pieka.CarControl
 
             private bool enabled = true;
 
-            private OnIsPressed onIsPressed;
+            private RunFloat onIsPressed;
 
             public FakePedal(IPedal realPedal)
             {
@@ -147,7 +147,7 @@ namespace Pieka.CarControl
 
             public float Value { get; private set; }
 
-            public void RegisterOnIsPressed(OnIsPressed onIsPressed)
+            public void RegisterOnIsPressed(RunFloat onIsPressed)
             {
                 this.onIsPressed += onIsPressed;
             }

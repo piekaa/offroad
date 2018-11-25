@@ -10,6 +10,8 @@ namespace Pieka.CarControl
     {
         public ParticleSystem SparksParticlePrefab;
 
+        public ParticleSystem BurnParticlePrefab;
+
         [SerializeField]
         private PiekaCar car;
         public ICar Car;
@@ -23,6 +25,10 @@ namespace Pieka.CarControl
                 var collisionSparks = sparkable.gameObject.AddComponent<CollisionSparks>();
                 collisionSparks.SparksParticlePrefab = SparksParticlePrefab;
             }
+
+            var burnEffect = gameObject.AddComponent<BurnEffect>();
+            burnEffect.BurnParticlePrefab = this.BurnParticlePrefab;
+            Car.RegisterOnBurn(burnEffect.OnBurn);
         }
     }
 }

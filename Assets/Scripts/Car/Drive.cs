@@ -34,18 +34,18 @@ namespace Pieka.Car
 
         private float brakeThrottle;
 
+        public float FrontWheelKmPerH { get; private set; }
+
+        public float RearWheelKmPerH { get; private set; }
+
         public void Accelerate(float power)
         {
-            float frontWheelRPM = Mathf.Abs(FrontWheelRpm);
-            float rearWheelRPM = Mathf.Abs(RearWheelRpm);
-            float frontWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
-            float rearWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
             var sign = reverse ? 1 : -1;
-            if (frontWheelKmPerHour < maxSpeed)
+            if (FrontWheelKmPerH < maxSpeed)
             {
                 frontWheel.AddTorque(power * FrontRearDriveRatio * sign);
             }
-            if (rearWheelKmPerHour < maxSpeed)
+            if (RearWheelKmPerH < maxSpeed)
             {
                 rearWheel.AddTorque(power * (1 - FrontRearDriveRatio) * sign);
             }
@@ -54,6 +54,14 @@ namespace Pieka.Car
         public void Brake(float throttle)
         {
             brakeThrottle = throttle;
+        }
+
+        void Update()
+        {
+            float frontWheelRPM = Mathf.Abs(FrontWheelRpm);
+            float rearWheelRPM = Mathf.Abs(RearWheelRpm);
+            FrontWheelKmPerH = CalculateUtils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
+            RearWheelKmPerH = CalculateUtils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
         }
 
         void FixedUpdate()

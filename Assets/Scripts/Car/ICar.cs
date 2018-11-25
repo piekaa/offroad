@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
+
+    public delegate void OnBurn(BurnInfo burnInfo);
+
     public interface ICar
     {
         void SetFrontSuspensionFrequency(float frequency);
@@ -29,8 +32,6 @@ namespace Pieka.Car
 
         CarInfo GetCarInfo();
 
-        Vector3 GetVelocity();
-
         Sparkable[] GetSparkables();
 
         bool IsInAir();
@@ -42,5 +43,9 @@ namespace Pieka.Car
         float GetAngle();
 
         int WheelsOnFloorCount();
+
+        void RegisterOnBurn(OnBurn onBurn);
+
+        void UnregisterOnBurn(OnBurn onBurn);
     }
 }

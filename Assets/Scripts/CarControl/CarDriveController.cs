@@ -56,7 +56,7 @@ namespace Pieka.CarControl
             }
         }
 
-        private void registerOnPedalIsPressedIfNotNull(IPedal pedal, OnIsPressed onIsPressed, string name)
+        private void registerOnPedalIsPressedIfNotNull(IPedal pedal, RunFloat onIsPressed, string name)
         {
             if (pedal != null)
             {

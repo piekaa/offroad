@@ -19,7 +19,7 @@ namespace Pieka.Effects
 
         private ParticleSystem sparksParticle;
 
-        private LinkedList<ParticleSystem> particleSystems = new LinkedList<ParticleSystem>();
+        private ParticleSystemContainer particleSystemContainer;
 
         private float lastTime = 0;
 
@@ -28,6 +28,11 @@ namespace Pieka.Effects
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+        }
+
+        void Start()
+        {
+            particleSystemContainer = new ParticleSystemContainer(10, SparksParticlePrefab);
         }
 
         void OnCollisionEnter2D(Collision2D col)
@@ -57,28 +62,14 @@ namespace Pieka.Effects
                 lastTime = Time.time;
                 for (int i = 0; i < col.contactCount; i++)
                 {
-                    sparksParticle = Instantiate(SparksParticlePrefab);
+                    sparksParticle = particleSystemContainer.NextAndPlay();
                     var emission = sparksParticle.emission;
                     emission.rateOverTime = kmPerH * EMISSION_RATE;
                     sparksParticle.transform.localScale = new Vector3(1, kmPerH * SCALE_RATE, 1);
                     sparksParticle.transform.position = new Vector3(col.GetContact(i).point.x, col.GetContact(i).point.y, Z_POSSITION);
                     sparksParticle.transform.rotation = Quaternion.Euler(0, 0, angle);
-                    particleSystems.AddLast(sparksParticle);
                 }
             }
-        }
-
-        void Update()
-        {
-            particleSystems.RemoveAll(item =>
-            {
-                if (item.time >= item.main.duration)
-                {
-                    Destroy(item.gameObject);
-                    return true;
-                }
-                return false;
-            });
         }
     }
 }

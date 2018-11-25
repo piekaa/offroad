@@ -8,6 +8,11 @@ namespace Pieka.Car
 {
     public class PiekaCar : MonoBehaviour, ICar
     {
+
+        private const float BURN_SPEED_RANGE = 25;
+
+        private float ACCEPTABLE_SPEED_DIFFERENCE = 10;
+
         private IDrive Drive { get; set; }
 
         private IEngine Engine { get; set; }
@@ -47,8 +52,18 @@ namespace Pieka.Car
         private Collider2D frontWheelCollider;
         private Collider2D rearWheelCollider;
 
+        private OnBurn onBurn;
+
+        private float velocityInKmPerH;
+
+        private ContactPoint2D[] burnContacts = new ContactPoint2D[10];
+
+        private SpriteRenderer frontWheelSpriteRenderer;
+        private SpriteRenderer rearWheelSpriteRenderer;
+
         void Awake()
         {
+
             Drive = GetComponentInChildren<Drive>();
             Engine = GetComponentInChildren<Engine>();
             Drive.SetFrontWheel(frontWheel);
@@ -87,6 +102,8 @@ namespace Pieka.Car
             frontWheelCollider = frontWheel.GetComponent<Collider2D>();
             rearWheelCollider = rearWheel.GetComponent<Collider2D>();
 
+            frontWheelSpriteRenderer = frontWheel.GetComponent<SpriteRenderer>();
+            rearWheelSpriteRenderer = rearWheel.GetComponent<SpriteRenderer>();
         }
 
         public void SetFrontSuspensionFrequency(float frequency)
@@ -159,8 +176,10 @@ namespace Pieka.Car
 
         void Update()
         {
+            velocityInKmPerH = CalculateUtils.UnitsPerSecondToKmPerH(middlePartRigidbody.velocity.magnitude);
             updateShockAbsorber(frontWheelShockAbsorber, frontPart, frontWheel);
             updateShockAbsorber(rearWheelShockAbsorber, rearPart, rearWheel);
+            handleBurn();
         }
 
         private void updateShockAbsorber(SpriteRenderer shockAbsorber, GameObject carPart, Wheel wheel)
@@ -174,9 +193,35 @@ namespace Pieka.Car
             shockAbsorber.transform.position = wheel.transform.position;
         }
 
-        public Vector3 GetVelocity()
+        private void handleBurn()
         {
-            return middlePartRigidbody.velocity;
+            handleBurn(frontWheelCollider, frontWheelSpriteRenderer, BurnInfo.WhichWheelEnum.FRONT, frontWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, Drive.FrontWheelKmPerH);
+            handleBurn(rearWheelCollider, rearWheelSpriteRenderer, BurnInfo.WhichWheelEnum.REAR, rearWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, Drive.RearWheelKmPerH);
+        }
+
+        private void handleBurn(Collider2D wheelCollider, SpriteRenderer spriteRenderer, BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, float wheelKmPerH)
+        {
+            if (wheelCollider.IsTouchingLayers(Consts.FloorLayerMask))
+            {
+                var carSpeedPlusAcceptableDifference = velocityInKmPerH + ACCEPTABLE_SPEED_DIFFERENCE;
+                var wheelSpeed = wheelKmPerH;
+                if (wheelSpeed > carSpeedPlusAcceptableDifference)
+                {
+                    if (onBurn != null)
+                    {
+                        var filter = new ContactFilter2D();
+                        filter.layerMask = Consts.FloorLayerMask;
+                        var numberOfContacts = wheelCollider.GetContacts(filter, burnContacts);
+                        for (int i = 0; i < numberOfContacts; i++)
+                        {
+                            var point = burnContacts[i].point;
+                            var power = Mathf.Clamp((wheelSpeed - carSpeedPlusAcceptableDifference) / BURN_SPEED_RANGE, 0, 1);
+                            var burnInfo = new BurnInfo(whichWheel, direction, point, power);
+                            onBurn(burnInfo);
+                        }
+                    }
+                }
+            }
         }
 
         public Sparkable[] GetSparkables()
@@ -216,6 +261,16 @@ namespace Pieka.Car
             result += frontWheelCollider.IsTouchingLayers() ? 1 : 0;
             result += rearWheelCollider.IsTouchingLayers() ? 1 : 0;
             return result;
+        }
+
+        public void RegisterOnBurn(OnBurn onBurn)
+        {
+            this.onBurn += onBurn;
+        }
+
+        public void UnregisterOnBurn(OnBurn onBurn)
+        {
+            this.onBurn -= onBurn;
         }
     }
 }

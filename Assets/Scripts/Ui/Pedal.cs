@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pieka.Utils;
+using UnityEngine;
 using UnityEngine.EventSystems;
 namespace Pieka.Ui
 {
@@ -24,7 +25,7 @@ namespace Pieka.Ui
         private bool pushed;
         public float Value { get; private set; }
 
-        private OnIsPressed onIsPressed;
+        private RunFloat onIsPressed;
 
         private RectTransform rectTransform;
 
@@ -61,7 +62,7 @@ namespace Pieka.Ui
             }
         }
 
-        public void RegisterOnIsPressed(OnIsPressed onIsPressed)
+        public void RegisterOnIsPressed(RunFloat onIsPressed)
         {
             this.onIsPressed += onIsPressed;
         }

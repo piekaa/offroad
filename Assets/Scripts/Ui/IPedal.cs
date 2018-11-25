@@ -1,12 +1,13 @@
+using Pieka.Utils;
+
 namespace Pieka.Ui
 {
-    public delegate void OnIsPressed(float value);
 
     public interface IPedal
     {
         float Value { get; }
 
-        void RegisterOnIsPressed(OnIsPressed onIsPressed);
+        void RegisterOnIsPressed(RunFloat onIsPressed);
         void Enable();
         void Disable();
 
