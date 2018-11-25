@@ -1,41 +1,38 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Pieka.Utils;
 
-public class ParticleSystemContainer
+namespace Pieka.Utils
 {
-    private Queue<ParticleSystem> particleSystems;
-
-    private ParticleSystem particleSystemPrefab;
-
-    public ParticleSystemContainer(int size, ParticleSystem particleSystemPrefab)
+    public class ParticleSystemContainer
     {
-        this.particleSystemPrefab = particleSystemPrefab;
-        particleSystems = new Queue<ParticleSystem>(size);
+        private Queue<ParticleSystem> particleSystems;
 
-        for (int i = 0; i < size; i++)
+        private ParticleSystem particleSystemPrefab;
+
+        public ParticleSystemContainer(int size, ParticleSystem particleSystemPrefab)
         {
-            var ps = GameObject.Instantiate(particleSystemPrefab, Consts.NOWHERE, Quaternion.identity);
+            this.particleSystemPrefab = particleSystemPrefab;
+            particleSystems = new Queue<ParticleSystem>(size);
+
+            for (int i = 0; i < size; i++)
+            {
+                var ps = GameObject.Instantiate(particleSystemPrefab, Consts.NOWHERE, Quaternion.identity);
+                particleSystems.Enqueue(ps);
+            }
+        }
+
+        public ParticleSystem Next()
+        {
+            var ps = particleSystems.Dequeue();
             particleSystems.Enqueue(ps);
+            return ps;
+        }
+
+        public ParticleSystem NextAndPlay()
+        {
+            var ps = Next();
+            ps.Play();
+            return ps;
         }
     }
-
-    public ParticleSystem Next()
-    {
-        var ps = particleSystems.Dequeue();
-        particleSystems.Enqueue(ps);
-        return ps;
-    }
-
-    public ParticleSystem NextAndPlay()
-    {
-        var ps = Next();
-        ps.Play();
-        return ps;
-    }
-
-
-
-
-
 }

@@ -23,11 +23,6 @@ namespace Pieka.Car
             Power = power;
         }
 
-        public override string ToString()
-        {
-            return WhichWheel + ", " + Power;
-        }
-
         public enum WhichWheelEnum
         {
             FRONT,
