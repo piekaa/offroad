@@ -47,5 +47,7 @@ namespace Pieka.Car
         void RegisterOnBurn(OnBurn onBurn);
 
         void UnregisterOnBurn(OnBurn onBurn);
+
+        GameObject[] GetBrakeables();
     }
 }

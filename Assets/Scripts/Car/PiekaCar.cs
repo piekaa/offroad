@@ -63,7 +63,6 @@ namespace Pieka.Car
 
         void Awake()
         {
-
             Drive = GetComponentInChildren<Drive>();
             Engine = GetComponentInChildren<Engine>();
             Drive.SetFrontWheel(frontWheel);
@@ -271,6 +270,11 @@ namespace Pieka.Car
         public void UnregisterOnBurn(OnBurn onBurn)
         {
             this.onBurn -= onBurn;
+        }
+
+        public GameObject[] GetBrakeables()
+        {
+            return new GameObject[] { middlePart };
         }
     }
 }

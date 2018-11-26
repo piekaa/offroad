@@ -2790,6 +2790,8 @@ MonoBehaviour:
     type: 2}
   BurnParticlePrefab: {fileID: 198336852105673006, guid: 1b43808d08f674d7ebac55561f8d7417,
     type: 2}
+  BrakeParticleSystemPrefab: {fileID: 198978431661786884, guid: 6be8bdfb89d6a49578a9eec17f1fe53a,
+    type: 2}
   car: {fileID: 173268215}
 --- !u!4 &1959566846
 Transform:
