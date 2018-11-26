@@ -22,7 +22,7 @@ namespace Pieka.CarControl
 
         bool angleWasNear180;
 
-        void Start()
+        new void Start()
         {
             Car = car;
         }
