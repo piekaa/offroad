@@ -1,28 +1,51 @@
 using System;
 using System.IO;
 using UnityEngine;
-
+using System.Threading;
 
 namespace Pieka.Persistance
 {
-    //todo perform it async
+    public delegate void ResultDelegate<T>(T result);
+
     public class Repository
     {
-        public static void Save<T>(T t)
+        public static string DefaultLocation = Application.persistentDataPath + "/";
+
+        public static Promise Save<T>(T t)
         {
-            var path = getPath<T>();
-            File.WriteAllText(path, JsonUtility.ToJson(t));
+            var thread = new System.Threading.Thread(new ThreadStart(() =>
+            {
+                File.WriteAllText(getPath<T>(), JsonUtility.ToJson(t));
+                File.WriteAllText(getBackupPath<T>(), JsonUtility.ToJson(t));
+            }));
+            thread.Start();
+            return new Promise(thread);
         }
 
-        public static T Load<T>()
+        public static Promise Load<T>(ResultDelegate<T> resultCallback)
         {
-            var path = getPath<T>();
-            if (!File.Exists(path))
-            {
-                return default(T);
-            }
-            var json = File.ReadAllText(path);
-            return JsonUtility.FromJson<T>(json);
+            var thread = new System.Threading.Thread(new ThreadStart(() =>
+                        {
+                            try
+                            {
+                                var json = File.ReadAllText(getPath<T>());
+                                resultCallback(JsonUtility.FromJson<T>(json));
+                            }
+                            catch (Exception)
+                            {
+                                try
+                                {
+                                    var json = File.ReadAllText(getBackupPath<T>());
+                                    resultCallback(JsonUtility.FromJson<T>(json));
+                                }
+                                catch (Exception)
+                                {
+                                    resultCallback(default(T));
+                                }
+                            }
+                        }));
+            thread.Start();
+            return new Promise(thread);
         }
 
         public static void Delete<T>()
@@ -33,7 +56,12 @@ namespace Pieka.Persistance
 
         private static string getPath<T>()
         {
-            return Application.persistentDataPath + "/" + typeof(T).FullName + ".json";
+            return DefaultLocation + typeof(T).FullName + ".json";
+        }
+
+        private static string getBackupPath<T>()
+        {
+            return DefaultLocation + typeof(T).FullName + "_backup.json";
         }
     }
 }
