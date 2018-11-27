@@ -24,6 +24,18 @@ public class RepositoryTest
     }
 
     [Test]
+    public void ShouldSaveAndLoadFile()
+    {
+        var promise = Repository.Save(new Data());
+        promise.Wait();
+        Data result = null;
+        promise = Repository.Load<Data>(r => result = r);
+        promise.Wait();
+        Assert.AreEqual(result.Info, "Hello");
+    }
+
+
+    [Test]
     public void ShouldLoadFile()
     {
         var json = "{ \"Info\" : \"Hello from test\" }";
