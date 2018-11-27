@@ -59,6 +59,21 @@ public class RepositoryTest
         Assert.AreEqual(result.Info, "Original");
     }
 
+
+    [Test]
+    public void ShouldLoadBackupWhenOriginalIsCorrupted()
+    {
+        var json = "{ \"Info\" : \"Original\" ";
+        var backup = "{ \"Info\" : \"Backup\" }";
+        File.WriteAllText(path, json);
+        File.WriteAllText(backupPath, backup);
+        Data result = null;
+        var promise = Repository.Load<Data>(r => result = r);
+        promise.Wait();
+        Assert.AreEqual(result.Info, "Backup");
+    }
+
+
     [Test]
     public void ShouldReturnNullIfFileDoesntExist()
     {
