@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    interface IWheel
+    public interface IWheel
     {
         void AddTorque(float torque);
 

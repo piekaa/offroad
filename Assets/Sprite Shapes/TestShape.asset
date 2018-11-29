@@ -9,14 +9,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af7181f404f1447c0a7a17b3070b952b, type: 3}
-  m_Name: Floor
+  m_Name: TestShape
   m_EditorClassIdentifier: 
   m_Angles:
-  - m_Start: -180
-    m_End: 180
-    m_Order: 0
+  - m_Start: -112.5
+    m_End: 112.5
+    m_Order: 7
     m_Sprites:
-    - {fileID: 21300000, guid: ee9a9c62035bb0642bb6c17cbaea494f, type: 3}
+    - {fileID: 21300000, guid: 133a2ac74b13d4c8ab78d9c601b2f46e, type: 3}
+    - {fileID: 21300000, guid: a73a18e96c61540b1a10239ecd4eca41, type: 3}
+    - {fileID: 21300000, guid: 9b95c6c726742467facc16066a3a006c, type: 3}
+  - m_Start: 112.5
+    m_End: 157.5
+    m_Order: 2
+    m_Sprites: []
+  - m_Start: 157.5
+    m_End: 202.5
+    m_Order: 8
+    m_Sprites: []
+  - m_Start: -157.5
+    m_End: -112.5
+    m_Order: 1
+    m_Sprites: []
   m_FillTexture: {fileID: 0}
   m_CornerSprites:
   - m_CornerType: 0

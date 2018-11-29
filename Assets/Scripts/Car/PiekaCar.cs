@@ -9,19 +9,12 @@ namespace Pieka.Car
     public class PiekaCar : MonoBehaviour, ICar
     {
 
-        private const float BURN_SPEED_RANGE = 25;
-
-        private float ACCEPTABLE_SPEED_DIFFERENCE = 10;
-
-        private IDrive Drive { get; set; }
-
+        public IDrive Drive { get; private set; }
         private IEngine Engine { get; set; }
 
-        [SerializeField]
-        private Wheel frontWheel;
+        public Wheel FrontWheel;
 
-        [SerializeField]
-        private Wheel rearWheel;
+        public Wheel RearWheel;
 
         [SerializeField]
         private SpriteRenderer shockAbsorberPrefab;
@@ -35,7 +28,7 @@ namespace Pieka.Car
         [SerializeField]
         private GameObject middlePart;
 
-        private Rigidbody2D middlePartRigidbody;
+        public Rigidbody2D middlePartRigidbody;
 
         private WheelJoint2D frontWheelJoint;
 
@@ -49,24 +42,20 @@ namespace Pieka.Car
 
         private Collider2D[] colliders;
 
-        private Collider2D frontWheelCollider;
-        private Collider2D rearWheelCollider;
+        public Collider2D FrontWheelCollider { get; private set; }
+        public Collider2D RearWheelCollider { get; private set; }
 
         private OnBurn onBurn;
 
-        private float velocityInKmPerH;
-
-        private ContactPoint2D[] burnContacts = new ContactPoint2D[10];
-
-        private SpriteRenderer frontWheelSpriteRenderer;
-        private SpriteRenderer rearWheelSpriteRenderer;
+        public SpriteRenderer FrontWheelSpriteRenderer { get; private set; }
+        public SpriteRenderer RearWheelSpriteRenderer { get; private set; }
 
         void Awake()
         {
             Drive = GetComponentInChildren<Drive>();
             Engine = GetComponentInChildren<Engine>();
-            Drive.SetFrontWheel(frontWheel);
-            Drive.SetRearWheel(rearWheel);
+            Drive.SetFrontWheel(FrontWheel);
+            Drive.SetRearWheel(RearWheel);
 
             var joints = GetComponentsInChildren<WheelJoint2D>();
             if (joints.Length != 2)
@@ -75,19 +64,19 @@ namespace Pieka.Car
             }
             foreach (var joint in joints)
             {
-                if (joint.connectedBody == frontWheel.GetComponent<Rigidbody2D>())
+                if (joint.connectedBody == FrontWheel.GetComponent<Rigidbody2D>())
                 {
                     frontWheelJoint = joint;
                 }
-                if (joint.connectedBody == rearWheel.GetComponent<Rigidbody2D>())
+                if (joint.connectedBody == RearWheel.GetComponent<Rigidbody2D>())
                 {
                     rearWheelJoint = joint;
                 }
             }
 
-            frontWheelShockAbsorber = Instantiate(shockAbsorberPrefab, frontWheel.transform.position, Quaternion.identity);
+            frontWheelShockAbsorber = Instantiate(shockAbsorberPrefab, FrontWheel.transform.position, Quaternion.identity);
 
-            rearWheelShockAbsorber = Instantiate(shockAbsorberPrefab, rearWheel.transform.position, Quaternion.identity);
+            rearWheelShockAbsorber = Instantiate(shockAbsorberPrefab, RearWheel.transform.position, Quaternion.identity);
 
             var shockAbsorberPositions = SpriteUtils.GetWolrdPositions(shockAbsorberPrefab);
             shockAbsorberHeight = Vector2.Distance(shockAbsorberPositions.TopLeft, shockAbsorberPositions.BottomLeft);
@@ -98,11 +87,11 @@ namespace Pieka.Car
 
             colliders = GetComponentsInChildren<Collider2D>();
 
-            frontWheelCollider = frontWheel.GetComponent<Collider2D>();
-            rearWheelCollider = rearWheel.GetComponent<Collider2D>();
+            FrontWheelCollider = FrontWheel.GetComponent<Collider2D>();
+            RearWheelCollider = RearWheel.GetComponent<Collider2D>();
 
-            frontWheelSpriteRenderer = frontWheel.GetComponent<SpriteRenderer>();
-            rearWheelSpriteRenderer = rearWheel.GetComponent<SpriteRenderer>();
+            FrontWheelSpriteRenderer = FrontWheel.GetComponent<SpriteRenderer>();
+            RearWheelSpriteRenderer = RearWheel.GetComponent<SpriteRenderer>();
         }
 
         public void SetFrontSuspensionFrequency(float frequency)
@@ -160,7 +149,7 @@ namespace Pieka.Car
 
         public CarInfo GetCarInfo()
         {
-            return new CarInfo(frontWheel.DiameterInMeters, rearWheel.DiameterInMeters, Drive.FrontWheelRpm, Drive.RearWheelRpm);
+            return new CarInfo(FrontWheel.DiameterInMeters, RearWheel.DiameterInMeters, Drive.FrontWheelRpm, Drive.RearWheelRpm);
         }
 
         public void SetFrontRearDriveRatio(float ratio)
@@ -175,10 +164,8 @@ namespace Pieka.Car
 
         void Update()
         {
-            velocityInKmPerH = CalculateUtils.UnitsPerSecondToKmPerH(middlePartRigidbody.velocity.magnitude);
-            updateShockAbsorber(frontWheelShockAbsorber, frontPart, frontWheel);
-            updateShockAbsorber(rearWheelShockAbsorber, rearPart, rearWheel);
-            handleBurn();
+            updateShockAbsorber(frontWheelShockAbsorber, frontPart, FrontWheel);
+            updateShockAbsorber(rearWheelShockAbsorber, rearPart, RearWheel);
         }
 
         private void updateShockAbsorber(SpriteRenderer shockAbsorber, GameObject carPart, Wheel wheel)
@@ -190,37 +177,6 @@ namespace Pieka.Car
             shockAbsorber.transform.localScale = new Vector3(shockAbsorberPrefab.transform.localScale.x, shockAbsorberPrefab.transform.localScale.y * (distance / shockAbsorberHeight));
             shockAbsorber.transform.rotation = carPart.transform.rotation;
             shockAbsorber.transform.position = wheel.transform.position;
-        }
-
-        private void handleBurn()
-        {
-            handleBurn(frontWheelCollider, frontWheelSpriteRenderer, BurnInfo.WhichWheelEnum.FRONT, frontWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, Drive.FrontWheelKmPerH);
-            handleBurn(rearWheelCollider, rearWheelSpriteRenderer, BurnInfo.WhichWheelEnum.REAR, rearWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, Drive.RearWheelKmPerH);
-        }
-
-        private void handleBurn(Collider2D wheelCollider, SpriteRenderer spriteRenderer, BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, float wheelKmPerH)
-        {
-            if (wheelCollider.IsTouchingLayers(Consts.FloorLayerMask))
-            {
-                var carSpeedPlusAcceptableDifference = velocityInKmPerH + ACCEPTABLE_SPEED_DIFFERENCE;
-                var wheelSpeed = wheelKmPerH;
-                if (wheelSpeed > carSpeedPlusAcceptableDifference)
-                {
-                    if (onBurn != null)
-                    {
-                        var filter = new ContactFilter2D();
-                        filter.layerMask = Consts.FloorLayerMask;
-                        var numberOfContacts = wheelCollider.GetContacts(filter, burnContacts);
-                        for (int i = 0; i < numberOfContacts; i++)
-                        {
-                            var point = burnContacts[i].point;
-                            var power = Mathf.Clamp((wheelSpeed - carSpeedPlusAcceptableDifference) / BURN_SPEED_RANGE, 0, 1);
-                            var burnInfo = new BurnInfo(whichWheel, direction, point, power);
-                            onBurn(burnInfo);
-                        }
-                    }
-                }
-            }
         }
 
         public Sparkable[] GetSparkables()
@@ -257,8 +213,8 @@ namespace Pieka.Car
         public int WheelsOnFloorCount()
         {
             var result = 0;
-            result += frontWheelCollider.IsTouchingLayers() ? 1 : 0;
-            result += rearWheelCollider.IsTouchingLayers() ? 1 : 0;
+            result += FrontWheelCollider.IsTouchingLayers() ? 1 : 0;
+            result += RearWheelCollider.IsTouchingLayers() ? 1 : 0;
             return result;
         }
 

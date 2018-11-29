@@ -7,13 +7,9 @@ namespace Pieka.Utils
     {
         private Queue<ParticleSystem> particleSystems;
 
-        private ParticleSystem particleSystemPrefab;
-
         public ParticleSystemContainer(int size, ParticleSystem particleSystemPrefab)
         {
-            this.particleSystemPrefab = particleSystemPrefab;
             particleSystems = new Queue<ParticleSystem>(size);
-
             for (int i = 0; i < size; i++)
             {
                 var ps = GameObject.Instantiate(particleSystemPrefab, Consts.NOWHERE, Quaternion.identity);

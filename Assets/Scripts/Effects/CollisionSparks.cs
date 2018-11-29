@@ -65,7 +65,7 @@ namespace Pieka.Effects
                     sparksParticle = particleSystemContainer.NextAndPlay();
                     var emission = sparksParticle.emission;
                     emission.rateOverTime = kmPerH * EMISSION_RATE;
-                    sparksParticle.transform.localScale = new Vector3(1, kmPerH * SCALE_RATE, 1);
+                    sparksParticle.transform.localScale = new Vector3(kmPerH * SCALE_RATE, 1, 1);
                     sparksParticle.transform.position = new Vector3(col.GetContact(i).point.x, col.GetContact(i).point.y, Z_POSSITION);
                     sparksParticle.transform.rotation = Quaternion.Euler(0, 0, angle);
                 }

@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pieka.Effects;
 using Pieka.Car;
+using Pieka.Environment;
 
 namespace Pieka.CarControl
 {
     public class CarEffectsController : MonoBehaviour, ICarEffectsController
     {
         public ParticleSystem SparksParticlePrefab;
-
-        public ParticleSystem BurnParticlePrefab;
-
         public ParticleSystem BrakeParticleSystemPrefab;
 
         [SerializeField]
         private PiekaCar car;
         public ICar Car;
+
+        public CarBurnDetector carBurnDetector;
+
+        private BurnInfo[] burnInfos = new BurnInfo[10];
 
         void Start()
         {
@@ -34,10 +36,21 @@ namespace Pieka.CarControl
                 var jointBreakEffect = brakeable.gameObject.AddComponent<JointBreakEffect>();
                 jointBreakEffect.BrakeParticleSystemPrefab = BrakeParticleSystemPrefab;
             }
+        }
 
-            var burnEffect = gameObject.AddComponent<BurnEffect>();
-            burnEffect.BurnParticlePrefab = this.BurnParticlePrefab;
-            Car.RegisterOnBurn(burnEffect.OnBurn);
+        void Update()
+        {
+            var count = carBurnDetector.BurnStateInfo(car, burnInfos);
+            for (int i = 0; i < count; i++)
+            {
+                var gameObject = burnInfos[0].GameObject;
+                var spriteShapeExtension = gameObject.GetComponent<SpriteShapeExntension>();
+                if (spriteShapeExtension != null)
+                {
+                    var effect = spriteShapeExtension.PiekaMaterial.BurnEffect;
+                    effect.Play(burnInfos[0]);
+                }
+            }
         }
     }
 }

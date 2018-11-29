@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    class Wheel : MonoBehaviour, IWheel
+    public class Wheel : MonoBehaviour, IWheel
     {
 
         private Rigidbody2D rb;

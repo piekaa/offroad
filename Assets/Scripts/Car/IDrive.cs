@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Pieka.Car
 {
-    interface IDrive
+    public interface IDrive
     {
 
         /// <value>0 means rear wheel drive, 1 means front wheel drive</value>

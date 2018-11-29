@@ -15,12 +15,15 @@ namespace Pieka.Car
         /// </summary>
         public float Power;
 
-        public BurnInfo(BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, Vector2 point, float power)
+        public GameObject GameObject;
+
+        public BurnInfo(BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, Vector2 point, float power, GameObject gameObject)
         {
             WhichWheel = whichWheel;
             Direction = direction;
             Point = point;
             Power = power;
+            GameObject = gameObject;
         }
 
         public enum WhichWheelEnum
