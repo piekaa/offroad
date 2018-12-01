@@ -1,13 +1,8 @@
-using Pieka.Ui;
-
-namespace Pieka.CarControl
+public interface ICarDriveController
 {
-    public interface ICarDriveController
-    {
-        IMeter SpeedMeter { get; set; }
+    IMeter SpeedMeter { get; set; }
 
-        IPedal AccelerationPedal { get; set; }
+    IPedal AccelerationPedal { get; set; }
 
-        IPedal BrakePedal { get; set; }
-    }
+    IPedal BrakePedal { get; set; }
 }

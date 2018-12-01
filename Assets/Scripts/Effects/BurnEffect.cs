@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Pieka.Car;
-using Pieka.Utils;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pieka/BurnEffect")]
-public class BurnEffect : Initializable
+public class BurnEffect : Effect
 {
     /// <summary>
-    /// every FREQUENCY millis play new particle system
+    /// every FrequencyMillis play new particle system
     /// </summary>
     public float FrequencyMillis = 40;
 
@@ -21,24 +19,20 @@ public class BurnEffect : Initializable
 
     private float lastTime;
 
-
     private ParticleSystemContainer particleSystemContainer;
 
-    public override void Init()
+
+    public void OnEnable()
     {
-        particleSystemContainer = new ParticleSystemContainer(10, BurnParticlePrefab);
         lastTime = 0;
+        particleSystemContainer = new ParticleSystemContainer(BurnParticlePrefab, 10);
     }
 
-    public void Play(BurnInfo burnInfo)
+    public override void Play(EffectData effectData)
     {
-
-        Debug.Log("Play");
-
+        BurnInfo burnInfo = (BurnInfo)effectData.Map["burnInfo"];
         if (Time.time > lastTime + FrequencyMillis / 1000f)
         {
-            Debug.Log("It's time");
-
             var ps = particleSystemContainer.NextAndPlay();
             var emission = ps.emission;
             emission.rateOverTimeMultiplier = 100 * burnInfo.Power;

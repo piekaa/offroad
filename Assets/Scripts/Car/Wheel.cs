@@ -1,52 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Pieka.Utils;
 using UnityEngine;
 
-namespace Pieka.Car
+public class Wheel : MonoBehaviour, IWheel
 {
-    public class Wheel : MonoBehaviour, IWheel
+
+    private Rigidbody2D rb;
+
+    public float DiameterInMeters { get; private set; }
+
+    public void Awake()
     {
+        DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-        private Rigidbody2D rb;
+    public void AddTorque(float torque)
+    {
+        rb.AddTorque(torque);
+    }
 
-        public float DiameterInMeters { get; private set; }
-
-        public void Awake()
+    public float AngularDrag
+    {
+        get
         {
-            DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
-            rb = GetComponent<Rigidbody2D>();
+            return rb.angularDrag;
         }
 
-        public void AddTorque(float torque)
+        set
         {
-            rb.AddTorque(torque);
+            rb.angularDrag = value;
+        }
+    }
+
+    public float AngularVelocity
+    {
+        get
+        {
+            return rb.angularVelocity;
         }
 
-        public float AngularDrag
+        set
         {
-            get
-            {
-                return rb.angularDrag;
-            }
-
-            set
-            {
-                rb.angularDrag = value;
-            }
-        }
-
-        public float AngularVelocity
-        {
-            get
-            {
-                return rb.angularVelocity;
-            }
-
-            set
-            {
-                rb.angularVelocity = value;
-            }
+            rb.angularVelocity = value;
         }
     }
 }

@@ -1,53 +1,49 @@
-using Pieka.Effects;
 using UnityEngine;
 
-namespace Pieka.Car
+
+public delegate void OnBurn(BurnInfo burnInfo);
+
+public interface ICar
 {
+    void SetFrontSuspensionFrequency(float frequency);
 
-    public delegate void OnBurn(BurnInfo burnInfo);
+    void SetFrontDampingRatio(float dampingRatio);
 
-    public interface ICar
-    {
-        void SetFrontSuspensionFrequency(float frequency);
+    void SetRearSuspensionFrequency(float frequency);
 
-        void SetFrontDampingRatio(float dampingRatio);
+    void SetRearDampingRatio(float dampingRatio);
 
-        void SetRearSuspensionFrequency(float frequency);
+    void SetFrontSuspensionHeight(float height);
 
-        void SetRearDampingRatio(float dampingRatio);
+    void SetRearSuspensionHeight(float height);
 
-        void SetFrontSuspensionHeight(float height);
+    void SetFrontRearDriveRatio(float ratio);
 
-        void SetRearSuspensionHeight(float height);
+    void SetFrontRearBrakeRatio(float ratio);
 
-        void SetFrontRearDriveRatio(float ratio);
+    void Accelerate(float throttle);
 
-        void SetFrontRearBrakeRatio(float ratio);
+    void Brake(float throttle);
 
-        void Accelerate(float throttle);
+    bool ToggleReverse();
 
-        void Brake(float throttle);
+    CarInfo GetCarInfo();
 
-        bool ToggleReverse();
+    Sparkable[] GetSparkables();
 
-        CarInfo GetCarInfo();
+    bool IsInAir();
 
-        Sparkable[] GetSparkables();
+    /// <summary>
+    /// Rotating counterclockwise. 0 = Car standing on perfect horisontal floor
+    /// </summary>
+    /// <returns></returns>
+    float GetAngle();
 
-        bool IsInAir();
+    int WheelsOnFloorCount();
 
-        /// <summary>
-        /// Rotating counterclockwise. 0 = Car standing on perfect horisontal floor
-        /// </summary>
-        /// <returns></returns>
-        float GetAngle();
+    void RegisterOnBurn(OnBurn onBurn);
 
-        int WheelsOnFloorCount();
+    void UnregisterOnBurn(OnBurn onBurn);
 
-        void RegisterOnBurn(OnBurn onBurn);
-
-        void UnregisterOnBurn(OnBurn onBurn);
-
-        GameObject[] GetBrakeables();
-    }
+    GameObject[] GetBrakeables();
 }

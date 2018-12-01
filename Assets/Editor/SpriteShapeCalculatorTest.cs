@@ -3,7 +3,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.U2D;
-using Pieka.Utils;
+
 [TestFixture]
 public class SpriteShapeCalculatorTest
 {

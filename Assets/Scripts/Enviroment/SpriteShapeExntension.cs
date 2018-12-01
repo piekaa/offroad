@@ -1,31 +1,28 @@
 using UnityEngine.U2D;
 using UnityEngine;
 
-namespace Pieka.Environment
+[ExecuteInEditMode]
+public class SpriteShapeExntension : MonoBehaviour
 {
-    [ExecuteInEditMode]
-    public class SpriteShapeExntension : MonoBehaviour
+    public PiekaMaterial PiekaMaterial;
+
+    void OnEnable()
     {
-        public PiekaMaterial PiekaMaterial;
+        updateSpriteShapeController();
+    }
 
-        void OnEnable()
-        {
-            updateSpriteShapeController();
-        }
-
-        void Update()
-        {
+    void Update()
+    {
 #if (UNITY_EDITOR)
-            updateSpriteShapeController();
+        updateSpriteShapeController();
 #endif
-        }
+    }
 
-        private void updateSpriteShapeController()
-        {
-            var spriteShapeController = GetComponent<SpriteShapeController>();
-            spriteShapeController.spriteShape = PiekaMaterial.SpriteShape;
-            var collider = GetComponent<Collider2D>();
-            collider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
-        }
+    private void updateSpriteShapeController()
+    {
+        var spriteShapeController = GetComponent<SpriteShapeController>();
+        spriteShapeController.spriteShape = PiekaMaterial.SpriteShape;
+        var collider = GetComponent<Collider2D>();
+        collider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
     }
 }

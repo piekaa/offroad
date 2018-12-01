@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Pieka.Car;
-using Pieka.Utils;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pieka/CarBurnDetector")]

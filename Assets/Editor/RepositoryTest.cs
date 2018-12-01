@@ -1,5 +1,4 @@
-﻿using Pieka.Persistance;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.IO;
 
 [TestFixture]

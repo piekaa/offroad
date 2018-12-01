@@ -1,9 +1,6 @@
-namespace Pieka.Cam
+public interface ICameraController
 {
-    public interface ICameraController
-    {
-        void TurnOnBlur();
+    void TurnOnBlur();
 
-        void TurnOffBlur();
-    }
+    void TurnOffBlur();
 }

@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pieka.CarControl
+public interface ICarEffectsController
 {
-    public interface ICarEffectsController
-    {
-    }
 }
