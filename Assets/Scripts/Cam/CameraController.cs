@@ -1,8 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using ScriptablePieka.Car;
-using ScriptablePieka.Effects;
-using ScriptablePieka.Utils;
 using UnityEngine;
 
 public class CameraController : Resetable, ICameraController

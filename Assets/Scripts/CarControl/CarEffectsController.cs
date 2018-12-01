@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScriptablePieka.Effects;
-using ScriptablePieka.Car;
-using ScriptablePieka.Environment;
 
 public class CarEffectsController : MonoBehaviour, ICarEffectsController
 {

@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ScriptablePieka.Car;
-using ScriptablePieka.Ui;
-using ScriptablePieka.Utils;
 
 class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveController
 {
