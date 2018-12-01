@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarEffectsController : MonoBehaviour, ICarEffectsController
+public class CarEffectsController : PiekaBehaviour, ICarEffectsController
 {
     public ParticleSystem SparksParticlePrefab;
     public ParticleSystem BrakeParticleSystemPrefab;
 
     [SerializeField]
-    private PiekaCar car;
+    private Car car;
     public ICar Car;
 
     public CarBurnDetector carBurnDetector;
 
-    private BurnInfo[] burnInfos = new BurnInfo[10];
+    public PiekaMaterialEffectTable WheelFloorEffectTable;
 
     void Start()
     {
@@ -33,18 +33,19 @@ public class CarEffectsController : MonoBehaviour, ICarEffectsController
         }
     }
 
-    void Update()
+    [OnEvent(EventNames.WHEEL_BURN)]
+    private void OnBurn(string id, PMEventArgs args)
     {
-        var count = carBurnDetector.BurnStateInfo(car, burnInfos);
-        for (int i = 0; i < count; i++)
+        var burnInfo = (BurnInfo)args.Custom;
+        var gameObject = burnInfo.OtherGameObject;
+        var wheelMaterial = burnInfo.WheelMaterial;
+        var otherObjectWithMaterial = gameObject.GetComponent<ObjectWithMaterial>();
+        if (otherObjectWithMaterial != null)
         {
-            var gameObject = burnInfos[0].GameObject;
-            var spriteShapeExtension = gameObject.GetComponent<SpriteShapeExntension>();
-            if (spriteShapeExtension != null)
-            {
-                var effect = spriteShapeExtension.PiekaMaterial.BurnEffect;
-                effect.Play(new EffectData("burnInfo", burnInfos[0]));
-            }
+            var effect = WheelFloorEffectTable.GetEffect(wheelMaterial, otherObjectWithMaterial.PiekaMaterial);
+            EffectData effectData = new EffectData("burnInfo", burnInfo);
+            effectData.Position = burnInfo.Point;
+            effect.Play(effectData);
         }
     }
 }

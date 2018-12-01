@@ -1042,6 +1042,48 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1971044292936584, guid: 3fcef4dc720f448729a591be85769ce6,
     type: 2}
   m_PrefabInternal: {fileID: 375899832}
+--- !u!1001 &614834374
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -41.176826
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 32.580116
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4293816550675590, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5a8a2f39e66d648f18cdbd341d9945b8, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &623230851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,7 +1279,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 623230851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0f66be87f6d4ceba59f1809667b939, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PiekaMaterial: {fileID: 11400000, guid: 3e42f965be39c45e2bc5e8939ee23063, type: 2}
@@ -2397,8 +2439,8 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 6.29678, y: 8.86284}
-  - {x: 10.76186, y: 8.81265}
-  - {x: 10.7731, y: 9.81259}
+  - {x: 10.26189, y: 8.81827}
+  - {x: 10.27313, y: 9.81821}
   - {x: 6.3077, y: 9.86278}
   - {x: 6.30707, y: 9.86279}
   - {x: 2.65417, y: 9.89461}
@@ -2420,8 +2462,8 @@ EdgeCollider2D:
   - {x: -22.99241, y: 10.07638}
   - {x: -24.55802, y: 10.13862}
   - {x: -26.0875, y: 10.21853}
-  - {x: -28.10695, y: 10.35168}
-  - {x: -28.17274, y: 9.35385}
+  - {x: -27.60803, y: 10.31879}
+  - {x: -27.67383, y: 9.32095}
   - {x: -26.14837, y: 9.22037}
   - {x: -26.14496, y: 9.22017}
   - {x: -24.60525, y: 9.13972}
@@ -2557,7 +2599,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1319652786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0f66be87f6d4ceba59f1809667b939, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PiekaMaterial: {fileID: 11400000, guid: 94548a9902d2a46f5b7242c04ffdf506, type: 2}
@@ -2577,6 +2619,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db074a3b4736142b59fde604c47acde1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1384967299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1223109817733344, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+    type: 2}
+  m_PrefabInternal: {fileID: 1653379413}
+--- !u!114 &1384967305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1384967299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PiekaMaterial: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741, type: 2}
 --- !u!1 &1511172285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,13 +2765,12 @@ GameObject:
 --- !u!114 &1516584441
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114808143722362564, guid: bfdb60b56cab045b18bdcdbfaf689836,
-    type: 2}
-  m_PrefabInternal: {fileID: 1934689228}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1516584440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0f66be87f6d4ceba59f1809667b939, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PiekaMaterial: {fileID: 11400000, guid: 86cb1cb9081184713b13fe51354b4833, type: 2}
@@ -3146,6 +3204,24 @@ Prefab:
       propertyPath: middlePartRigidbody
       value: 
       objectReference: {fileID: 302173337}
+    - target: {fileID: 114547219594557604, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: burnDetector
+      value: 
+      objectReference: {fileID: 11400000, guid: ff53d2ea8c65e4b80a30ac0e3a3663e6,
+        type: 2}
+    - target: {fileID: 114320109945826484, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: Material
+      value: 
+      objectReference: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741,
+        type: 2}
+    - target: {fileID: 114565905030530170, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+        type: 2}
+      propertyPath: Material
+      value: 
+      objectReference: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
   m_IsPrefabAsset: 0
@@ -3390,6 +3466,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9658ff325df244a90beb36cf5e524acb, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1870898488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1244071490313546, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
+    type: 2}
+  m_PrefabInternal: {fileID: 1653379413}
+--- !u!114 &1870898494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1870898488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PiekaMaterial: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741, type: 2}
 --- !u!1001 &1934689228
 Prefab:
   m_ObjectHideFlags: 0
@@ -3429,7 +3522,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 20
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: bfdb60b56cab045b18bdcdbfaf689836, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1959566844
@@ -3465,6 +3559,8 @@ MonoBehaviour:
     type: 2}
   car: {fileID: 173268215}
   carBurnDetector: {fileID: 11400000, guid: ff53d2ea8c65e4b80a30ac0e3a3663e6, type: 2}
+  WheelFloorEffectTable: {fileID: 11400000, guid: bbbc6c554e62d455d9b279596b47bcf2,
+    type: 2}
 --- !u!4 &1959566846
 Transform:
   m_ObjectHideFlags: 0

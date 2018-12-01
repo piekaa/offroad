@@ -12,7 +12,6 @@ public class BurnEffect : Effect
 
     public ParticleSystem BurnParticlePrefab;
 
-    private const float Z_POSSITION = 10;
     private const float Y_ROTATION = 90;
     private const float Z_ROTATION = 0;
     private const float X_ROTATION = 270;

@@ -9,7 +9,7 @@ public class PMEventArgs
     public Vector3 Vector3;
     public Vector2 Vector2;
     public GameObject GameObject;
-    public object Object;
+    public object Custom;
     public object Sender;
     public ScriptablePieka Pieka;
     public char Character;
@@ -53,6 +53,11 @@ public class PMEventArgs
     public PMEventArgs(ScriptablePieka pieka)
     {
         this.Pieka = pieka;
+    }
+
+    public PMEventArgs(object custom)
+    {
+        Custom = custom;
     }
 }
 

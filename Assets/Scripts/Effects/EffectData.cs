@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 public class EffectData
 {
-    public Vector2 position;
+    public Vector2 Position;
 
     public float Angle;
 

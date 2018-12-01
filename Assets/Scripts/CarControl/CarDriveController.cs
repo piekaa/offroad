@@ -5,7 +5,7 @@ using UnityEngine;
 class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveController
 {
     [SerializeField]
-    private PiekaCar car;
+    private Car car;
     public ICar Car;
 
     [SerializeField]

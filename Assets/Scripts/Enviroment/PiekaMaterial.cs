@@ -9,7 +9,7 @@ public class PiekaMaterial : ScriptableObject
 {
     public SpriteShape SpriteShape;
 
-    public PhysicsMaterial2D PhysicsMaterial2D;
+    public Sprite Sprite;
 
-    public BurnEffect BurnEffect;
+    public PhysicsMaterial2D PhysicsMaterial2D;
 }

@@ -7,7 +7,7 @@ class CarResetController : Resetable, ICarResetController
     private HashSet<KeyValuePair<GameObject, FixedJointData>> gameObjectFixedJointSet = new HashSet<KeyValuePair<GameObject, FixedJointData>>();
 
     [SerializeField]
-    protected PiekaCar car;
+    protected Car car;
     public ICar Car;
 
     protected virtual void Awake()

@@ -6,7 +6,7 @@ using System.Reflection;
 class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSettingsController
 {
     [SerializeField]
-    private PiekaCar car;
+    private Car car;
     public ICar Car;
 
     [SerializeField]

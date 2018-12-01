@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PiekaCar : MonoBehaviour, ICar
+public class Car : MonoBehaviour, ICar
 {
 
     public IDrive Drive { get; private set; }
@@ -46,6 +46,8 @@ public class PiekaCar : MonoBehaviour, ICar
     public SpriteRenderer FrontWheelSpriteRenderer { get; private set; }
     public SpriteRenderer RearWheelSpriteRenderer { get; private set; }
 
+    public CarStateDetector burnDetector;
+
     void Awake()
     {
         Drive = GetComponentInChildren<Drive>();
@@ -88,6 +90,11 @@ public class PiekaCar : MonoBehaviour, ICar
 
         FrontWheelSpriteRenderer = FrontWheel.GetComponent<SpriteRenderer>();
         RearWheelSpriteRenderer = RearWheel.GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
+    {
+        burnDetector.StartDetection(this);
     }
 
     public void SetFrontSuspensionFrequency(float frequency)

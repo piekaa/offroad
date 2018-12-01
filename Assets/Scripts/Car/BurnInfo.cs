@@ -13,15 +13,19 @@ public struct BurnInfo
     /// </summary>
     public float Power;
 
-    public GameObject GameObject;
 
-    public BurnInfo(BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, Vector2 point, float power, GameObject gameObject)
+    public GameObject OtherGameObject;
+
+    public PiekaMaterial WheelMaterial;
+
+    public BurnInfo(WhichWheelEnum whichWheel, DirectionEnum direction, Vector2 point, float power, GameObject otherGameObject, PiekaMaterial wheelMaterial)
     {
         WhichWheel = whichWheel;
         Direction = direction;
         Point = point;
         Power = power;
-        GameObject = gameObject;
+        OtherGameObject = otherGameObject;
+        WheelMaterial = wheelMaterial;
     }
 
     public enum WhichWheelEnum

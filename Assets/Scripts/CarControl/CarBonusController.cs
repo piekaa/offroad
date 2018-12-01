@@ -11,7 +11,7 @@ public class CarBonusController : Resetable, ICarBonusController
     private Run onFlip;
 
     [SerializeField]
-    private PiekaCar car;
+    private Car car;
     public ICar Car;
 
     bool wasInAirLastTime;
