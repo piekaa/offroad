@@ -2,19 +2,19 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(PiekaMaterialEffectTable))]
-public class PiekaMaterialEffectTableEditor : Editor
+[CustomEditor(typeof(PiekaMaterialFloatTable))]
+public class PiekaMaterialFloatTableEditor : Editor
 {
 
     private PiekaMaterial material1;
     private PiekaMaterial material2;
-    private Effect effect;
+    private float floatValue;
 
     public override void OnInspectorGUI()
     {
-        var myTarget = (PiekaMaterialEffectTable)target;
+        var myTarget = (PiekaMaterialFloatTable)target;
 
-        myTarget.defaultEffect = (Effect)EditorGUILayout.ObjectField("Default effect", myTarget.defaultEffect, typeof(Effect), false);
+        myTarget.Default = EditorGUILayout.FloatField("Default Float", myTarget.Default);
 
         EditorGUILayout.Space();
 
@@ -24,7 +24,7 @@ public class PiekaMaterialEffectTableEditor : Editor
         {
             EditorGUILayout.ObjectField("First", pair.Key.Key, typeof(PiekaMaterial), false);
             EditorGUILayout.ObjectField("Second", pair.Key.Value, typeof(PiekaMaterial), false);
-            EditorGUILayout.ObjectField("Effect", pair.Value, typeof(Effect), false);
+            EditorGUILayout.FloatField("Float", pair.Value);
             if (GUILayout.Button("Delete"))
             {
                 dictionary.Remove(pair.Key);
@@ -36,11 +36,11 @@ public class PiekaMaterialEffectTableEditor : Editor
 
         material1 = (PiekaMaterial)EditorGUILayout.ObjectField("First", material1, typeof(PiekaMaterial), false);
         material2 = (PiekaMaterial)EditorGUILayout.ObjectField("Second", material2, typeof(PiekaMaterial), false);
-        effect = (Effect)EditorGUILayout.ObjectField("Effect", effect, typeof(Effect), false);
+        floatValue = EditorGUILayout.FloatField("Float", floatValue);
 
         if (GUILayout.Button("Add"))
         {
-            dictionary.Add(new MaterialMaterialPair(material1, material2), effect);
+            dictionary.Add(new MaterialMaterialPair(material1, material2), floatValue);
         }
     }
 }
