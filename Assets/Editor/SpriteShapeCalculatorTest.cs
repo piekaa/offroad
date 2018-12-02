@@ -147,24 +147,16 @@ public class SpriteShapeCalculatorTest
     private SpriteShapeController newSpriteShapeController(int size)
     {
         SpriteShapeController spriteShapeController = new GameObject().AddComponent<SpriteShapeController>();
-
         while (spriteShapeController.spline.GetPointCount() > 3)
         {
             spriteShapeController.spline.RemovePointAt(0);
         }
-
         for (int i = 0; i < 3; i++)
         {
             spriteShapeController.spline.SetPosition(i, new Vector3(-999999 + i, -999999 - i));
         }
-
         return spriteShapeController;
     }
-
-
-
-    //todo move to another class
-
 
     [UnityTest]
     public IEnumerator Test0FindStartingPoint()
@@ -291,23 +283,4 @@ public class SpriteShapeCalculatorTest
         Assert.AreEqual(0, SpriteShapeCalculator.FindStartingPointIndex(spriteShapeController, 1, new Vector2(0.5f, -0.5f)));
         Assert.AreEqual(1, SpriteShapeCalculator.FindStartingPointIndex(spriteShapeController, 1, new Vector2(1.5f, -1f)));
     }
-
-
-    //todo move to CalculatorTest
-    [Test]
-    public void TestCalculateVectorAngle()
-    {
-        Assert.AreEqual(0, CalculateUtils.Vector2ToAngle(new Vector2(1, 0)), 1);
-        Assert.AreEqual(45, CalculateUtils.Vector2ToAngle(new Vector2(1, 1)), 1);
-        Assert.AreEqual(90, CalculateUtils.Vector2ToAngle(new Vector2(0, 1)), 1);
-        Assert.AreEqual(135, CalculateUtils.Vector2ToAngle(new Vector2(-1, 1)), 1);
-        Assert.AreEqual(180, CalculateUtils.Vector2ToAngle(new Vector2(-1, 0)), 1);
-        Assert.AreEqual(225, CalculateUtils.Vector2ToAngle(new Vector2(-1, -1)), 1);
-        Assert.AreEqual(270, CalculateUtils.Vector2ToAngle(new Vector2(0, -1)), 1);
-        Assert.AreEqual(315, CalculateUtils.Vector2ToAngle(new Vector2(1, -1)), 1);
-    }
-
-
-
-
 }
