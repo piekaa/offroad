@@ -7,8 +7,6 @@ public class DefaultEffect : Effect
 {
     public ParticleSystem DefaultParticlePrefab;
 
-    private float lastTime;
-
     private ParticleSystemContainer particleSystemContainer;
 
 
@@ -21,6 +19,5 @@ public class DefaultEffect : Effect
     {
         var ps = particleSystemContainer.NextAndPlay();
         ps.transform.position = new Vector3(effectData.Position.x, effectData.Position.y, Z_POSSITION);
-        lastTime = Time.time;
     }
 }

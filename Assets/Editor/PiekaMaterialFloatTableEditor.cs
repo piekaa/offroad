@@ -19,15 +19,16 @@ public class PiekaMaterialFloatTableEditor : Editor
         EditorGUILayout.Space();
 
         var dictionary = myTarget.dictionary;
+        var keys = new List<MaterialMaterialPair>(dictionary.Keys);
 
-        foreach (var pair in dictionary)
+        foreach (var key in keys)
         {
-            EditorGUILayout.ObjectField("First", pair.Key.Key, typeof(PiekaMaterial), false);
-            EditorGUILayout.ObjectField("Second", pair.Key.Value, typeof(PiekaMaterial), false);
-            EditorGUILayout.FloatField("Float", pair.Value);
+            EditorGUILayout.ObjectField("First", key.Key, typeof(PiekaMaterial), false);
+            EditorGUILayout.ObjectField("Second", key.Value, typeof(PiekaMaterial), false);
+            dictionary[key] = EditorGUILayout.FloatField("Float", dictionary[key]);
             if (GUILayout.Button("Delete"))
             {
-                dictionary.Remove(pair.Key);
+                dictionary.Remove(key);
             }
             EditorGUILayout.Space();
         }
@@ -42,5 +43,7 @@ public class PiekaMaterialFloatTableEditor : Editor
         {
             dictionary.Add(new MaterialMaterialPair(material1, material2), floatValue);
         }
+
+        EditorUtility.SetDirty(myTarget);
     }
 }

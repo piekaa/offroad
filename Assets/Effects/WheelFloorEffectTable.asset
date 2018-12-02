@@ -11,3 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f08ed67ce774db7b60d117b05cb4f2, type: 3}
   m_Name: WheelFloorEffectTable
   m_EditorClassIdentifier: 
+  dictionary:
+    materials:
+    - Key: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741, type: 2}
+      Value: {fileID: 11400000, guid: 86cb1cb9081184713b13fe51354b4833, type: 2}
+    effects:
+    - {fileID: 11400000, guid: f8e1e8a1055504a90a7775635834a5e5, type: 2}
+  defaultEffect: {fileID: 11400000, guid: 19a33fee6fe5241e1b146bf03993528b, type: 2}

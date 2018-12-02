@@ -1289,6 +1289,23 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 104403531}
   m_Script: {fileID: 11500000, guid: 78ec9ea0171184ca8bfedbddf713a87b, type: 3}
+--- !u!1 &665619121 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1929240854517856, guid: a57d39a2e4cd74840ac362f7f750ec41,
+    type: 2}
+  m_PrefabInternal: {fileID: 2056081735}
+--- !u!114 &665619125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 665619121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6a1a99fefe24f1fbc55d07a3c33a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PiekaMaterial: {fileID: 11400000, guid: 86cb1cb9081184713b13fe51354b4833, type: 2}
 --- !u!1 &714694656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,6 +2641,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1223109817733344, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
     type: 2}
   m_PrefabInternal: {fileID: 1653379413}
+--- !u!114 &1384967300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1384967299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64eaa44355dbb4c0babfbcc27d49853e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialFrictionTable: {fileID: 11400000, guid: b3a8a4147bb98469d8abce86555716a0,
+    type: 2}
 --- !u!114 &1384967305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3154,11 +3184,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4209085378723428, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 6.5
+      value: 2.61
       objectReference: {fileID: 0}
     - target: {fileID: 4209085378723428, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.78
+      value: -0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4209085378723428, guid: bddfbd0a937c33f4dbb7a68f984f9b48, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3514,6 +3544,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1244071490313546, guid: bddfbd0a937c33f4dbb7a68f984f9b48,
     type: 2}
   m_PrefabInternal: {fileID: 1653379413}
+--- !u!114 &1870898489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1870898488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64eaa44355dbb4c0babfbcc27d49853e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaterialFrictionTable: {fileID: 11400000, guid: b3a8a4147bb98469d8abce86555716a0,
+    type: 2}
 --- !u!114 &1870898494
 MonoBehaviour:
   m_ObjectHideFlags: 0

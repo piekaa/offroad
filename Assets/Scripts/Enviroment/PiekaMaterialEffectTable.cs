@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Pieka/MaterialEffectTable")]
 public class PiekaMaterialEffectTable : ScriptableObject
 {
+    [SerializeField]
     public MaterialMaterialEffectDictionary dictionary = new MaterialMaterialEffectDictionary();
 
     public Effect defaultEffect;

@@ -14,8 +14,8 @@ public class ObjectWithMaterial : MonoBehaviour
         if (spriteShapeController != null)
         {
             spriteShapeController.spriteShape = PiekaMaterial.SpriteShape;
-            var collider = GetComponent<Collider2D>();
-            collider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
         }
+        var collider = GetComponent<Collider2D>();
+        collider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
     }
 }

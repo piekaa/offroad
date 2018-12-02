@@ -17,17 +17,17 @@ public class PiekaMaterialEffectTableEditor : Editor
         myTarget.defaultEffect = (Effect)EditorGUILayout.ObjectField("Default effect", myTarget.defaultEffect, typeof(Effect), false);
 
         EditorGUILayout.Space();
-
         var dictionary = myTarget.dictionary;
+        var keys = new List<MaterialMaterialPair>(dictionary.Keys);
 
-        foreach (var pair in dictionary)
+        foreach (var key in keys)
         {
-            EditorGUILayout.ObjectField("First", pair.Key.Key, typeof(PiekaMaterial), false);
-            EditorGUILayout.ObjectField("Second", pair.Key.Value, typeof(PiekaMaterial), false);
-            EditorGUILayout.ObjectField("Effect", pair.Value, typeof(Effect), false);
+            EditorGUILayout.ObjectField("First", key.Key, typeof(PiekaMaterial), false);
+            EditorGUILayout.ObjectField("Second", key.Value, typeof(PiekaMaterial), false);
+            dictionary[key] = (Effect)EditorGUILayout.ObjectField("Effect", dictionary[key], typeof(Effect), false);
             if (GUILayout.Button("Delete"))
             {
-                dictionary.Remove(pair.Key);
+                dictionary.Remove(key);
             }
             EditorGUILayout.Space();
         }
@@ -42,5 +42,7 @@ public class PiekaMaterialEffectTableEditor : Editor
         {
             dictionary.Add(new MaterialMaterialPair(material1, material2), effect);
         }
+
+        EditorUtility.SetDirty(myTarget);
     }
 }
