@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pieka.Ui
+/// <summary>
+/// Just for type purpose
+/// </summary>
+public class Pointer : MonoBehaviour
 {
-    /// <summary>
-    /// Just for type purpose
-    /// </summary>
-    public class Pointer : MonoBehaviour
-    {
-    }
 }

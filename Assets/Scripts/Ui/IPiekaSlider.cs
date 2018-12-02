@@ -1,11 +1,5 @@
-using Pieka.Utils;
-
-namespace Pieka.Ui
+public interface IPiekaSlider
 {
-
-    public interface IPiekaSlider
-    {
-        float Value { get; }
-        void RegisterOnSlide(RunFloat onSlide);
-    }
+    float Value { get; }
+    void RegisterOnSlide(RunFloat onSlide);
 }

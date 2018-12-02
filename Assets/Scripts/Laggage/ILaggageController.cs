@@ -1,8 +1,5 @@
-namespace Pieka.Laggage
+public interface ILaggageController
 {
-    public interface ILaggageController
-    {
-        void Release();
-        void Fly();
-    }
+    void Release();
+    void Fly();
 }

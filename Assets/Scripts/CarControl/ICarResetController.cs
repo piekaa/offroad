@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pieka.CarControl
+public interface ICarResetController
 {
-    public interface ICarResetController
-    {
-        void Reset();
-    }
+    void Reset();
 }

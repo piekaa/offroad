@@ -1,52 +1,58 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Pieka.Utils;
 using UnityEngine;
 
-namespace Pieka.Car
+public class Wheel : MonoBehaviour, IWheel
 {
-    class Wheel : MonoBehaviour, IWheel
+    private Rigidbody2D rb;
+
+    public float DiameterInMeters { get; private set; }
+
+    public void Awake()
     {
+        DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
+        rb = GetComponent<Rigidbody2D>();
+        piekaMaterial = GetComponent<ObjectWithMaterial>().PiekaMaterial;
+    }
 
-        private Rigidbody2D rb;
+    public void AddTorque(float torque)
+    {
+        rb.AddTorque(torque);
+    }
 
-        public float DiameterInMeters { get; private set; }
+    private PiekaMaterial piekaMaterial;
 
-        public void Awake()
+    public PiekaMaterial PiekaMaterial
+    {
+        get
         {
-            DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
-            rb = GetComponent<Rigidbody2D>();
+            return piekaMaterial;
+        }
+    }
+
+    public float AngularDrag
+    {
+        get
+        {
+            return rb.angularDrag;
         }
 
-        public void AddTorque(float torque)
+        set
         {
-            rb.AddTorque(torque);
+            rb.angularDrag = value;
+        }
+    }
+
+    public float AngularVelocity
+    {
+        get
+        {
+            return rb.angularVelocity;
         }
 
-        public float AngularDrag
+        set
         {
-            get
-            {
-                return rb.angularDrag;
-            }
-
-            set
-            {
-                rb.angularDrag = value;
-            }
-        }
-
-        public float AngularVelocity
-        {
-            get
-            {
-                return rb.angularVelocity;
-            }
-
-            set
-            {
-                rb.angularVelocity = value;
-            }
+            rb.angularVelocity = value;
         }
     }
 }

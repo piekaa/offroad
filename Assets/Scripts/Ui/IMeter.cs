@@ -1,7 +1,4 @@
-namespace Pieka.Ui
+public interface IMeter
 {
-    public interface IMeter
-    {
-        float Value { get; set; }
-    }
+    float Value { get; set; }
 }

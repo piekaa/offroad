@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818389f78b26741e19fa9e723cf82fb7, type: 3}
+  m_Name: Sand
+  m_EditorClassIdentifier: 
+  SpriteShape: {fileID: 11400000, guid: e8b83f9c3f6944a8b9228d3d935ce255, type: 2}
+  PhysicsMaterial2D: {fileID: 6200000, guid: 1dc6b71ff0f0d41bfb7f658a7459f001, type: 2}
+  BurnEffect: {fileID: 11400000, guid: f8e1e8a1055504a90a7775635834a5e5, type: 2}

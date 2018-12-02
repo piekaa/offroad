@@ -2,48 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pieka.Laggage
+public class LaggageController : Resetable, ILaggageController
 {
-    public class LaggageController : Resetable, ILaggageController
+    [SerializeField]
+    private GameObject laggage;
+
+    private Rigidbody2D[] rigidbodies;
+
+    void Awake()
     {
-        [SerializeField]
-        private GameObject laggage;
-
-        private Rigidbody2D[] rigidbodies;
-
-        void Awake()
+        SetTarget(laggage);
+        rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
+        foreach (var rb in rigidbodies)
         {
-            SetTarget(laggage);
-            rigidbodies = laggage.GetComponentsInChildren<Rigidbody2D>();
-            foreach (var rb in rigidbodies)
-            {
-                rb.gravityScale = 0;
-            }
+            rb.gravityScale = 0;
         }
+    }
 
-        public override void Reset()
+    public override void Reset()
+    {
+        base.Reset();
+        foreach (var rb in rigidbodies)
         {
-            base.Reset();
-            foreach (var rb in rigidbodies)
-            {
-                rb.gravityScale = 0;
-            }
+            rb.gravityScale = 0;
         }
+    }
 
-        public void Release()
+    public void Release()
+    {
+        foreach (var rb in rigidbodies)
         {
-            foreach (var rb in rigidbodies)
-            {
-                rb.gravityScale = 1;
-            }
+            rb.gravityScale = 1;
         }
+    }
 
-        public void Fly()
+    public void Fly()
+    {
+        foreach (var rb in rigidbodies)
         {
-            foreach (var rb in rigidbodies)
-            {
-                rb.gravityScale = -2;
-            }
+            rb.gravityScale = -2;
         }
     }
 }

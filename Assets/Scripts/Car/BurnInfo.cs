@@ -1,38 +1,42 @@
 using UnityEngine;
 
-namespace Pieka.Car
+public struct BurnInfo
 {
-    public struct BurnInfo
+    public BurnInfo.WhichWheelEnum WhichWheel;
+
+    public BurnInfo.DirectionEnum Direction;
+
+    public Vector2 Point;
+
+    /// <summary>
+    /// 0-1
+    /// </summary>
+    public float Power;
+
+
+    public GameObject OtherGameObject;
+
+    public PiekaMaterial WheelMaterial;
+
+    public BurnInfo(WhichWheelEnum whichWheel, DirectionEnum direction, Vector2 point, float power, GameObject otherGameObject, PiekaMaterial wheelMaterial)
     {
-        public BurnInfo.WhichWheelEnum WhichWheel;
+        WhichWheel = whichWheel;
+        Direction = direction;
+        Point = point;
+        Power = power;
+        OtherGameObject = otherGameObject;
+        WheelMaterial = wheelMaterial;
+    }
 
-        public BurnInfo.DirectionEnum Direction;
+    public enum WhichWheelEnum
+    {
+        FRONT,
+        REAR
+    }
 
-        public Vector2 Point;
-
-        /// <summary>
-        /// 0-1
-        /// </summary>
-        public float Power;
-
-        public BurnInfo(BurnInfo.WhichWheelEnum whichWheel, BurnInfo.DirectionEnum direction, Vector2 point, float power)
-        {
-            WhichWheel = whichWheel;
-            Direction = direction;
-            Point = point;
-            Power = power;
-        }
-
-        public enum WhichWheelEnum
-        {
-            FRONT,
-            REAR
-        }
-
-        public enum DirectionEnum
-        {
-            LEFT,
-            RIGHT
-        }
+    public enum DirectionEnum
+    {
+        LEFT,
+        RIGHT
     }
 }

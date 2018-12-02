@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pieka.Cam
+public class FrameRateController : MonoBehaviour
 {
-    public class FrameRateController : MonoBehaviour
+    void Start()
     {
-        void Start()
-        {
-            Application.targetFrameRate = 60;
-        }
+        Application.targetFrameRate = 60;
     }
 }

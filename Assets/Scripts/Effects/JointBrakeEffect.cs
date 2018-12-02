@@ -1,4 +1,3 @@
-using Pieka.Utils;
 using UnityEngine;
 
 public class JointBreakEffect : MonoBehaviour
@@ -13,7 +12,7 @@ public class JointBreakEffect : MonoBehaviour
 
     void Start()
     {
-        particleSystemContainer = new ParticleSystemContainer(2, BrakeParticleSystemPrefab);
+        particleSystemContainer = new ParticleSystemContainer(BrakeParticleSystemPrefab, 2);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
