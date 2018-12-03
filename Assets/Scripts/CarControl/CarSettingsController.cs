@@ -3,48 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-class CarSettingsController : MonoBehaviourWithFirstFrameCallback
+class CarSettingsController : PiekaBehaviour
 {
-    public Car Car;
 
-    public PiekaSlider FrontWheelSlider;
+    [SerializeField]
+    private CarSettings carSettings;
 
-    public PiekaSlider RearWheelSlider;
+    [SerializeField]
+    private Car car;
 
-    public PiekaSlider FrontWheelDampSlider;
-
-    public PiekaSlider RearWheelDampSlider;
-
-    public PiekaSlider FrontSuspensionHeightSlider;
-
-    public PiekaSlider RearSuspensionHeightSlider;
-
-    public PiekaSlider FrontRearDriveRatioSlider;
-
-    public PiekaSlider FrontRearBrakeRatioSlider;
-
-    protected override void OnFirstFrame()
+    void Start()
     {
-        setOnSlideFunctionAndInvokeIfNotNull(FrontWheelSlider, (v) => Car.SetFrontSuspensionFrequency(v), "FrontWheelSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(RearWheelSlider, (v) => Car.SetRearSuspensionFrequency(v), "RearWheelSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(FrontWheelDampSlider, (v) => Car.SetFrontDampingRatio(v), "FrontWheelDampSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(RearWheelDampSlider, (v) => Car.SetRearDampingRatio(v), "RearWheelDampSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(FrontSuspensionHeightSlider, (v) => Car.SetFrontSuspensionHeight(v), "FrontSuspensionHeightSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(RearSuspensionHeightSlider, (v) => Car.SetRearSuspensionHeight(v), "RearSuspensionHeightSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(FrontRearDriveRatioSlider, (v) => Car.SetFrontRearDriveRatio(v), "FrontRearDriveRatioSlider");
-        setOnSlideFunctionAndInvokeIfNotNull(FrontRearBrakeRatioSlider, (v) => Car.SetFrontRearBrakeRatio(v), "FrontRearBrakeRatioSlider");
+        applySettings();
     }
 
-    private void setOnSlideFunctionAndInvokeIfNotNull(PiekaSlider slider, RunFloat onSlide, string name)
+    [OnEvent(EventNames.CAR_SETTINGS_CHANGED)]
+    private void applySettings()
     {
-        if (slider != null)
-        {
-            slider.RegisterOnSlide(onSlide);
-            onSlide(slider.Value);
-        }
-        else
-        {
-            Debug.Log(name + " is null");
-        }
+        car.SetFrontSuspensionFrequency(carSettings.FrontWheelSuspensionFrequency);
+        car.SetRearSuspensionFrequency(carSettings.RearWheelSuspensionFrequency);
+
+        car.SetFrontDampingRatio(carSettings.FrontWheelSuspensionDamping);
+        car.SetRearDampingRatio(carSettings.RearWheelSuspensionDamping);
+
+        car.SetFrontSuspensionHeight(carSettings.FrontWheelSuspensionHeight);
+        car.SetRearSuspensionHeight(carSettings.RearWheelSuspensionHeight);
+
+        car.SetFrontRearDriveRatio(carSettings.FrontRearDriveRatio);
+        car.SetFrontRearBrakeRatio(carSettings.FrontRearBrakeRatio);
     }
+
 }

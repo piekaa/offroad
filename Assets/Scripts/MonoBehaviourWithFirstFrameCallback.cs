@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+//todo eventualy remove
 public class MonoBehaviourWithFirstFrameCallback : MonoBehaviour
 {
     private bool first = true;

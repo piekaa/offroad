@@ -27,7 +27,9 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private Text text;
 
-    public float Value { get; private set; }
+    public float Value { get { return val; } set { val = value; setPointerPositionAndText(); } }
+
+    private float val;
 
     private Image image;
 
@@ -42,20 +44,19 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private bool pushed;
 
-    void Start()
+    void Awake()
     {
-        Value = init;
+        val = init;
         image = GetComponent<Image>();
-        float percent = (Value - min) / (max - min);
         pointerImage = transform.GetChild(0).GetComponent<Image>();
         text = GetComponentInChildren<Text>();
-        setPointerPositionAndText(percent);
+        setPointerPositionAndText();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         pointerStartX = eventData.position.x;
-        startValue = Value;
+        startValue = val;
         pushed = true;
     }
 
@@ -70,13 +71,13 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             float shiftInPixels = (Input.mousePosition.x - pointerStartX);
             float normalizedShift = Mathf.Clamp(shiftInPixels * sensivity, -1, 1);
-            Value = startValue + (max - min) * normalizedShift;
-            Value = Mathf.Clamp(Value, min, max);
-            float percent = (Value - min) / (max - min);
-            setPointerPositionAndText(percent);
+            val = startValue + (max - min) * normalizedShift;
+            val = Mathf.Clamp(val, min, max);
+            setPointerPositionAndText();
             if (onSlide != null)
             {
-                onSlide(Value);
+
+                onSlide(val);
             }
         }
     }
@@ -86,8 +87,9 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         this.onSlide += onSlide;
     }
 
-    private void setPointerPositionAndText(float percent)
+    private void setPointerPositionAndText()
     {
+        float percent = (val - min) / (max - min);
         var width = image.GetComponent<RectTransform>().rect.width - pointerImage.GetComponent<RectTransform>().rect.width;
         pointerImage.GetComponent<RectTransform>().localPosition = new Vector3(width * percent - width / 2, 0, 0);
 
@@ -97,7 +99,7 @@ public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 text.text = (100 * percent).ToString("0.00") + "%";
                 break;
             case SliderTextType.VALUE:
-                text.text = Value.ToString("0.00");
+                text.text = val.ToString("0.00");
                 break;
             default:
                 text.text = "";
