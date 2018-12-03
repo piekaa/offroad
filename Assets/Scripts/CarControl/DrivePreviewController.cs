@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Redesign
 class DrivePreviewController : Resetable
 {
-    [SerializeField]
-    private CarDriveController carDriveController;
-    public ICarDriveController CarDriveController;
+    public CarDriveController CarDriveController;
 
-    [SerializeField]
-    private Meter speedMeter;
+    public Meter speedMeter;
 
-    [SerializeField]
-    private PiekaSlider speedSlider;
-    public IPiekaSlider SpeedSlider;
+    public PiekaSlider SpeedSlider;
 
-    [SerializeField]
-    private PiekaSlider bumpScaleSlider;
-    public IPiekaSlider BumpScaleSlider;
+    public PiekaSlider BumpScaleSlider;
 
     private GameObject floor;
 
@@ -25,22 +20,17 @@ class DrivePreviewController : Resetable
 
     private SpriteRenderer floorSpriteRenderer;
 
-    private FakePedal pedal;
+    // private FakePedal pedal;
 
     private Queue<GameObject> floors = new Queue<GameObject>();
 
-    [SerializeField]
-    private Rigidbody2D carBody;
+    public Rigidbody2D CarBody;
 
     private Vector3 floorInitPos;
 
-    [SerializeField]
-    private ToggleButton cruiseControlToggleButton;
-    public IToggleButton CruiseControlToggleButton;
+    public ToggleButton CruiseControlToggleButton;
 
-    [SerializeField]
-    private Pedal accelerationPedal;
-    public IPedal AccelerationPedal;
+    public Pedal AccelerationPedal;
 
     private bool cruiseControl = true;
 
@@ -48,22 +38,17 @@ class DrivePreviewController : Resetable
     {
         floor = transform.GetChild(0).gameObject;
         floorInitPos = floor.transform.position;
-        CarDriveController = carDriveController;
-        SpeedSlider = speedSlider;
-        BumpScaleSlider = bumpScaleSlider;
-        AccelerationPedal = accelerationPedal;
-        CruiseControlToggleButton = cruiseControlToggleButton;
     }
 
     protected override void Start()
     {
         base.Start();
         floorSpriteRenderer = floor.GetComponent<SpriteRenderer>();
-        pedal = new FakePedal(AccelerationPedal);
-        CarDriveController.AccelerationPedal = pedal;
+        // pedal = new FakePedal(AccelerationPedal);
+        // CarDriveController.AccelerationPedal = pedal;
         floors.Enqueue(floor);
         BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
-        carSpriteRenderer = carBody.GetComponent<SpriteRenderer>();
+        carSpriteRenderer = CarBody.GetComponent<SpriteRenderer>();
         AccelerationPedal.Disable();
         CruiseControlToggleButton.SetInitialState(cruiseControl);
         CruiseControlToggleButton.SetOnToggle(() =>
@@ -72,12 +57,12 @@ class DrivePreviewController : Resetable
             if (cruiseControl)
             {
                 AccelerationPedal.Disable();
-                pedal.Enable();
+                // pedal.Enable();
             }
             else
             {
                 AccelerationPedal.Enable();
-                pedal.Disable();
+                // pedal.Disable();
             }
             return cruiseControl;
         });
@@ -87,11 +72,11 @@ class DrivePreviewController : Resetable
     {
         if (speedMeter.Value < SpeedSlider.Value)
         {
-            pedal.setValue(.2f);
+            // pedal.setValue(.2f);
         }
         else
         {
-            pedal.setValue(0);
+            // pedal.setValue(0);
         }
         var carPositions = SpriteUtils.GetWolrdPositions(carSpriteRenderer);
         var floorPositions = SpriteUtils.GetWolrdPositions(floorSpriteRenderer);
@@ -106,7 +91,7 @@ class DrivePreviewController : Resetable
             }
         }
 
-        pedal.Update();
+        // pedal.Update();
 
     }
 
@@ -128,54 +113,57 @@ class DrivePreviewController : Resetable
         floor.transform.position = floorInitPos;
     }
 
-    private class FakePedal : IPedal
-    {
 
-        private bool enabled = true;
+    //todo redesign
 
-        private RunFloat onIsPressed;
+    // private class FakePedal : Pedal
+    // {
 
-        public FakePedal(IPedal realPedal)
-        {
-            realPedal.RegisterOnIsPressed((v) => Value = v);
-        }
+    //     private bool enabled = true;
 
-        public float Value { get; private set; }
+    //     private RunFloat onIsPressed;
 
-        public void RegisterOnIsPressed(RunFloat onIsPressed)
-        {
-            this.onIsPressed += onIsPressed;
-        }
+    //     public FakePedal(Pedal realPedal)
+    //     {
+    //         realPedal.RegisterOnIsPressed((v) => Value = v);
+    //     }
 
-        public void Update()
-        {
-            if (onIsPressed != null)
-            {
-                onIsPressed(Value);
-            }
-        }
+    //     public float Value { get; private set; }
 
-        public void setValue(float v)
-        {
-            if (enabled)
-            {
-                Value = v;
-            }
-        }
+    //     public void RegisterOnIsPressed(RunFloat onIsPressed)
+    //     {
+    //         this.onIsPressed += onIsPressed;
+    //     }
 
-        public void Enable()
-        {
-            enabled = true;
-        }
+    //     public override void Update()
+    //     {
+    //         if (onIsPressed != null)
+    //         {
+    //             onIsPressed(Value);
+    //         }
+    //     }
 
-        public void Disable()
-        {
-            enabled = false;
-            if (onIsPressed != null)
-            {
-                onIsPressed(0);
-            }
-            Value = 0;
-        }
-    }
+    //     public void setValue(float v)
+    //     {
+    //         if (enabled)
+    //         {
+    //             Value = v;
+    //         }
+    //     }
+
+    //     public void Enable()
+    //     {
+    //         enabled = true;
+    //     }
+
+    //     public void Disable()
+    //     {
+    //         enabled = false;
+    //         if (onIsPressed != null)
+    //         {
+    //             onIsPressed(0);
+    //         }
+    //         Value = 0;
+    //     }
+    // }
 }

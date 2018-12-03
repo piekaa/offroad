@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car : MonoBehaviour, ICar
+public class Car : MonoBehaviour
 {
 
-    public IDrive Drive { get; private set; }
-    private IEngine Engine { get; set; }
+    public Drive Drive { get; private set; }
+    private Engine Engine { get; set; }
 
     public Wheel FrontWheel;
 
@@ -40,8 +40,6 @@ public class Car : MonoBehaviour, ICar
 
     public Collider2D FrontWheelCollider { get; private set; }
     public Collider2D RearWheelCollider { get; private set; }
-
-    private OnBurn onBurn;
 
     public SpriteRenderer FrontWheelSpriteRenderer { get; private set; }
     public SpriteRenderer RearWheelSpriteRenderer { get; private set; }
@@ -219,16 +217,6 @@ public class Car : MonoBehaviour, ICar
         result += FrontWheelCollider.IsTouchingLayers() ? 1 : 0;
         result += RearWheelCollider.IsTouchingLayers() ? 1 : 0;
         return result;
-    }
-
-    public void RegisterOnBurn(OnBurn onBurn)
-    {
-        this.onBurn += onBurn;
-    }
-
-    public void UnregisterOnBurn(OnBurn onBurn)
-    {
-        this.onBurn -= onBurn;
     }
 
     public GameObject[] GetBrakeables()

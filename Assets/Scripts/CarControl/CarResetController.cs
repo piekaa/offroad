@@ -2,20 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class CarResetController : Resetable, ICarResetController
+class CarResetController : Resetable
 {
     private HashSet<KeyValuePair<GameObject, FixedJointData>> gameObjectFixedJointSet = new HashSet<KeyValuePair<GameObject, FixedJointData>>();
-
-    [SerializeField]
-    protected Car car;
-    public ICar Car;
+    public Car Car;
 
     protected virtual void Awake()
     {
-        Car = car;
-        SetTarget(car.gameObject);
-
-        var fixedJoints = car.GetComponentsInChildren<FixedJoint2D>();
+        SetTarget(Car.gameObject);
+        var fixedJoints = Car.GetComponentsInChildren<FixedJoint2D>();
         foreach (var joint in fixedJoints)
         {
             gameObjectFixedJointSet.Add(new KeyValuePair<GameObject, FixedJointData>(joint.gameObject, new FixedJointData(joint)));

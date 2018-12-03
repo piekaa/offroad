@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 class SupplierTriggerController : TriggerController
 {
     public void OnTriggerEnter2D(Collider2D other)

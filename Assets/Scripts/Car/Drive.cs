@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Drive : MonoBehaviour, IDrive
+public class Drive : MonoBehaviour
 {
-    private Dictionary<IWheel, List<float>> wheelVelocitySignHistory = new Dictionary<IWheel, List<float>>();
+    private Dictionary<Wheel, List<float>> wheelVelocitySignHistory = new Dictionary<Wheel, List<float>>();
 
     public float fullStopThreshold = 70;
 
@@ -17,9 +17,9 @@ class Drive : MonoBehaviour, IDrive
 
     private bool reverse;
 
-    private IWheel frontWheel;
+    private Wheel frontWheel;
 
-    private IWheel rearWheel;
+    private Wheel rearWheel;
 
     public float FrontRearDriveRatio { get; set; }
 
@@ -67,7 +67,7 @@ class Drive : MonoBehaviour, IDrive
         doBrake(rearWheel, rearJoint, brakeThrottle * BreakPower * (1 - FrontRearBrakeRatio));
     }
 
-    private void doBrake(IWheel wheel, WheelJoint2D joint, float power)
+    private void doBrake(Wheel wheel, WheelJoint2D joint, float power)
     {
         var angularVelocity = wheel.AngularVelocity;
         wheelVelocitySignHistory[wheel].Add(Mathf.Sign(angularVelocity));
@@ -125,7 +125,7 @@ class Drive : MonoBehaviour, IDrive
         return reverse;
     }
 
-    public void SetFrontWheel(IWheel wheel)
+    public void SetFrontWheel(Wheel wheel)
     {
         frontWheel = wheel;
         wheelVelocitySignHistory.Add(wheel, new List<float>());
@@ -133,7 +133,7 @@ class Drive : MonoBehaviour, IDrive
         wheelVelocitySignHistory[wheel].Add(0);
     }
 
-    public void SetRearWheel(IWheel wheel)
+    public void SetRearWheel(Wheel wheel)
     {
         rearWheel = wheel;
         wheelVelocitySignHistory.Add(wheel, new List<float>());

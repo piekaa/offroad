@@ -2,39 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveController
+class CarDriveController : MonoBehaviourWithFirstFrameCallback
 {
-    [SerializeField]
-    private Car car;
-    public ICar Car;
+    public Car Car;
 
-    [SerializeField]
-    private Pedal accelerationPedal;
-    public IPedal AccelerationPedal { get; set; }
+    public Pedal AccelerationPedal;
 
-    [SerializeField]
-    private Pedal brakePedal;
+    public Pedal BrakePedal;
 
-    public IPedal BrakePedal { get; set; }
+    public Meter SpeedMeter;
 
-    [SerializeField]
-    private Meter speedMeter;
-    public IMeter SpeedMeter { get; set; }
-
-    [SerializeField]
-    private ToggleButton reverseToggleButton;
-    public IToggleButton ReverseToggleButton;
-
-    void Awake()
-    {
-        Car = car;
-
-        AccelerationPedal = accelerationPedal;
-        BrakePedal = brakePedal;
-        SpeedMeter = speedMeter;
-        ReverseToggleButton = reverseToggleButton;
-
-    }
+    public ToggleButton ReverseToggleButton;
 
     protected override void OnFirstFrame()
     {
@@ -51,7 +29,7 @@ class CarDriveController : MonoBehaviourWithFirstFrameCallback, ICarDriveControl
         }
     }
 
-    private void registerOnPedalIsPressedIfNotNull(IPedal pedal, RunFloat onIsPressed, string name)
+    private void registerOnPedalIsPressedIfNotNull(Pedal pedal, RunFloat onIsPressed, string name)
     {
         if (pedal != null)
         {

@@ -6,7 +6,7 @@ public enum Direction
     up, right, down, left
 }
 
-public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPedal
+public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField]
     private bool RightRotation = false;

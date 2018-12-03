@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : Resetable, ICameraController
+public class CameraController : Resetable
 {
 
     [SerializeField]

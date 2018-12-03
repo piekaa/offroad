@@ -3,57 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSettingsController
+class CarSettingsController : MonoBehaviourWithFirstFrameCallback
 {
-    [SerializeField]
-    private Car car;
-    public ICar Car;
+    public Car Car;
 
-    [SerializeField]
-    private PiekaSlider frontWheelSlider;
-    public IPiekaSlider FrontWheelSlider { get; set; }
+    public PiekaSlider FrontWheelSlider;
 
-    [SerializeField]
-    private PiekaSlider rearWheelSlider;
-    public IPiekaSlider RearWheelSlider { get; set; }
+    public PiekaSlider RearWheelSlider;
 
-    [SerializeField]
-    private PiekaSlider frontWheelDampSlider;
-    public IPiekaSlider FrontWheelDampSlider { get; set; }
+    public PiekaSlider FrontWheelDampSlider;
 
-    [SerializeField]
-    private PiekaSlider rearWheelDampSlider;
-    public IPiekaSlider RearWheelDampSlider { get; set; }
+    public PiekaSlider RearWheelDampSlider;
 
-    [SerializeField]
-    private PiekaSlider frontSuspensionHeightSlider;
-    public IPiekaSlider FrontSuspensionHeightSlider { get; set; }
+    public PiekaSlider FrontSuspensionHeightSlider;
 
-    [SerializeField]
-    private PiekaSlider rearSuspensionHeightSlider;
-    public IPiekaSlider RearSuspensionHeightSlider { get; set; }
+    public PiekaSlider RearSuspensionHeightSlider;
 
-    [SerializeField]
-    private PiekaSlider frontRearDriveRatioSlider;
-    public IPiekaSlider FrontRearDriveRatioSlider { get; set; }
+    public PiekaSlider FrontRearDriveRatioSlider;
 
-    [SerializeField]
-    private PiekaSlider frontRearBrakeRatioSlider;
-    public IPiekaSlider FrontRearBrakeRatioSlider { get; set; }
-
-
-    void Awake()
-    {
-        FrontWheelSlider = frontWheelSlider;
-        RearWheelSlider = rearWheelSlider;
-        FrontWheelDampSlider = frontWheelDampSlider;
-        RearWheelDampSlider = rearWheelDampSlider;
-        FrontSuspensionHeightSlider = frontSuspensionHeightSlider;
-        RearSuspensionHeightSlider = rearSuspensionHeightSlider;
-        FrontRearDriveRatioSlider = frontRearDriveRatioSlider;
-        FrontRearBrakeRatioSlider = frontRearBrakeRatioSlider;
-        Car = car;
-    }
+    public PiekaSlider FrontRearBrakeRatioSlider;
 
     protected override void OnFirstFrame()
     {
@@ -67,7 +35,7 @@ class CarSettingsController : MonoBehaviourWithFirstFrameCallback, ICarSettingsC
         setOnSlideFunctionAndInvokeIfNotNull(FrontRearBrakeRatioSlider, (v) => Car.SetFrontRearBrakeRatio(v), "FrontRearBrakeRatioSlider");
     }
 
-    private void setOnSlideFunctionAndInvokeIfNotNull(IPiekaSlider slider, RunFloat onSlide, string name)
+    private void setOnSlideFunctionAndInvokeIfNotNull(PiekaSlider slider, RunFloat onSlide, string name)
     {
         if (slider != null)
         {

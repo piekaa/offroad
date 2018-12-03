@@ -9,9 +9,7 @@ class TakerTriggerController : Resetable
     [SerializeField]
     private Effector2D effector;
 
-    [SerializeField]
-    private LaggageController laggageController;
-    public ILaggageController LaggageController;
+    public LaggageController LaggageController;
 
     public int DelayMillis = 2000;
 
@@ -32,11 +30,6 @@ class TakerTriggerController : Resetable
         {
             stopwatch.Stop();
         }
-    }
-
-    protected override void Start()
-    {
-        LaggageController = laggageController;
     }
 
     void FixedUpdate()

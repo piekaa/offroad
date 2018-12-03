@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarEffectsController : PiekaBehaviour, ICarEffectsController
+public class CarEffectsController : PiekaBehaviour
 {
     public ParticleSystem SparksParticlePrefab;
     public ParticleSystem BrakeParticleSystemPrefab;
 
-    [SerializeField]
-    private Car car;
-    public ICar Car;
+    public Car Car;
 
     public CarBurnDetector carBurnDetector;
 
@@ -17,7 +15,6 @@ public class CarEffectsController : PiekaBehaviour, ICarEffectsController
 
     void Start()
     {
-        Car = car;
         var sparkables = Car.GetSparkables();
         foreach (var sparkable in sparkables)
         {

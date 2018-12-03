@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PiekaButton : MonoBehaviour, IPiekaButton, IPointerClickHandler
+public class PiekaButton : MonoBehaviour, IPointerClickHandler
 {
     private Run onClick;
 

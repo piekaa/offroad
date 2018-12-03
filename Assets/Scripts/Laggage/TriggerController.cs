@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class TriggerController : MonoBehaviour
 {
-    public ILaggageController LaggageController;
+    public LaggageController LaggageController;
 }

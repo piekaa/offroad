@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Engine : MonoBehaviour, IEngine
+class Engine : MonoBehaviour
 {
     public float RPM { get; private set; }
     public float Torque { get; private set; }
@@ -15,15 +15,7 @@ class Engine : MonoBehaviour, IEngine
     [SerializeField]
     private float horsePower = 300f;
 
-    [SerializeField]
-    private Drive drive;
-
-    public IDrive Drive { get; set; }
-
-    void Awake()
-    {
-        Drive = drive;
-    }
+    public Drive Drive;
 
     void Start()
     {

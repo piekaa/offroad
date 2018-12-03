@@ -11,7 +11,7 @@ public enum SliderTextType
     VALUE
 }
 
-public class PiekaSlider : MonoBehaviour, IPiekaSlider, IPointerDownHandler, IPointerUpHandler
+public class PiekaSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
 
     public SliderTextType SliderTextType;
