@@ -219,7 +219,6 @@ public class Car : MonoBehaviour
         return result;
     }
 
-    // todo remove if no references
     public GameObject[] GetBrakeables()
     {
         return new GameObject[] { middlePart };
