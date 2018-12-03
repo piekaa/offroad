@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Meter : MonoBehaviour, IMeter
+public class Meter : MonoBehaviour
 {
     public float Value { get; set; }
 
@@ -22,7 +22,6 @@ public class Meter : MonoBehaviour, IMeter
 
     private RectTransform pointerRectTransform;
 
-    // Use this for initialization
     void Start()
     {
         pointerRectTransform = GetComponentInChildren<Pointer>().GetComponent<RectTransform>();

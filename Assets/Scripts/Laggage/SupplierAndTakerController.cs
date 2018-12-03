@@ -4,13 +4,10 @@ using UnityEngine;
 
 class SupplierAndTakerController : MonoBehaviour
 {
-    [SerializeField]
-    private LaggageController laggageController;
-    public ILaggageController LaggageController;
+    public LaggageController LaggageController;
 
     void Start()
     {
-        LaggageController = laggageController;
         var triggerControllers = GetComponentsInChildren<TriggerController>();
         foreach (var tc in triggerControllers)
         {

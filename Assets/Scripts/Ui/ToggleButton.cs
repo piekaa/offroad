@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ToggleButton : MonoBehaviour, IPointerClickHandler, IToggleButton
+/// <returns>state after toggle</returns>
+public delegate bool OnToggle();
+
+public class ToggleButton : MonoBehaviour, IPointerClickHandler
 {
     private Image image;
     private OnToggle onToggle;

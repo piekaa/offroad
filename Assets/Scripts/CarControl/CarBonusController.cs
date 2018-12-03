@@ -3,25 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class CarBonusController : Resetable, ICarBonusController
+public class CarBonusController : Resetable
 {
 
     private const int MILLIS_TO_ACCEPT_FLIP = 1000;
 
     private Run onFlip;
 
-    [SerializeField]
-    private Car car;
-    public ICar Car;
+    public Car Car;
 
     bool wasInAirLastTime;
 
     bool angleWasNear180;
-
-    new void Start()
-    {
-        Car = car;
-    }
 
     public void RegisterOnFlip(Run onFlip)
     {

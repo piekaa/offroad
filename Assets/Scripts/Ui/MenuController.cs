@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField]
-    private PiekaButton menuButton;
-    public IPiekaButton MenuButton;
+    public PiekaButton MenuButton;
 
-    [SerializeField]
-    private CameraController cameraController;
-    public ICameraController CameraController;
+    public CameraController CameraController;
 
     public GameObject settingsMenu;
 
     private bool menuOpen = true;
-
-    void Awake()
-    {
-        MenuButton = menuButton;
-        CameraController = cameraController;
-    }
 
     void Start()
     {
