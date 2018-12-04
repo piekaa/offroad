@@ -2,9 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventNames
+[CreateAssetMenu(menuName = "Pieka/Events")]
+public class EventNames : ScriptableObject
 {
     public const string TEST = "test";
     public const string WHEEL_BURN = "wheelBurn";
     public const string CAR_SETTINGS_CHANGED = "carSettingsChanged";
+    public const string RESET = "reset";
+    public const string FIRST_ACCELERATION_PEDAL_USE = "firstAccelerationPedalUse";
+    public const string ACCELERATION_PEDAL = "accelerationPedal";
+    public const string BRAKE_PEDAL = "brakePedal";
+
+    private string[] events;
+
+    private static string[] allEvents = {
+        TEST,
+        WHEEL_BURN,
+        CAR_SETTINGS_CHANGED,
+        RESET,
+        FIRST_ACCELERATION_PEDAL_USE,
+        ACCELERATION_PEDAL,
+        BRAKE_PEDAL,
+        };
+
+    public string[] Events { get { return events; } }
+
+    void OnEnable()
+    {
+        events = allEvents;
+    }
 }

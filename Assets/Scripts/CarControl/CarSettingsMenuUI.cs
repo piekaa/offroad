@@ -14,14 +14,6 @@ public class CarSettingsMenuUI : MonoBehaviour
     [SerializeField]
     private PiekaSlider rearWheelSuspensionFrequency;
 
-
-    [SerializeField]
-    private PiekaSlider frontWheelSuspensionDamping;
-
-    [SerializeField]
-    private PiekaSlider rearWheelSuspensionDamping;
-
-
     [SerializeField]
     private PiekaSlider frontWheelSuspensionHeight;
 
@@ -39,8 +31,6 @@ public class CarSettingsMenuUI : MonoBehaviour
         SetValues();
         frontWheelSuspensionFrequency.RegisterOnSlide(v => carSettings.FrontWheelSuspensionFrequency = v);
         rearWheelSuspensionFrequency.RegisterOnSlide(v => carSettings.RearWheelSuspensionFrequency = v);
-        frontWheelSuspensionDamping.RegisterOnSlide(v => carSettings.FrontWheelSuspensionDamping = v);
-        rearWheelSuspensionDamping.RegisterOnSlide(v => carSettings.RearWheelSuspensionDamping = v);
         frontWheelSuspensionHeight.RegisterOnSlide(v => carSettings.FrontWheelSuspensionHeight = v);
         fearWheelSuspensionHeight.RegisterOnSlide(v => carSettings.RearWheelSuspensionHeight = v);
         frontRearDriveRatio.RegisterOnSlide(v => carSettings.FrontRearDriveRatio = v);
@@ -51,8 +41,6 @@ public class CarSettingsMenuUI : MonoBehaviour
     {
         frontWheelSuspensionFrequency.Value = carSettings.FrontWheelSuspensionFrequency;
         rearWheelSuspensionFrequency.Value = carSettings.RearWheelSuspensionFrequency;
-        frontWheelSuspensionDamping.Value = carSettings.FrontWheelSuspensionDamping;
-        rearWheelSuspensionDamping.Value = carSettings.RearWheelSuspensionDamping;
         frontWheelSuspensionHeight.Value = carSettings.FrontWheelSuspensionHeight;
         fearWheelSuspensionHeight.Value = carSettings.RearWheelSuspensionHeight;
         frontRearDriveRatio.Value = carSettings.FrontRearDriveRatio;

@@ -11,6 +11,9 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     private bool RightRotation = false;
 
+    [SerializeField]
+    private EventPicker Event;
+
     int pedalPositionX;
     int pedalPositionY;
 
@@ -53,16 +56,17 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         pushed = false;
         Value = 0;
-        if (onIsPressed != null)
-        {
-            rotate();
-            onIsPressed(Value);
-        }
+        rotateAndbroadcast();
     }
 
     public void RegisterOnIsPressed(RunFloat onIsPressed)
     {
         this.onIsPressed += onIsPressed;
+    }
+
+    public void UnregisterOnIsPressed(RunFloat onIsPressed)
+    {
+        this.onIsPressed -= onIsPressed;
     }
 
     public void Update()
@@ -90,12 +94,7 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     break;
             }
 
-            rotate();
-
-            if (onIsPressed != null)
-            {
-                onIsPressed(Value);
-            }
+            rotateAndbroadcast();
 
         }
     }
@@ -109,12 +108,22 @@ public class Pedal : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void Disable()
     {
         enabled = false;
+        Value = 0;
+        rotateAndbroadcast();
+        gameObject.SetActive(enabled);
+    }
+
+    private void rotateAndbroadcast()
+    {
+        rotate();
         if (onIsPressed != null)
         {
-            rotate();
-            onIsPressed(0);
+            onIsPressed(Value);
         }
-        gameObject.SetActive(enabled);
+        if (Event != null)
+        {
+            SEventSystem.FireEvent(Event.Event, new PMEventArgs(Value));
+        }
     }
 
     private void rotate()

@@ -10,6 +10,11 @@ public class ObjectWithMaterial : MonoBehaviour
 
     void OnEnable()
     {
+        if (PiekaMaterial == null)
+        {
+            return;
+        }
+
         var spriteShapeController = GetComponent<SpriteShapeController>();
         if (spriteShapeController != null)
         {
