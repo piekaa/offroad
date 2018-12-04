@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class Reseter : MonoBehaviour
 {
-    Resetable[] resetables;
+
+    [SerializeField]
+    private EventPicker Event;
+
+    private Resetable[] resetables;
+
     void Start()
     {
         resetables = GameObject.FindObjectsOfType<Resetable>();
     }
 
-    public void Reset() {
-        foreach(var resetable in resetables) 
+    public void Reset()
+    {
+        foreach (var resetable in resetables)
         {
             resetable.Reset();
         }
+
+        if (Event != null)
+        {
+            SEventSystem.FireEvent(Event.Event);
+        }
+
     }
 
 }

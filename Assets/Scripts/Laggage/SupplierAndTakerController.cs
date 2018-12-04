@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class SupplierAndTakerController : MonoBehaviour
+public class SupplierAndTakerController : MonoBehaviour
 {
     public LaggageController LaggageController;
 

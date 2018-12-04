@@ -6,8 +6,6 @@ using UnityEngine;
 // Redesign
 class DrivePreviewController : Resetable
 {
-    public CarDriveController CarDriveController;
-
     public Meter speedMeter;
 
     public PiekaSlider SpeedSlider;
