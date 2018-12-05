@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drive : MonoBehaviour
+public class Drive : PiekaBehaviour
 {
     private Dictionary<Wheel, List<float>> wheelVelocitySignHistory = new Dictionary<Wheel, List<float>>();
 
@@ -112,19 +112,6 @@ public class Drive : MonoBehaviour
 
     public float RearWheelRpm { get { return rearWheel.AngularVelocity / 6; } }
 
-    public bool ToggleReverse()
-    {
-        float frontWheelRPM = Mathf.Abs(FrontWheelRpm);
-        float rearWheelRPM = Mathf.Abs(RearWheelRpm);
-        float frontWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(frontWheelRPM, frontWheel.DiameterInMeters);
-        float rearWheelKmPerHour = CalculateUtils.WheelRpmToKmPerHour(rearWheelRPM, rearWheel.DiameterInMeters);
-        if (frontWheelKmPerHour < 5 && rearWheelKmPerHour < 5)
-        {
-            reverse = !reverse;
-        }
-        return reverse;
-    }
-
     public void SetFrontWheel(Wheel wheel)
     {
         frontWheel = wheel;
@@ -141,22 +128,22 @@ public class Drive : MonoBehaviour
         wheelVelocitySignHistory[wheel].Add(0);
     }
 
-
-    private void setMotorSpeed(WheelJoint2D joint, float speed)
-    {
-        var motor = joint.motor;
-        motor.motorSpeed = speed;
-        joint.motor = motor;
-    }
-
-    private void setUseMotor(WheelJoint2D joint, bool useMotor)
-    {
-        joint.useMotor = useMotor;
-    }
-
     public void SetJoints(WheelJoint2D front, WheelJoint2D rear)
     {
         frontJoint = front;
         rearJoint = rear;
     }
+
+    [OnEvent(EventNames.REVERSE_ON)]
+    void onOnReverse()
+    {
+        reverse = true;
+    }
+
+    [OnEvent(EventNames.REVERSE_OFF)]
+    void onOffReverse()
+    {
+        reverse = false;
+    }
+
 }

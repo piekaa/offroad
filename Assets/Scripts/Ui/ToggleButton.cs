@@ -4,25 +4,34 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <returns>state after toggle</returns>
-public delegate bool OnToggle();
+public delegate void OnToggle();
 
-public class ToggleButton : MonoBehaviour, IPointerClickHandler
+public class ToggleButton : PiekaBehaviour, IPointerClickHandler
 {
+    public bool BackToInitialOnReset;
+
+    public bool InitialState;
+
+    [SerializeField]
+    private EventPicker OnEvent;
+
+    [SerializeField]
+    private EventPicker OffEvent;
+
     private Image image;
     private OnToggle onToggle;
-    void Awake()
+
+    private bool state;
+    void Start()
     {
+        state = InitialState;
         image = GetComponent<Image>();
+        setColor(state);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (onToggle != null)
-        {
-            var state = onToggle();
-            setColor(state);
-        }
+        toggle();
     }
 
     public void SetOnToggle(OnToggle onToggle)
@@ -42,8 +51,30 @@ public class ToggleButton : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetInitialState(bool state)
+    [OnEvent(EventNames.RESET)]
+    private void onReset()
     {
+        if (BackToInitialOnReset && state != InitialState)
+        {
+            toggle();
+        }
+    }
+
+    private void toggle()
+    {
+        state = !state;
+        if (onToggle != null)
+        {
+            onToggle();
+        }
+        if (state && OnEvent != null)
+        {
+            SEventSystem.FireEvent(OnEvent.Event);
+        }
+        if (!state && OffEvent != null)
+        {
+            SEventSystem.FireEvent(OffEvent.Event);
+        }
         setColor(state);
     }
 }
