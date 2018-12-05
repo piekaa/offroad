@@ -5,10 +5,20 @@ using UnityEngine.EventSystems;
 
 public class PiekaButton : MonoBehaviour, IPointerClickHandler
 {
+
+    [SerializeField]
+    private EventPicker Event;
+
     private Run onClick;
 
     public void OnPointerClick(PointerEventData eventData)
     {
+
+        if (Event != null)
+        {
+            SEventSystem.FireEvent(Event.Event);
+        }
+
         if (onClick != null)
         {
             onClick();
