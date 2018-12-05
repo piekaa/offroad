@@ -11,6 +11,9 @@ public class DriverProvider : PiekaBehaviour
     [SerializeField]
     private Driver parkingDriver;
 
+    [SerializeField]
+    private Driver idleDriver;
+
     private DriverController driverController;
 
     void Awake()
@@ -28,5 +31,11 @@ public class DriverProvider : PiekaBehaviour
     private void onReset()
     {
         driverController.Driver = parkingDriver;
+    }
+
+    [OnEvent(EventNames.CAR_BRAKE)]
+    private void onCarBrake()
+    {
+        driverController.Driver = idleDriver;
     }
 }

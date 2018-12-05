@@ -12,6 +12,7 @@ public class EventNames : ScriptableObject
     public const string FIRST_ACCELERATION_PEDAL_USE = "firstAccelerationPedalUse";
     public const string ACCELERATION_PEDAL = "accelerationPedal";
     public const string BRAKE_PEDAL = "brakePedal";
+    public const string CAR_BRAKE = "carBrake";
 
     private string[] events;
 
@@ -23,6 +24,7 @@ public class EventNames : ScriptableObject
         FIRST_ACCELERATION_PEDAL_USE,
         ACCELERATION_PEDAL,
         BRAKE_PEDAL,
+        CAR_BRAKE,
         };
 
     public string[] Events { get { return events; } }
