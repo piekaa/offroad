@@ -123,6 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2179123}
   - component: {fileID: 1976509002}
+  - component: {fileID: 2179124}
   m_Layer: 8
   m_Name: Drive
   m_TagString: Car
@@ -144,6 +145,18 @@ Transform:
   m_Father: {fileID: 1788930770}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2179124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2179122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a077fd98f0748b38944aef6ddb112a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {fileID: 11400000, guid: dfbf7ee746f9b4e22bec36fe5e18655b, type: 2}
 --- !u!1 &5882299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,6 +2864,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284ccead1ec1143bbaabf7113ac359df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackToInitialOnReset: 1
+  InitialState: 0
+  OnEvent: {fileID: 11400000, guid: 9b9fb0201a04f4cd6afe2049a077dfc7, type: 2}
+  OffEvent: {fileID: 11400000, guid: d30a6ad63f9114e8eaecf48310728744, type: 2}
 --- !u!114 &1179998913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5202,6 +5219,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114067337358530054, guid: a590e5cfe53b84ab3b28b9119243392a,
+        type: 2}
+      propertyPath: speed
+      value: 
+      objectReference: {fileID: 11400000, guid: dfbf7ee746f9b4e22bec36fe5e18655b,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a590e5cfe53b84ab3b28b9119243392a, type: 2}
   m_IsPrefabAsset: 0

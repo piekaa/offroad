@@ -122,16 +122,6 @@ public class Car : MonoBehaviour
         Engine.Throttle = throttle;
     }
 
-    public bool ToggleReverse()
-    {
-        return Drive.ToggleReverse();
-    }
-
-    public CarInfo GetCarInfo()
-    {
-        return new CarInfo(FrontWheel.DiameterInMeters, RearWheel.DiameterInMeters, Drive.FrontWheelRpm, Drive.RearWheelRpm);
-    }
-
     public void SetFrontRearDriveRatio(float ratio)
     {
         Drive.FrontRearDriveRatio = ratio;

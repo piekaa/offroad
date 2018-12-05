@@ -48,34 +48,11 @@ class DrivePreviewController : Resetable
         BumpScaleSlider.RegisterOnSlide((v) => scaleBumps(v));
         carSpriteRenderer = CarBody.GetComponent<SpriteRenderer>();
         AccelerationPedal.Disable();
-        CruiseControlToggleButton.SetInitialState(cruiseControl);
-        CruiseControlToggleButton.SetOnToggle(() =>
-        {
-            cruiseControl = !cruiseControl;
-            if (cruiseControl)
-            {
-                AccelerationPedal.Disable();
-                // pedal.Enable();
-            }
-            else
-            {
-                AccelerationPedal.Enable();
-                // pedal.Disable();
-            }
-            return cruiseControl;
-        });
+        CruiseControlToggleButton.InitialState = cruiseControl;
     }
 
     void Update()
     {
-        if (speedMeter.Value < SpeedSlider.Value)
-        {
-            // pedal.setValue(.2f);
-        }
-        else
-        {
-            // pedal.setValue(0);
-        }
         var carPositions = SpriteUtils.GetWolrdPositions(carSpriteRenderer);
         var floorPositions = SpriteUtils.GetWolrdPositions(floorSpriteRenderer);
         if (carPositions.TopRight.x >= floorPositions.Center.x)
@@ -88,9 +65,6 @@ class DrivePreviewController : Resetable
                 Destroy(floors.Dequeue());
             }
         }
-
-        // pedal.Update();
-
     }
 
     void scaleBumps(float value)
@@ -110,58 +84,4 @@ class DrivePreviewController : Resetable
         }
         floor.transform.position = floorInitPos;
     }
-
-
-    //todo redesign
-
-    // private class FakePedal : Pedal
-    // {
-
-    //     private bool enabled = true;
-
-    //     private RunFloat onIsPressed;
-
-    //     public FakePedal(Pedal realPedal)
-    //     {
-    //         realPedal.RegisterOnIsPressed((v) => Value = v);
-    //     }
-
-    //     public float Value { get; private set; }
-
-    //     public void RegisterOnIsPressed(RunFloat onIsPressed)
-    //     {
-    //         this.onIsPressed += onIsPressed;
-    //     }
-
-    //     public override void Update()
-    //     {
-    //         if (onIsPressed != null)
-    //         {
-    //             onIsPressed(Value);
-    //         }
-    //     }
-
-    //     public void setValue(float v)
-    //     {
-    //         if (enabled)
-    //         {
-    //             Value = v;
-    //         }
-    //     }
-
-    //     public void Enable()
-    //     {
-    //         enabled = true;
-    //     }
-
-    //     public void Disable()
-    //     {
-    //         enabled = false;
-    //         if (onIsPressed != null)
-    //         {
-    //             onIsPressed(0);
-    //         }
-    //         Value = 0;
-    //     }
-    // }
 }

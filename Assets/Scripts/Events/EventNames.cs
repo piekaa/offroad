@@ -14,6 +14,8 @@ public class EventNames : ScriptableObject
     public const string BRAKE_PEDAL = "brakePedal";
     public const string CAR_BRAKE = "carBrake";
     public const string CAR_BRAKE_WITH_VELOCITY = "carBrakeWithVelocity";
+    public const string REVERSE_ON = "reverseOn";
+    public const string REVERSE_OFF = "reverseOff";
 
     private string[] events;
 
@@ -27,6 +29,8 @@ public class EventNames : ScriptableObject
         BRAKE_PEDAL,
         CAR_BRAKE,
         CAR_BRAKE_WITH_VELOCITY,
+        REVERSE_ON,
+        REVERSE_OFF,
         };
 
     public string[] Events { get { return events; } }

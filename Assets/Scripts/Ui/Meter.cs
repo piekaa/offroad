@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Meter : MonoBehaviour
 {
-    public float Value { get; set; }
+    [SerializeField]
+    private FloatValue speed;
 
     [SerializeField]
     private float min;
@@ -45,8 +46,7 @@ public class Meter : MonoBehaviour
 
     void Update()
     {
-        float percentage = (Value - min) / (float)(max - min);
+        float percentage = (speed.Value - min) / (float)(max - min);
         pointerRectTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, (endAngle - startAngle) * percentage + startAngle));
-
     }
 }
