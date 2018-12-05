@@ -6,6 +6,7 @@ public class Car : MonoBehaviour
 {
 
     public Drive Drive { get; private set; }
+
     private Engine Engine { get; set; }
 
     public Wheel FrontWheel;
@@ -13,28 +14,13 @@ public class Car : MonoBehaviour
     public Wheel RearWheel;
 
     [SerializeField]
-    private SpriteRenderer shockAbsorberPrefab;
-
-    [SerializeField]
     private GameObject frontPart;
-
-    [SerializeField]
-    private GameObject rearPart;
-
-    [SerializeField]
-    private GameObject middlePart;
 
     public Rigidbody2D middlePartRigidbody;
 
     private WheelJoint2D frontWheelJoint;
 
     private WheelJoint2D rearWheelJoint;
-
-    private SpriteRenderer frontWheelShockAbsorber;
-
-    private SpriteRenderer rearWheelShockAbsorber;
-
-    private float shockAbsorberHeight;
 
     private Collider2D[] colliders;
 
@@ -70,16 +56,9 @@ public class Car : MonoBehaviour
             }
         }
 
-        frontWheelShockAbsorber = Instantiate(shockAbsorberPrefab, FrontWheel.transform.position, Quaternion.identity);
-
-        rearWheelShockAbsorber = Instantiate(shockAbsorberPrefab, RearWheel.transform.position, Quaternion.identity);
-
-        var shockAbsorberPositions = SpriteUtils.GetWolrdPositions(shockAbsorberPrefab);
-        shockAbsorberHeight = Vector2.Distance(shockAbsorberPositions.TopLeft, shockAbsorberPositions.BottomLeft);
-
         Drive.SetJoints(frontWheelJoint, rearWheelJoint);
 
-        middlePartRigidbody = middlePart.GetComponent<Rigidbody2D>();
+        middlePartRigidbody = frontPart.GetComponent<Rigidbody2D>();
 
         colliders = GetComponentsInChildren<Collider2D>();
 
@@ -163,23 +142,6 @@ public class Car : MonoBehaviour
         Drive.FrontRearBrakeRatio = ratio;
     }
 
-    void Update()
-    {
-        updateShockAbsorber(frontWheelShockAbsorber, frontPart, FrontWheel);
-        updateShockAbsorber(rearWheelShockAbsorber, rearPart, RearWheel);
-    }
-
-    private void updateShockAbsorber(SpriteRenderer shockAbsorber, GameObject carPart, Wheel wheel)
-    {
-        var wheelCenter = SpriteUtils.GetWolrdPositions(wheel.GetComponent<SpriteRenderer>()).Center;
-        var frontPartCenter = SpriteUtils.GetWolrdPositions(carPart.GetComponent<SpriteRenderer>()).Center;
-        var distance = Vector2.Distance(wheelCenter, frontPartCenter);
-
-        shockAbsorber.transform.localScale = new Vector3(shockAbsorberPrefab.transform.localScale.x, shockAbsorberPrefab.transform.localScale.y * (distance / shockAbsorberHeight));
-        shockAbsorber.transform.rotation = carPart.transform.rotation;
-        shockAbsorber.transform.position = wheel.transform.position;
-    }
-
     public Sparkable[] GetSparkables()
     {
         return GetComponentsInChildren<Sparkable>();
@@ -199,7 +161,7 @@ public class Car : MonoBehaviour
 
     public float GetAngle()
     {
-        var angle = middlePart.transform.rotation.eulerAngles.z;
+        var angle = frontPart.transform.rotation.eulerAngles.z;
         while (angle < 0)
         {
             angle += 360;
@@ -221,6 +183,6 @@ public class Car : MonoBehaviour
 
     public GameObject[] GetBrakeables()
     {
-        return new GameObject[] { middlePart };
+        return new GameObject[] { frontPart };
     }
 }

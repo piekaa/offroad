@@ -9,7 +9,7 @@ public class CameraController : Resetable
     private SpriteRenderer curtain;
 
     [SerializeField]
-    private GameObject followed;
+    private GameObject[] followed;
     private Rigidbody2D followedRigidbody;
 
     [SerializeField]
@@ -32,9 +32,12 @@ public class CameraController : Resetable
 
     void Awake()
     {
-        followedRigidbody = followed.GetComponent<Rigidbody2D>();
-        Camera.main.transform.position = new Vector3(followed.transform.position.x, followed.transform.position.y);
-        curtain.transform.position = new Vector3(followed.transform.position.x, followed.transform.position.y, 1);
+        followedRigidbody = followed[0].GetComponent<Rigidbody2D>();
+
+        var avgPos = averageFollowedPosition();
+
+        Camera.main.transform.position = new Vector3(avgPos.x, avgPos.y);
+        curtain.transform.position = new Vector3(avgPos.x, avgPos.y, 1);
         blurEffect = Camera.main.gameObject.AddComponent<BlurEffect>();
         blurEffect.Material = blurMaterial;
         ResetSums();
@@ -63,9 +66,23 @@ public class CameraController : Resetable
         sumY.Add(translation.y);
         velocitySum.Add(translation.magnitude);
 
-        Camera.main.transform.position = new Vector3(followed.transform.position.x + sumX.Sum, followed.transform.position.y + sumY.Sum);
-        curtain.transform.position = new Vector3(followed.transform.position.x, followed.transform.position.y, 1);
+        var avgPos = averageFollowedPosition();
+
+        Camera.main.transform.position = new Vector3(avgPos.x + sumX.Sum, avgPos.y + sumY.Sum);
+        curtain.transform.position = new Vector3(avgPos.x, avgPos.y, 1);
         Camera.main.orthographicSize = cameraSize + velocitySum.Sum;
+    }
+
+    private Vector2 averageFollowedPosition()
+    {
+        float followedAverageX = 0;
+        float followedAverageY = 0;
+        for (int i = 0; i < followed.Length; i++)
+        {
+            followedAverageX += followed[i].transform.position.x;
+            followedAverageY += followed[i].transform.position.y;
+        }
+        return new Vector2(followedAverageX / followed.Length, followedAverageY / followed.Length);
     }
 
     private void ResetSums()
