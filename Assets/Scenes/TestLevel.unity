@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 45371042}
   - component: {fileID: 45371043}
   m_Layer: 9
-  m_Name: GameObject
+  m_Name: Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,12 +207,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 45371041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 559.8, y: 12.81, z: 0}
+  m_LocalScale: {x: 2.8544307, y: 40.893375, z: 1}
   m_Children: []
-  m_Father: {fileID: 1511172288}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &45371043
 MonoBehaviour:
@@ -225,6 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5e0141f2c70a4de79229ccc044ea000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShake: {fileID: 374409177}
+  power: 0
 --- !u!1 &56945925
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089bf0790a554d99a625a07101955d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: a0f807a1f6f224bd0ba702f8d715c3cf, type: 2}
 --- !u!114 &192088880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,6 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089bf0790a554d99a625a07101955d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Event: {fileID: 0}
 --- !u!114 &304462129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1300,6 +1304,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5bb6f853b3e444e08760633b0471a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &374409178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 374409171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c595eab3160449c9dd1c33065686fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaximumShakeVelocity: 30
+  MinimumShakeVelocity: 10
 --- !u!224 &375899833
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4390,8 +4407,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 559.8, y: 12.81, z: 0}
   m_LocalScale: {x: 2.8544307, y: 40.893375, z: 1}
-  m_Children:
-  - {fileID: 45371042}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
