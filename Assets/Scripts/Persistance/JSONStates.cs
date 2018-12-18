@@ -6,20 +6,27 @@ public class StateResult
     public IJsonState NextState;
     public string Key;
     public string Value;
+    public string ArrayValue;
+    public bool newObject;
+    public bool newArray;
+    public bool endObject;
+    public bool endArray;
 
     public StateResult(IJsonState nextState)
     {
         NextState = nextState;
     }
 
-    public StateResult(IJsonState nextState, string key) : this(nextState)
+    public StateResult(IJsonState nextState, string key, string value, string arrayValue, bool newObject, bool newArray, bool endObject, bool endArray)
     {
+        NextState = nextState;
         Key = key;
-    }
-
-    public StateResult(string value, IJsonState nextState) : this(nextState)
-    {
         Value = value;
+        ArrayValue = arrayValue;
+        this.newObject = newObject;
+        this.newArray = newArray;
+        this.endObject = endObject;
+        this.endArray = endArray;
     }
 }
 
@@ -34,11 +41,11 @@ public class BeginJsonState : IJsonState
     {
         if (c == '{')
         {
-            return new StateResult(new ObjectJsonState());
+            return new StateResult(new ObjectJsonState(), null, null, null, true, false, false, false);
         }
         else if (c == '[')
         {
-            return new StateResult(new ArrayJsonState());
+            return new StateResult(new ArrayJsonState(), null, null, null, false, true, false, false);
         }
         throw new InvalidOperationException("expected { at begining");
     }
@@ -63,11 +70,15 @@ public class ArrayJsonState : IJsonState
             }
             else if (c == '\"')
             {
-                return new StateResult(new OpenedArrayValueJsonState());
+                return new StateResult(new OpenedArrayValueJsonState(), null, null, null, false, false, false, false);
             }
             else if (c == '{')
             {
-                return new StateResult(new ObjectJsonState());
+                return new StateResult(new ObjectJsonState(), null, null, null, false, false, true, false);
+            }
+            else if (c == '[')
+            {
+                return new StateResult(new ArrayJsonState(), null, null, null, false, true, false, false);
             }
             else
             {
@@ -88,11 +99,11 @@ public class ArrayJsonState : IJsonState
             }
             else if (c == ',')
             {
-                return new StateResult(sb.ToString(), new ArrayJsonState());
+                return new StateResult(new ArrayJsonState(), null, null, sb.ToString(), false, false, false, false);
             }
             else if (c == ']')
             {
-                return new StateResult(sb.ToString(), new EndObjectOrArrayState());
+                return new StateResult(new EndObjectOrArrayState(), null, null, sb.ToString(), false, false, false, true);
             }
             else
             {
@@ -121,7 +132,7 @@ public class OpenedKeyJsonState : IJsonState
     {
         if (c == '\"')
         {
-            return new StateResult(new ClosedKeyJsonState(), sb.ToString());
+            return new StateResult(new ClosedKeyJsonState(), sb.ToString(), null, null, false, false, false, false);
         }
         sb.Append(c);
         return null;
@@ -163,7 +174,7 @@ public class ValueJsonState : IJsonState
             }
             else if (c == '{')
             {
-                return new StateResult(new ObjectJsonState());
+                return new StateResult(new ObjectJsonState(), null, null, null, true, false, false, false);
             }
             else
             {
@@ -184,11 +195,11 @@ public class ValueJsonState : IJsonState
             }
             else if (c == ',')
             {
-                return new StateResult(sb.ToString(), new ObjectJsonState());
+                return new StateResult(new ObjectJsonState(), null, sb.ToString(), null, false, false, false, false);
             }
             else if (c == '}')
             {
-                return new StateResult(sb.ToString(), new EndObjectOrArrayState());
+                return new StateResult(new EndObjectOrArrayState(), null, sb.ToString(), null, false, false, true, false);
             }
             else
             {
@@ -206,7 +217,7 @@ public class OpenedValueJsonState : IJsonState
     {
         if (c == '\"' && !escape)
         {
-            return new StateResult(sb.ToString(), new ClosedValueJsonState());
+            return new StateResult(new ClosedValueJsonState(), null, sb.ToString(), null, false, false, false, false);
         }
 
         if (c == '\\' && !escape)
@@ -230,7 +241,7 @@ public class OpenedArrayValueJsonState : IJsonState
     {
         if (c == '\"' && !escape)
         {
-            return new StateResult(sb.ToString(), new ClosedArrayValueJsonState());
+            return new StateResult(new ClosedArrayValueJsonState(), null, null, sb.ToString(), false, false, false, false);
         }
 
         if (c == '\\' && !escape)
@@ -256,7 +267,7 @@ public class ClosedArrayValueJsonState : IJsonState
         }
         else if (c == ']')
         {
-            return new StateResult(new EndObjectOrArrayState());
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, false, true);
         }
         else
         {
@@ -275,7 +286,7 @@ public class ClosedValueJsonState : IJsonState
         }
         else if (c == '}')
         {
-            return new StateResult(new EndObjectOrArrayState());
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, true, false);
         }
         else
         {
@@ -294,7 +305,7 @@ public class EndObjectOrArrayState : IJsonState
         }
         else if (c == '}')
         {
-            return new StateResult(new EndObjectOrArrayState());
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, true, false);
         }
         throw new InvalidOperationException("expected , or }");
     }

@@ -10,13 +10,10 @@ class PiekaJsonDeserializer
         var t = typeof(T);
 
         var obj = Activator.CreateInstance<T>();
-
         Stack<string> keys = new Stack<string>();
         Stack<object> values = new Stack<object>();
-        Stack<JSONArray> arrays = new Stack<JSONArray>();
-
-
         IJsonState state = new BeginJsonState();
+
         for (int i = 0; i < json.Length; i++)
         {
             char c = json[i];
@@ -26,89 +23,72 @@ class PiekaJsonDeserializer
             }
             try
             {
-                var stateResult = state.HandleChar(c);
-                if (stateResult != null)
-                {
-                    if (stateResult.Key != null)
-                    {
-                        keys.Push(stateResult.Key);
-                    }
-                    if (stateResult.Value != null && !(state is ArrayJsonState) && !(state is OpenedArrayValueJsonState))
-                    {
-                        if (keys.Count == 0)
-                        {
-                            throw new NullReferenceException("key should not be null when value is not null");
-                        }
-                        setValue(keys.Pop(), stateResult.Value, values.Peek(), t);
-                    }
-                    if (stateResult.NextState != null)
-                    {
-                        if (stateResult.NextState is ObjectJsonState)
-                        {
-                            if (keys.Count == 0)
-                            {
-                                values.Push(obj);
-                            }
-                            else
-                            {
-                                var newObject = createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek());
-                                values.Push(newObject);
-                            }
-                        }
-                        else if (stateResult.NextState is ArrayJsonState)
-                        {
-                            if (!(state is ArrayJsonState) && !(state is OpenedArrayValueJsonState) && !(state is ClosedArrayValueJsonState))
-                            {
-                                if (arrays.Count == 0)
-                                {
-                                    arrays.Push(new JSONArray(obj));
-                                }
-                                else
-                                {
-                                    var newArray = createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek());
-                                    arrays.Push(new JSONArray(newArray));
-                                }
-                            }
-                            else if (stateResult.Value != null)
-                            {
-                                arrays.Peek().Add(getValueByType(stateResult.Value, arrays.Peek().collectionItemType));
-                            }
-                        }
-                        else if (stateResult.NextState is ClosedArrayValueJsonState)
-                        {
-                            arrays.Peek().Add(getValueByType(stateResult.Value, arrays.Peek().collectionItemType));
-                        }
-                        else if (stateResult.NextState is EndObjectOrArrayState)
-                        {
+                var result = state.HandleChar(c);
 
-                            if (state is ArrayJsonState)
-                            {
-                                arrays.Peek().Add(getValueByType(stateResult.Value, arrays.Peek().collectionItemType));
-                            }
-                            else if (!(state is ClosedArrayValueJsonState))
-                            {
-                                values.Pop();
-                            }
+                if (result != null)
+                {
+                    if (result.newObject)
+                    {
+                        if (values.Count == 0)
+                        {
+                            values.Push(obj);
                         }
-                        state = stateResult.NextState;
+                        else
+                        {
+                            values.Push(createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek()));
+                        }
+                    }
+                    if (result.newArray)
+                    {
+                        if (values.Count == 0)
+                        {
+                            values.Push(new JSONArray(obj));
+                        }
+                        else
+                        {
+                            values.Push(new JSONArray(createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek())));
+                        }
+                    }
+                    if (result.Key != null)
+                    {
+                        keys.Push(result.Key);
+                    }
+                    if (result.Value != null)
+                    {
+                        setValue(keys.Pop(), result.Value, values.Peek());
+                    }
+                    if (result.ArrayValue != null)
+                    {
+                        var jsonArray = (JSONArray)values.Peek();
+                        jsonArray.Add(getValueByType(result.ArrayValue, jsonArray.collectionItemType));
+                    }
+                    if (result.endArray)
+                    {
+                        values.Pop();
+                    }
+                    if (result.endObject)
+                    {
+                        values.Pop();
+                    }
+                    if (result.NextState != null)
+                    {
+                        state = result.NextState;
                     }
                 }
-            }
-            catch (InvalidOperationException e)
-            {
-                throw new InvalidOperationException(json.Substring(0, i) + "   (" + json[i] + ")  , state = " + state.GetType().Name, e);
-            }
-        }
 
-        if (!(state is EndObjectOrArrayState))
-        {
-            throw new InvalidOperationException("Incorrect state: " + state.GetType().Name);
+            }
+            //todo DeserializationException
+            catch (Exception e)
+            {
+                throw new Exception(json.Substring(0, i) + "   (" + json[i] + ")  , state = " + state.GetType().Name + "\nstack trace: " + e.StackTrace, e);
+            }
         }
         return obj;
     }
 
-    private static void setValue(string key, string value, object obj, Type t)
+    private static void setValue(string key, string value, object obj)
     {
+        Type t = obj.GetType();
         var fieldInfo = t.GetField(key);
         var propertyInfo = t.GetProperty(key);
         var methodInfo = t.GetMethod("Set" + StringUtils.ToFirstUpper(key));
