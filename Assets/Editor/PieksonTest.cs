@@ -6,13 +6,13 @@ using UnityEngine.TestTools;
 using UnityEngine.U2D;
 
 [TestFixture]
-public class PiekaSerializerTest
+public class PieksonTest
 {
     [Test]
     public void TestToJson()
     {
         TestClass t = new TestClass(3.14f, true, 123, "hel\\\"lo");
-        var json = PiekaSerializer.ToJson(t);
+        var json = Piekson.ToJson(t);
         Assert.AreEqual("{\"a\":123,\"b\":\"hel\\\\\\\"lo\",\"d\":3.14,\"state\":true}", json);
     }
 
@@ -20,7 +20,7 @@ public class PiekaSerializerTest
     public void TestNestedToJson()
     {
         TestMainClass t = new TestMainClass(new TestNestedClass());
-        var json = PiekaSerializer.ToJson(t);
+        var json = Piekson.ToJson(t);
         Assert.AreEqual("{\"nested\":{\"test\":100.01}}", json);
     }
 
@@ -28,15 +28,15 @@ public class PiekaSerializerTest
     public void TestGenericCollectionToJson()
     {
         List<int> list = new List<int> { 1, 2, 3, 4, 5 };
-        var json = PiekaSerializer.ToJson(list);
+        var json = Piekson.ToJson(list);
         Assert.AreEqual("[1,2,3,4,5]", json);
     }
 
     [Test]
     public void TestNestedGenericCollectionToJson()
     {
-        var t = new TestNestedCollection();
-        var json = PiekaSerializer.ToJson(t);
+        var t = new TestNestedCollection(new List<string> { "Arnold", "Marian", "Fedrynand" });
+        var json = Piekson.ToJson(t);
         Assert.AreEqual("{\"names\":[\"Arnold\",\"Marian\",\"Fedrynand\"]}", json);
     }
 
@@ -49,7 +49,7 @@ public class PiekaSerializerTest
             {"c", 3},
             {"d", 4},
         };
-        var json = PiekaSerializer.ToJson(t);
+        var json = Piekson.ToJson(t);
         Assert.AreEqual("{\"a\":1,\"b\":2,\"c\":3,\"d\":4}", json);
     }
 
@@ -58,7 +58,7 @@ public class PiekaSerializerTest
     public void TestFromJson()
     {
         var json = "{\"a\":123,\"b\":\"hel\\\\\\\"lo\",\"d\":3.14,\"state\":true}";
-        var t = PiekaSerializer.FromJson<TestClass>(json);
+        var t = Piekson.FromJson<TestClass>(json);
         Assert.AreEqual(new TestClass(3.14f, true, 123, "hel\\\"lo"), t);
     }
 
@@ -66,7 +66,7 @@ public class PiekaSerializerTest
     public void TestFromNestedJson()
     {
         var json = "{\"nested\":{\"test\":100.01}}";
-        var t = PiekaSerializer.FromJson<TestMainClass>(json);
+        var t = Piekson.FromJson<TestMainClass>(json);
         Assert.AreEqual(new TestMainClass(new TestNestedClass()), t);
     }
 
@@ -74,7 +74,7 @@ public class PiekaSerializerTest
     public void TestFromIntListJson()
     {
         var json = "[1,2,3,4,5,6]";
-        var t = PiekaSerializer.FromJson<List<int>>(json);
+        var t = Piekson.FromJson<List<int>>(json);
         Assert.AreEqual(new List<int> { 1, 2, 3, 4, 5, 6 }, t);
     }
 
@@ -82,8 +82,87 @@ public class PiekaSerializerTest
     public void TestFromStringListJson()
     {
         var json = "[\"a\",\"b\",\"c\",\"d\"]";
-        var t = PiekaSerializer.FromJson<List<string>>(json);
+        var t = Piekson.FromJson<List<string>>(json);
         Assert.AreEqual(new List<string> { "a", "b", "c", "d" }, t);
+    }
+
+    [Test]
+    public void TestFromObjectInListJson()
+    {
+        var json = "[{\"test\":1},{\"test\":2}]";
+        var t = Piekson.FromJson<List<TestSimpleClass>>(json);
+        Assert.AreEqual(new List<TestSimpleClass> { new TestSimpleClass(1), new TestSimpleClass(2) }, t);
+    }
+
+    [Test]
+    public void TestFromListInObjectJson()
+    {
+        var json = "{\"names\":[\"Arnold\",\"Marian\",\"Fedrynand\"]}";
+        var t = Piekson.FromJson<TestNestedCollection>(json);
+        Assert.AreEqual(new TestNestedCollection(new List<string> { "Arnold", "Marian", "Fedrynand" }), t);
+    }
+
+    [Test]
+    public void TestFromDictionaryJson()
+    {
+        var json = "{\"a\":1,\"b\":2,\"c\":3,\"d\":4}";
+        var t = Piekson.FromJson<Dictionary<string, int>>(json);
+        CollectionAssert.AreEquivalent(new Dictionary<string, int>() { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 }, }, t);
+    }
+
+    [Test]
+    public void TestFromDictionaryInObjectJson()
+    {
+        var json = "{\"test\":{\"a\":1, \"b\":3}}";
+        var t = Piekson.FromJson<TestDictionaryInObject>(json);
+        CollectionAssert.AreEquivalent(new Dictionary<string, int>() { { "a", 1 }, { "b", 3 } }, t.test);
+    }
+
+    [Test]
+    public void TestFromObjectInDictionaryJson()
+    {
+        var json = "{\"testObj1\":{\"test\":1}, \"testObj2\":{\"test\":2}}";
+        var t = Piekson.FromJson<Dictionary<string, TestSimpleClass>>(json);
+        CollectionAssert.AreEquivalent(new Dictionary<string, TestSimpleClass>() { { "testObj1", new TestSimpleClass(1) }, { "testObj2", new TestSimpleClass(2) } }, t);
+    }
+}
+
+public class TestDictionaryInObject
+{
+    public Dictionary<string, int> test;
+
+    public TestDictionaryInObject() { }
+
+    public TestDictionaryInObject(Dictionary<string, int> test)
+    {
+        this.test = test;
+    }
+}
+
+public class TestSimpleClass
+{
+    public int test;
+
+    public TestSimpleClass()
+    {
+
+    }
+
+    public TestSimpleClass(int test)
+    {
+        this.test = test;
+    }
+
+    public override bool Equals(object obj)
+    {
+        var @class = obj as TestSimpleClass;
+        return @class != null &&
+               test == @class.test;
+    }
+
+    public override int GetHashCode()
+    {
+        return -935573843 + test.GetHashCode();
     }
 }
 
@@ -184,5 +263,36 @@ public class TestNestedClass
 
 public class TestNestedCollection
 {
-    public List<string> names = new List<string> { "Arnold", "Marian", "Fedrynand" };
+    public List<string> names;
+
+    public TestNestedCollection()
+    {
+
+    }
+
+    public TestNestedCollection(List<string> names)
+    {
+        this.names = names;
+    }
+
+    public override bool Equals(object obj)
+    {
+        var collection = obj as TestNestedCollection;
+        return new HashSet<string>(names).SetEquals(new HashSet<string>(collection.names));
+    }
+
+    public override int GetHashCode()
+    {
+        return 1;
+    }
+
+    public override string ToString()
+    {
+        string result = "[";
+        foreach (var name in names)
+        {
+            result += ", " + name;
+        }
+        return result + "]";
+    }
 }

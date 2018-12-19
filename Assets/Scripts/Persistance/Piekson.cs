@@ -5,8 +5,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 
-//todo rename
-public class PiekaSerializer
+public class Piekson
 {
     public static string ToJson(object obj)
     {

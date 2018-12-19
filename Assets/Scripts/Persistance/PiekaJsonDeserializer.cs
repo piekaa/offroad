@@ -23,11 +23,21 @@ class PiekaJsonDeserializer
             }
             try
             {
+
+                if (values.Count == 0)
+                {
+                    state.whereAmI(WhereAmI.NOWHERE);
+                }
+                else
+                {
+                    state.whereAmI(values.Peek() is JSONArray ? WhereAmI.ARRAY : WhereAmI.OBJECT);
+                }
+
                 var result = state.HandleChar(c);
 
                 if (result != null)
                 {
-                    if (result.newObject)
+                    if (result.stateResultAction == StateResultAction.NEW_OBJECT)
                     {
                         if (values.Count == 0)
                         {
@@ -38,7 +48,7 @@ class PiekaJsonDeserializer
                             values.Push(createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek()));
                         }
                     }
-                    if (result.newArray)
+                    if (result.stateResultAction == StateResultAction.NEW_ARRAY)
                     {
                         if (values.Count == 0)
                         {
@@ -48,6 +58,13 @@ class PiekaJsonDeserializer
                         {
                             values.Push(new JSONArray(createValueObjectAndSet(values.Peek().GetType(), values.Peek(), keys.Peek())));
                         }
+                    }
+                    if (result.stateResultAction == StateResultAction.NEW_OBJECT_IN_ARRAY)
+                    {
+                        var jsonArray = (JSONArray)values.Peek();
+                        var newObject = Activator.CreateInstance(jsonArray.collectionItemType);
+                        jsonArray.Add(newObject);
+                        values.Push(newObject);
                     }
                     if (result.Key != null)
                     {
@@ -62,11 +79,11 @@ class PiekaJsonDeserializer
                         var jsonArray = (JSONArray)values.Peek();
                         jsonArray.Add(getValueByType(result.ArrayValue, jsonArray.collectionItemType));
                     }
-                    if (result.endArray)
+                    if (result.stateResultAction == StateResultAction.END_ARRAY)
                     {
                         values.Pop();
                     }
-                    if (result.endObject)
+                    if (result.stateResultAction == StateResultAction.END_OBJECT)
                     {
                         values.Pop();
                     }
@@ -77,10 +94,9 @@ class PiekaJsonDeserializer
                 }
 
             }
-            //todo DeserializationException
             catch (Exception e)
             {
-                throw new Exception(json.Substring(0, i) + "   (" + json[i] + ")  , state = " + state.GetType().Name + "\nstack trace: " + e.StackTrace, e);
+                throw new PieksonException(json.Substring(0, i) + "   (" + json[i] + ")  , state = " + state.GetType().Name + "\nstack trace: " + e.StackTrace, e);
             }
         }
         return obj;
@@ -89,26 +105,40 @@ class PiekaJsonDeserializer
     private static void setValue(string key, string value, object obj)
     {
         Type t = obj.GetType();
-        var fieldInfo = t.GetField(key);
-        var propertyInfo = t.GetProperty(key);
-        var methodInfo = t.GetMethod("Set" + StringUtils.ToFirstUpper(key));
-        if (fieldInfo != null)
+        if (obj is IDictionary)
         {
-            var fieldType = fieldInfo.FieldType;
-            fieldInfo.SetValue(obj, getValueByType(value, fieldType));
-        }
-        else if (propertyInfo != null)
-        {
-            var propertyType = propertyInfo.PropertyType;
-            if (propertyInfo.GetSetMethod() != null)
+            var dic = obj as IDictionary;
+            if (!t.IsGenericType)
             {
-                propertyInfo.SetValue(obj, getValueByType(value, propertyType), null);
+                throw new InvalidCastException(t.GetType().Name + " is not generic");
             }
+            var dicValueType = dic.GetType().GetGenericArguments()[1];
+            dic.Add(key, getValueByType(value, dicValueType));
         }
-        else if (methodInfo != null)
+        else
         {
-            var parameterType = methodInfo.GetParameters()[0].ParameterType;
-            methodInfo.Invoke(obj, new object[] { getValueByType(value, parameterType) });
+
+            var fieldInfo = t.GetField(key);
+            var propertyInfo = t.GetProperty(key);
+            var methodInfo = t.GetMethod("Set" + StringUtils.ToFirstUpper(key));
+            if (fieldInfo != null)
+            {
+                var fieldType = fieldInfo.FieldType;
+                fieldInfo.SetValue(obj, getValueByType(value, fieldType));
+            }
+            else if (propertyInfo != null)
+            {
+                var propertyType = propertyInfo.PropertyType;
+                if (propertyInfo.GetSetMethod() != null)
+                {
+                    propertyInfo.SetValue(obj, getValueByType(value, propertyType), null);
+                }
+            }
+            else if (methodInfo != null)
+            {
+                var parameterType = methodInfo.GetParameters()[0].ParameterType;
+                methodInfo.Invoke(obj, new object[] { getValueByType(value, parameterType) });
+            }
         }
     }
 
@@ -139,35 +169,49 @@ class PiekaJsonDeserializer
 
     private static object createValueObjectAndSet(Type objectType, object currentObject, string fieldName)
     {
-        var currentObjType = objectType;
-        var fieldInfo = currentObjType.GetField(fieldName);
-        var propertyInfo = currentObjType.GetProperty(fieldName);
-        var methodInfo = currentObjType.GetMethod("Set" + StringUtils.ToFirstUpper(fieldName));
 
-        var type = fieldInfo != null ? fieldInfo.FieldType : null;
-        type = propertyInfo != null ? propertyInfo.PropertyType : type;
-        type = methodInfo != null ? methodInfo.GetParameters()[0].ParameterType : type;
-        var newObject = Activator.CreateInstance(type);
-
-        if (fieldInfo != null)
+        if (currentObject is IDictionary)
         {
-            var fieldType = fieldInfo.FieldType;
-            fieldInfo.SetValue(currentObject, newObject);
+            var dic = currentObject as IDictionary;
+            var type = dic.GetType().GetGenericArguments()[1];
+            var newObject = Activator.CreateInstance(type);
+
+            dic.Add(fieldName, newObject);
+
+            return newObject;
         }
-        else if (propertyInfo != null)
+        else
         {
-            var propertyType = propertyInfo.PropertyType;
-            if (propertyInfo.GetSetMethod() != null)
+            var currentObjType = objectType;
+            var fieldInfo = currentObjType.GetField(fieldName);
+            var propertyInfo = currentObjType.GetProperty(fieldName);
+            var methodInfo = currentObjType.GetMethod("Set" + StringUtils.ToFirstUpper(fieldName));
+
+            var type = fieldInfo != null ? fieldInfo.FieldType : null;
+            type = propertyInfo != null ? propertyInfo.PropertyType : type;
+            type = methodInfo != null ? methodInfo.GetParameters()[0].ParameterType : type;
+            var newObject = Activator.CreateInstance(type);
+
+            if (fieldInfo != null)
             {
-                propertyInfo.SetValue(currentObject, newObject, null);
+                var fieldType = fieldInfo.FieldType;
+                fieldInfo.SetValue(currentObject, newObject);
             }
+            else if (propertyInfo != null)
+            {
+                var propertyType = propertyInfo.PropertyType;
+                if (propertyInfo.GetSetMethod() != null)
+                {
+                    propertyInfo.SetValue(currentObject, newObject, null);
+                }
+            }
+            else if (methodInfo != null)
+            {
+                var parameterType = methodInfo.GetParameters()[0].ParameterType;
+                methodInfo.Invoke(currentObject, new object[] { newObject });
+            }
+            return newObject;
         }
-        else if (methodInfo != null)
-        {
-            var parameterType = methodInfo.GetParameters()[0].ParameterType;
-            methodInfo.Invoke(currentObject, new object[] { newObject });
-        }
-        return newObject;
     }
 }
 
@@ -199,5 +243,13 @@ class JSONArray
     public void Add(object value)
     {
         list.Add(value);
+    }
+}
+
+public class PieksonException : Exception
+{
+    public PieksonException(string message, Exception inner)
+           : base(message, inner)
+    {
     }
 }

@@ -1,51 +1,65 @@
 using System;
 using System.Text;
 
+public enum StateResultAction
+{
+    NEW_OBJECT,
+    NEW_ARRAY,
+    END_OBJECT,
+    END_ARRAY,
+    NEW_OBJECT_IN_ARRAY,
+    NONE
+}
+
+public enum WhereAmI
+{
+    OBJECT,
+    ARRAY,
+    NOWHERE
+}
+
 public class StateResult
 {
     public IJsonState NextState;
     public string Key;
     public string Value;
     public string ArrayValue;
-    public bool newObject;
-    public bool newArray;
-    public bool endObject;
-    public bool endArray;
+    public StateResultAction stateResultAction = StateResultAction.NONE;
 
     public StateResult(IJsonState nextState)
     {
         NextState = nextState;
     }
 
-    public StateResult(IJsonState nextState, string key, string value, string arrayValue, bool newObject, bool newArray, bool endObject, bool endArray)
+    public StateResult(IJsonState nextState, string key, string value, string arrayValue, StateResultAction stateResultAction) : this(nextState)
     {
-        NextState = nextState;
         Key = key;
         Value = value;
         ArrayValue = arrayValue;
-        this.newObject = newObject;
-        this.newArray = newArray;
-        this.endObject = endObject;
-        this.endArray = endArray;
+        this.stateResultAction = stateResultAction;
     }
 }
 
-public interface IJsonState
+public abstract class IJsonState
 {
-    StateResult HandleChar(char c);
+    public abstract StateResult HandleChar(char c);
+    public virtual void whereAmI(WhereAmI whereAmI)
+    {
+
+    }
 }
 
 public class BeginJsonState : IJsonState
 {
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == '{')
         {
-            return new StateResult(new ObjectJsonState(), null, null, null, true, false, false, false);
+            return new StateResult(new ObjectJsonState(), null, null, null, StateResultAction.NEW_OBJECT);
         }
         else if (c == '[')
         {
-            return new StateResult(new ArrayJsonState(), null, null, null, false, true, false, false);
+            return new StateResult(new ArrayJsonState(), null, null, null, StateResultAction.NEW_ARRAY);
         }
         throw new InvalidOperationException("expected { at begining");
     }
@@ -58,7 +72,7 @@ public class ArrayJsonState : IJsonState
     private string f = "false";
     private StringBuilder sb = new StringBuilder();
 
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (first)
         {
@@ -70,15 +84,15 @@ public class ArrayJsonState : IJsonState
             }
             else if (c == '\"')
             {
-                return new StateResult(new OpenedArrayValueJsonState(), null, null, null, false, false, false, false);
+                return new StateResult(new OpenedArrayValueJsonState(), null, null, null, StateResultAction.NONE);
             }
             else if (c == '{')
             {
-                return new StateResult(new ObjectJsonState(), null, null, null, false, false, true, false);
+                return new StateResult(new ObjectJsonState(), null, null, null, StateResultAction.NEW_OBJECT_IN_ARRAY);
             }
             else if (c == '[')
             {
-                return new StateResult(new ArrayJsonState(), null, null, null, false, true, false, false);
+                return new StateResult(new ArrayJsonState(), null, null, null, StateResultAction.NEW_ARRAY);
             }
             else
             {
@@ -99,11 +113,11 @@ public class ArrayJsonState : IJsonState
             }
             else if (c == ',')
             {
-                return new StateResult(new ArrayJsonState(), null, null, sb.ToString(), false, false, false, false);
+                return new StateResult(new ArrayJsonState(), null, null, sb.ToString(), StateResultAction.NONE);
             }
             else if (c == ']')
             {
-                return new StateResult(new EndObjectOrArrayState(), null, null, sb.ToString(), false, false, false, true);
+                return new StateResult(new EndObjectOrArrayState(), null, null, sb.ToString(), StateResultAction.END_ARRAY);
             }
             else
             {
@@ -115,7 +129,7 @@ public class ArrayJsonState : IJsonState
 
 public class ObjectJsonState : IJsonState
 {
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c != '\"')
         {
@@ -128,11 +142,11 @@ public class ObjectJsonState : IJsonState
 public class OpenedKeyJsonState : IJsonState
 {
     private StringBuilder sb = new StringBuilder();
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == '\"')
         {
-            return new StateResult(new ClosedKeyJsonState(), sb.ToString(), null, null, false, false, false, false);
+            return new StateResult(new ClosedKeyJsonState(), sb.ToString(), null, null, StateResultAction.NONE);
         }
         sb.Append(c);
         return null;
@@ -141,7 +155,7 @@ public class OpenedKeyJsonState : IJsonState
 
 public class ClosedKeyJsonState : IJsonState
 {
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c != ':')
         {
@@ -158,7 +172,7 @@ public class ValueJsonState : IJsonState
     private string f = "false";
     private StringBuilder sb = new StringBuilder();
 
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (first)
         {
@@ -174,7 +188,11 @@ public class ValueJsonState : IJsonState
             }
             else if (c == '{')
             {
-                return new StateResult(new ObjectJsonState(), null, null, null, true, false, false, false);
+                return new StateResult(new ObjectJsonState(), null, null, null, StateResultAction.NEW_OBJECT);
+            }
+            else if (c == '[')
+            {
+                return new StateResult(new ArrayJsonState(), null, null, null, StateResultAction.NEW_ARRAY);
             }
             else
             {
@@ -195,11 +213,11 @@ public class ValueJsonState : IJsonState
             }
             else if (c == ',')
             {
-                return new StateResult(new ObjectJsonState(), null, sb.ToString(), null, false, false, false, false);
+                return new StateResult(new ObjectJsonState(), null, sb.ToString(), null, StateResultAction.NONE);
             }
             else if (c == '}')
             {
-                return new StateResult(new EndObjectOrArrayState(), null, sb.ToString(), null, false, false, true, false);
+                return new StateResult(new EndObjectOrArrayState(), null, sb.ToString(), null, StateResultAction.END_OBJECT);
             }
             else
             {
@@ -213,11 +231,11 @@ public class OpenedValueJsonState : IJsonState
 {
     private StringBuilder sb = new StringBuilder();
     private bool escape = false;
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == '\"' && !escape)
         {
-            return new StateResult(new ClosedValueJsonState(), null, sb.ToString(), null, false, false, false, false);
+            return new StateResult(new ClosedValueJsonState(), null, sb.ToString(), null, StateResultAction.NONE);
         }
 
         if (c == '\\' && !escape)
@@ -237,11 +255,11 @@ public class OpenedArrayValueJsonState : IJsonState
 {
     private StringBuilder sb = new StringBuilder();
     private bool escape = false;
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == '\"' && !escape)
         {
-            return new StateResult(new ClosedArrayValueJsonState(), null, null, sb.ToString(), false, false, false, false);
+            return new StateResult(new ClosedArrayValueJsonState(), null, null, sb.ToString(), StateResultAction.NONE);
         }
 
         if (c == '\\' && !escape)
@@ -259,7 +277,7 @@ public class OpenedArrayValueJsonState : IJsonState
 
 public class ClosedArrayValueJsonState : IJsonState
 {
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == ',')
         {
@@ -267,7 +285,7 @@ public class ClosedArrayValueJsonState : IJsonState
         }
         else if (c == ']')
         {
-            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, false, true);
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, StateResultAction.END_ARRAY);
         }
         else
         {
@@ -278,7 +296,7 @@ public class ClosedArrayValueJsonState : IJsonState
 
 public class ClosedValueJsonState : IJsonState
 {
-    public StateResult HandleChar(char c)
+    public override StateResult HandleChar(char c)
     {
         if (c == ',')
         {
@@ -286,7 +304,7 @@ public class ClosedValueJsonState : IJsonState
         }
         else if (c == '}')
         {
-            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, true, false);
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, StateResultAction.END_OBJECT);
         }
         else
         {
@@ -297,16 +315,35 @@ public class ClosedValueJsonState : IJsonState
 
 public class EndObjectOrArrayState : IJsonState
 {
-    public StateResult HandleChar(char c)
+
+    private WhereAmI where;
+
+    public override void whereAmI(WhereAmI whereAmI)
+    {
+        where = whereAmI;
+    }
+
+    public override StateResult HandleChar(char c)
     {
         if (c == ',')
         {
-            return new StateResult(new ObjectJsonState());
+            if (where == WhereAmI.OBJECT)
+            {
+                return new StateResult(new ObjectJsonState());
+            }
+            else
+            {
+                return new StateResult(new ArrayJsonState());
+            }
         }
         else if (c == '}')
         {
-            return new StateResult(new EndObjectOrArrayState(), null, null, null, false, false, true, false);
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, StateResultAction.END_OBJECT);
         }
-        throw new InvalidOperationException("expected , or }");
+        else if (c == ']')
+        {
+            return new StateResult(new EndObjectOrArrayState(), null, null, null, StateResultAction.END_ARRAY);
+        }
+        throw new InvalidOperationException("expected , or }, or ]");
     }
 }
