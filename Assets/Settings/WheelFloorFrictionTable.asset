@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf378c91ba9d4d9f8c439f754d8bde3, type: 3}
+  m_Name: WheelFloorFrictionTable
+  m_EditorClassIdentifier: Assembly-CSharp::PiekaMaterialFloatTable
+  dictionary:
+    materials:
+    - Key: {fileID: 11400000, guid: 9035e948010cc476ca642625a4384741, type: 2}
+      Value: {fileID: 11400000, guid: 86cb1cb9081184713b13fe51354b4833, type: 2}
+    floats:
+    - 100
+  Default: 1
