@@ -10,7 +10,7 @@ public class Wheel : MonoBehaviour
 
     public void Awake()
     {
-        DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWroldUnit;
+        DiameterInMeters = SpriteUtils.GetWolrdPositions(GetComponent<SpriteRenderer>()).Width * Consts.MetersPerWorldUnit;
         rb = GetComponent<Rigidbody2D>();
         piekaMaterial = GetComponent<ObjectWithMaterial>().PiekaMaterial;
     }

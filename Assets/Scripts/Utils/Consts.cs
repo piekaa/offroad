@@ -8,11 +8,11 @@ public class Consts
     public const int CarLayerMask = 1 << 8;
     public const int FloorLayer = 9;
     public const int FloorLayerMask = 1 << 9;
-    public const int LaggageLayer = 10;
-    public const int LaggageLayerMask = 1 << 10;
+    public const int LuggageLayer = 10;
+    public const int LuggageLayerMask = 1 << 10;
 
     public const string FrontWheelTag = "FrontWheel";
 
-    public const float MetersPerWroldUnit = 0.42f;
+    public const float MetersPerWorldUnit = 0.42f;
 
 }

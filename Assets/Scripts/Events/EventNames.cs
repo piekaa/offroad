@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Pieka/Events")]
 public class EventNames : ScriptableObject
@@ -16,10 +14,12 @@ public class EventNames : ScriptableObject
     public const string CAR_BRAKE_WITH_VELOCITY = "carBrakeWithVelocity";
     public const string REVERSE_ON = "reverseOn";
     public const string REVERSE_OFF = "reverseOff";
+    public const string LEVEL_INSTANTIATED = "levelInstantiated";
 
     private string[] events;
 
-    private static string[] allEvents = {
+    private static string[] allEvents =
+    {
         TEST,
         WHEEL_BURN,
         CAR_SETTINGS_CHANGED,
@@ -31,9 +31,13 @@ public class EventNames : ScriptableObject
         CAR_BRAKE_WITH_VELOCITY,
         REVERSE_ON,
         REVERSE_OFF,
-        };
+        LEVEL_INSTANTIATED,
+    };
 
-    public string[] Events { get { return events; } }
+    public string[] Events
+    {
+        get { return events; }
+    }
 
     void OnEnable()
     {

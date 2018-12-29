@@ -1,14 +1,20 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityScript.Scripting.Pipeline;
 
-public class Resetable : MonoBehaviour
+public class Resetable : PiekaBehaviour
 {
-    private List<KeyValuePair<Rigidbody2D, Vector3>> rigidbodiesWithPositions = new List<KeyValuePair<Rigidbody2D, Vector3>>();
+    private List<KeyValuePair<Rigidbody2D, Vector3>> rigidbodiesWithPositions;
     private GameObject target;
-    // Use this for initialization
+
     protected virtual void Start()
-    { 
+    {
+        Init();
+    }
+
+    protected void Init()
+    {
+        rigidbodiesWithPositions = new List<KeyValuePair<Rigidbody2D, Vector3>>();
         target = target == null ? gameObject : target;
         var children = target.GetComponentsInChildren<Rigidbody2D>();
         foreach (var child in children)
@@ -21,16 +27,16 @@ public class Resetable : MonoBehaviour
     {
         foreach (var item in rigidbodiesWithPositions)
         {
-            item.Key.transform.position = item.Value;
-            item.Key.transform.rotation = Quaternion.identity;
+            var t = item.Key.transform;
+            t.position = item.Value;
+            t.rotation = Quaternion.identity;
             item.Key.velocity = Vector3.zero;
             item.Key.angularVelocity = 0;
         }
     }
-
-    // Set in Awake method
-    protected virtual void SetTarget(GameObject target)
-    { 
-        this.target = target;
+ 
+    protected void SetTarget(GameObject t)
+    {
+        target = t;
     }
 }

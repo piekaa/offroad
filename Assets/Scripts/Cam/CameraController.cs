@@ -1,19 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : Resetable
 {
+    [SerializeField] private SpriteRenderer curtain;
 
-    [SerializeField]
-    private SpriteRenderer curtain;
+    public CarHolder CarHolder;
 
-    [SerializeField]
-    private GameObject[] followed;
+    private GameObject[] followed = new GameObject[2];
     private Rigidbody2D followedRigidbody;
 
-    [SerializeField]
-    private Material blurMaterial;
+    [SerializeField] private Material blurMaterial;
 
     private float cameraSize = 8;
 
@@ -23,24 +19,30 @@ public class CameraController : Resetable
 
     private float cameraTranslationDivider = 8;
 
-
     private InterpolatedSum sumX;
     private InterpolatedSum sumY;
     private InterpolatedSum velocitySum;
 
     private BlurEffect blurEffect;
 
-    void Awake()
+    private void Awake()
     {
-        followedRigidbody = followed[0].GetComponent<Rigidbody2D>();
-
-        var avgPos = averageFollowedPosition();
-
-        Camera.main.transform.position = new Vector3(avgPos.x, avgPos.y);
-        curtain.transform.position = new Vector3(avgPos.x, avgPos.y, 1);
         blurEffect = Camera.main.gameObject.AddComponent<BlurEffect>();
         blurEffect.Material = blurMaterial;
+    }
+
+    [OnEvent(EventNames.LEVEL_INSTANTIATED)]
+    private void OnLevelInstantiate()
+    {
+        var car = CarHolder.Car;
+        followed[0] = car.FrontPart;
+        followed[1] = car.RearPart;
+        followedRigidbody = followed[0].GetComponent<Rigidbody2D>();
+        var avgPos = averageFollowedPosition();
+        Camera.main.transform.position = new Vector3(avgPos.x, avgPos.y);
+        curtain.transform.position = new Vector3(avgPos.x, avgPos.y, 1);
         ResetSums();
+        enabled = true;
     }
 
     public override void Reset()
@@ -60,6 +62,7 @@ public class CameraController : Resetable
                 resetDelta = 0;
             }
         }
+
         var translation = followedRigidbody.velocity / cameraTranslationDivider;
 
         sumX.Add(translation.x);
@@ -82,6 +85,7 @@ public class CameraController : Resetable
             followedAverageX += followed[i].transform.position.x;
             followedAverageY += followed[i].transform.position.y;
         }
+
         return new Vector2(followedAverageX / followed.Length, followedAverageY / followed.Length);
     }
 

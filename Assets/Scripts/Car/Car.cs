@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-
+    public CarHolder CarHolder;
     public Drive Drive { get; private set; }
 
     private Engine Engine { get; set; }
@@ -13,10 +11,11 @@ public class Car : MonoBehaviour
 
     public Wheel RearWheel;
 
-    [SerializeField]
-    private GameObject frontPart;
+    public GameObject FrontPart;
+    
+    public GameObject RearPart;
 
-    public Rigidbody2D middlePartRigidbody;
+    public Rigidbody2D FrontPartRigidbody;
 
     private WheelJoint2D frontWheelJoint;
 
@@ -34,6 +33,7 @@ public class Car : MonoBehaviour
 
     void Awake()
     {
+        CarHolder.Car = this;
         Drive = GetComponentInChildren<Drive>();
         Engine = GetComponentInChildren<Engine>();
         Drive.SetFrontWheel(FrontWheel);
@@ -44,12 +44,14 @@ public class Car : MonoBehaviour
         {
             Debug.Log("Car has wrong number of WheelJoints2D: " + joints.Length);
         }
+
         foreach (var joint in joints)
         {
             if (joint.connectedBody == FrontWheel.GetComponent<Rigidbody2D>())
             {
                 frontWheelJoint = joint;
             }
+
             if (joint.connectedBody == RearWheel.GetComponent<Rigidbody2D>())
             {
                 rearWheelJoint = joint;
@@ -58,7 +60,7 @@ public class Car : MonoBehaviour
 
         Drive.SetJoints(frontWheelJoint, rearWheelJoint);
 
-        middlePartRigidbody = frontPart.GetComponent<Rigidbody2D>();
+        FrontPartRigidbody = FrontPart.GetComponent<Rigidbody2D>();
 
         colliders = GetComponentsInChildren<Collider2D>();
 
@@ -146,20 +148,23 @@ public class Car : MonoBehaviour
                 return false;
             }
         }
+
         return true;
     }
 
     public float GetAngle()
     {
-        var angle = frontPart.transform.rotation.eulerAngles.z;
+        var angle = FrontPart.transform.rotation.eulerAngles.z;
         while (angle < 0)
         {
             angle += 360;
         }
+
         while (angle >= 360)
         {
             angle -= 360;
         }
+
         return angle;
     }
 
@@ -173,6 +178,6 @@ public class Car : MonoBehaviour
 
     public GameObject[] GetBrakeables()
     {
-        return new GameObject[] { frontPart };
+        return new GameObject[] {FrontPart};
     }
 }

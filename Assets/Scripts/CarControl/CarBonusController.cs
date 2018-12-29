@@ -1,25 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
-
-public class CarBonusController : Resetable
+﻿public class CarBonusController : Resetable
 {
-
     private const int MILLIS_TO_ACCEPT_FLIP = 1000;
 
     private Run onFlip;
 
-    public Car Car;
+    public CarHolder CarHolder;
+    
+    private Car car;
 
     bool wasInAirLastTime;
 
     bool angleWasNear180;
 
+
+    [OnEvent(EventNames.LEVEL_INSTANTIATED)]
+    private void OnLevelInstantiate()
+    {
+        car = CarHolder.Car;
+        enabled = true;
+    }
+    
     public void RegisterOnFlip(Run onFlip)
     {
         this.onFlip += onFlip;
     }
+
     public void UnregisterOnFlip(Run onFlip)
     {
         this.onFlip -= onFlip;
@@ -27,8 +32,8 @@ public class CarBonusController : Resetable
 
     void FixedUpdate()
     {
-        var wheelsOnFloorCount = Car.WheelsOnFloorCount();
-        if (wasInAirLastTime && !Car.IsInAir())
+        var wheelsOnFloorCount = car.WheelsOnFloorCount();
+        if (wasInAirLastTime && !car.IsInAir())
         {
             if (angleWasNear180 && wheelsOnFloorCount >= 1)
             {
@@ -38,9 +43,10 @@ public class CarBonusController : Resetable
                 }
             }
         }
-        if (Car.IsInAir())
+
+        if (car.IsInAir())
         {
-            var angle = Car.GetAngle();
+            var angle = car.GetAngle();
 
             if (angle >= 150 && angle <= 210)
             {
@@ -51,7 +57,8 @@ public class CarBonusController : Resetable
         {
             angleWasNear180 = false;
         }
-        wasInAirLastTime = Car.IsInAir();
+
+        wasInAirLastTime = car.IsInAir();
     }
 
     public override void Reset()
