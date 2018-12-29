@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_offroad.-1239607747.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="CalculatorTest.cs" t="Include" />
+          <e p="EventNamesEditor.cs" t="Include" />
+          <e p="EventPickerEditor.cs" t="Include" />
+          <e p="LevelSerializerEditor.cs" t="Include" />
+          <e p="PiekaMaterialEffectTableEditor.cs" t="Include" />
+          <e p="PiekaMaterialFloatTableEditor.cs" t="Include" />
+          <e p="PieksonTest.cs" t="Include" />
+          <e p="RepositoryTest.cs" t="Include" />
+          <e p="SpriteShapeCalculatorTest.cs" t="Include" />
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Bump.cs" t="Include" />
+          <e p="Cam" t="Include">
+            <e p="CameraController.cs" t="Include" />
+            <e p="FrameRateController.cs" t="Include" />
+          </e>
+          <e p="Car" t="Include">
+            <e p="BurnInfo.cs" t="Include" />
+            <e p="Car.cs" t="Include" />
+            <e p="CarInfo.cs" t="Include" />
+            <e p="CarSettings.cs" t="Include" />
+            <e p="Drive.cs" t="Include" />
+            <e p="Engine.cs" t="Include" />
+            <e p="Wheel.cs" t="Include" />
+          </e>
+          <e p="CarControl" t="Include">
+            <e p="CarBonusController.cs" t="Include" />
+            <e p="CarBrakeDetector.cs" t="Include" />
+            <e p="CarBurnDetector.cs" t="Include" />
+            <e p="CarEffectsController.cs" t="Include" />
+            <e p="CarResetController.cs" t="Include" />
+            <e p="CarSettingsController.cs" t="Include" />
+            <e p="CarSettingsMenuUI.cs" t="Include" />
+            <e p="CarSpeedMeasure.cs" t="Include" />
+            <e p="CarStateDetector.cs" t="Include" />
+            <e p="DrivePreviewController.cs" t="Include" />
+            <e p="Driver.cs" t="Include" />
+            <e p="DriverController.cs" t="Include" />
+            <e p="DriverProvider.cs" t="Include" />
+            <e p="FixedJointData.cs" t="Include" />
+            <e p="IdleDriver.cs" t="Include" />
+            <e p="ParkingDriver.cs" t="Include" />
+            <e p="PlayerDriver.cs" t="Include" />
+          </e>
+          <e p="Common" t="Include">
+            <e p="EventSystem" t="Include">
+              <e p="AllEventsListener.cs" t="Include" />
+              <e p="EventSystem.cs" t="Include" />
+              <e p="EventSystemFactory.cs" t="Include" />
+              <e p="IEventSystem.cs" t="Include" />
+              <e p="PMEventArgs.cs" t="Include" />
+              <e p="SEventSystem.cs" t="Include" />
+            </e>
+            <e p="Persistance" t="Include">
+              <e p="Json" t="Include">
+                <e p="JSONStates.cs" t="Include" />
+                <e p="PiekaJsonDeserializer.cs" t="Include" />
+                <e p="PiekaJsonSerializer.cs" t="Include" />
+                <e p="Piekson.cs" t="Include" />
+              </e>
+              <e p="Promise.cs" t="Include" />
+              <e p="Repository.cs" t="Include" />
+            </e>
+            <e p="Pieka" t="Include">
+              <e p="OnEvent.cs" t="Include" />
+              <e p="Pieka.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Data" t="Include">
+            <e p="MaterialMaterialEffectDictionary.cs" t="Include" />
+            <e p="MaterialMaterialFloatDictionary.cs" t="Include" />
+            <e p="MaterialMaterialPair.cs" t="Include" />
+          </e>
+          <e p="Effects" t="Include">
+            <e p="BlurEffect.cs" t="Include" />
+            <e p="BurnEffect.cs" t="Include" />
+            <e p="CameraShake.cs" t="Include" />
+            <e p="CollisionSparks.cs" t="Include" />
+            <e p="DefaultEffect.cs" t="Include" />
+            <e p="Effect.cs" t="Include" />
+            <e p="EffectData.cs" t="Include" />
+            <e p="JointBrakeEffect.cs" t="Include" />
+            <e p="ShakeOnCarBrake.cs" t="Include" />
+            <e p="Sparkable.cs" t="Include" />
+            <e p="WheelEffect.cs" t="Include" />
+          </e>
+          <e p="Enviroment" t="Include">
+            <e p="FrictionAdjuster.cs" t="Include" />
+            <e p="ObjectWithMaterial.cs" t="Include" />
+            <e p="PiekaMaterial.cs" t="Include" />
+            <e p="PiekaMaterialEffectTable.cs" t="Include" />
+            <e p="PiekaMaterialFloatTable.cs" t="Include" />
+          </e>
+          <e p="Events" t="Include">
+            <e p="EventNames.cs" t="Include" />
+            <e p="EventPicker.cs" t="Include" />
+          </e>
+          <e p="Holders" t="Include">
+            <e p="CarHolder.cs" t="Include" />
+            <e p="LuggageHolder.cs" t="Include" />
+          </e>
+          <e p="Luggage" t="Include">
+            <e p="Luggage.cs" t="Include" />
+            <e p="LuggageReleaseTrigger.cs" t="Include" />
+            <e p="LuggageTakeTrigger.cs" t="Include" />
+          </e>
+          <e p="MonoBehaviourWithFirstFrameCallback.cs" t="Include" />
+          <e p="Persistance" t="Include">
+            <e p="dto" t="Include">
+              <e p="DtoWithTransform.cs" t="Include" />
+              <e p="LevelDto.cs" t="Include" />
+              <e p="Prefab.cs" t="Include" />
+              <e p="SplineDto.cs" t="Include" />
+              <e p="SplinePointDto.cs" t="Include" />
+              <e p="SpriteDto.cs" t="Include" />
+              <e p="SpriteShapeControllerDto.cs" t="Include" />
+              <e p="Vector2Dto.cs" t="Include" />
+              <e p="Vector3Dto.cs" t="Include" />
+              <e p="Vector4Dto.cs" t="Include" />
+            </e>
+            <e p="ImPrefabSerializeMe.cs" t="Include" />
+            <e p="Level.cs" t="Include" />
+            <e p="LevelSerializer.cs" t="Include" />
+            <e p="LevelSpawner.cs" t="Include" />
+          </e>
+          <e p="Resetable.cs" t="Include" />
+          <e p="Reseter.cs" t="Include" />
+          <e p="SpritePositions.cs" t="Include" />
+          <e p="SpriteShapeTest.cs" t="Include" />
+          <e p="Test.cs" t="Include" />
+          <e p="Ui" t="Include">
+            <e p="FirstUseOfPedalDetector.cs" t="Include" />
+            <e p="MenuController.cs" t="Include" />
+            <e p="Meter.cs" t="Include" />
+            <e p="Number.cs" t="Include" />
+            <e p="Pedal.cs" t="Include" />
+            <e p="PiekaButton.cs" t="Include" />
+            <e p="PiekaSlider.cs" t="Include" />
+            <e p="Pointer.cs" t="Include" />
+            <e p="ToggleButton.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="CalculateUtils.cs" t="Include" />
+            <e p="Consts.cs" t="Include" />
+            <e p="Extensions.cs" t="Include" />
+            <e p="InterpolatedSum.cs" t="Include" />
+            <e p="ParticleSystemContainer.cs" t="Include" />
+            <e p="Run.cs" t="Include" />
+            <e p="SpriteShapeCalculator.cs" t="Include" />
+            <e p="SpriteUtils.cs" t="Include" />
+            <e p="StringUrils.cs" t="Include" />
+          </e>
+          <e p="Value" t="Include">
+            <e p="FloatValue.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="BackgroundShader.shader" t="Include" />
+          <e p="BlurEffect.shader" t="Include" />
+          <e p="TestShader.shader" t="Include" />
+          <e p="WheelBurnShader.shader" t="Include" />
+          <e p="WheelShader.shader" t="Include" />
+        </e>
+      </e>
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="offroad.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>
