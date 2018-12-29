@@ -30,7 +30,6 @@ public class FrictionAdjuster : MonoBehaviour
             var friction = MaterialFrictionTable.GetFloat(myMaterial, otherMaterial);
             myPhysicsMaterial.friction = friction;
             collidingMaterialsCount++;
-            myCollider.sharedMaterial = null;
             myCollider.sharedMaterial = myPhysicsMaterial;
         }
     }
@@ -44,7 +43,6 @@ public class FrictionAdjuster : MonoBehaviour
             if (collidingMaterialsCount == 0)
             {
                 myPhysicsMaterial.friction = MaterialFrictionTable.Default;
-                myCollider.sharedMaterial = null;
                 myCollider.sharedMaterial = myPhysicsMaterial;
             }
         }

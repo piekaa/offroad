@@ -1,9 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using TestNamespace;
 using UnityEngine;
-using UnityEngine.TestTools;
-using UnityEngine.U2D;
 
 [TestFixture]
 public class PieksonTest
@@ -27,7 +26,7 @@ public class PieksonTest
     [Test]
     public void TestGenericCollectionToJson()
     {
-        List<int> list = new List<int> { 1, 2, 3, 4, 5 };
+        List<int> list = new List<int> {1, 2, 3, 4, 5};
         var json = Piekson.ToJson(list);
         Assert.AreEqual("[1,2,3,4,5]", json);
     }
@@ -35,7 +34,7 @@ public class PieksonTest
     [Test]
     public void TestNestedGenericCollectionToJson()
     {
-        var t = new TestNestedCollection(new List<string> { "Arnold", "Marian", "Fedrynand" });
+        var t = new TestNestedCollection(new List<string> {"Arnold", "Marian", "Fedrynand"});
         var json = Piekson.ToJson(t);
         Assert.AreEqual("{\"names\":[\"Arnold\",\"Marian\",\"Fedrynand\"]}", json);
     }
@@ -43,7 +42,8 @@ public class PieksonTest
     [Test]
     public void TestDictionaryToJson()
     {
-        var t = new Dictionary<string, int>() {
+        var t = new Dictionary<string, int>()
+        {
             {"a", 1},
             {"b", 2},
             {"c", 3},
@@ -53,6 +53,37 @@ public class PieksonTest
         Assert.AreEqual("{\"a\":1,\"b\":2,\"c\":3,\"d\":4}", json);
     }
 
+    [Test]
+    public void TestLoopToJson()
+    {
+        var t = new TestLoop(10);
+        var json = Piekson.ToJson(t);
+        Assert.AreEqual("{\"a\":10}", json);
+    }
+
+    [Test]
+    public void TestNullValue()
+    {
+        var t = new TestMainClass();
+        var json = Piekson.ToJson(t);
+        Assert.AreEqual("{}", json);
+    }
+
+    [Test]
+    public void TestEnum()
+    {
+        var t = new TestClassWithEnum(TestDirection.DOWN);
+        var json = Piekson.ToJson(t);
+        Assert.AreEqual("{\"TestDirection\":\"DOWN\"}", json);
+    }
+
+    [Test]
+    public void TestType()
+    {
+        var t = new TestClassWithType(typeof(TestClassWithType));
+        var json = Piekson.ToJson(t);
+        Assert.AreEqual("{\"type\":\"TestNamespace.TestClassWithType, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\"}", json);
+    }
 
     [Test]
     public void TestFromJson()
@@ -60,6 +91,14 @@ public class PieksonTest
         var json = "{\"a\":123,\"b\":\"hel\\\\\\\"lo\",\"d\":3.14,\"state\":true}";
         var t = Piekson.FromJson<TestClass>(json);
         Assert.AreEqual(new TestClass(3.14f, true, 123, "hel\\\"lo"), t);
+    }
+
+    [Test]
+    public void TestNegativeValueFromJson()
+    {
+        var json = "{\"a\":-123,\"b\":\"hel\\\\\\\"lo\",\"d\":-3.14,\"state\":true}";
+        var t = Piekson.FromJson<TestClass>(json);
+        Assert.AreEqual(new TestClass(-3.14f, true, -123, "hel\\\"lo"), t);
     }
 
     [Test]
@@ -75,7 +114,7 @@ public class PieksonTest
     {
         var json = "[1,2,3,4,5,6]";
         var t = Piekson.FromJson<List<int>>(json);
-        Assert.AreEqual(new List<int> { 1, 2, 3, 4, 5, 6 }, t);
+        Assert.AreEqual(new List<int> {1, 2, 3, 4, 5, 6}, t);
     }
 
     [Test]
@@ -83,7 +122,7 @@ public class PieksonTest
     {
         var json = "[\"a\",\"b\",\"c\",\"d\"]";
         var t = Piekson.FromJson<List<string>>(json);
-        Assert.AreEqual(new List<string> { "a", "b", "c", "d" }, t);
+        Assert.AreEqual(new List<string> {"a", "b", "c", "d"}, t);
     }
 
     [Test]
@@ -91,7 +130,7 @@ public class PieksonTest
     {
         var json = "[{\"test\":1},{\"test\":2}]";
         var t = Piekson.FromJson<List<TestSimpleClass>>(json);
-        Assert.AreEqual(new List<TestSimpleClass> { new TestSimpleClass(1), new TestSimpleClass(2) }, t);
+        Assert.AreEqual(new List<TestSimpleClass> {new TestSimpleClass(1), new TestSimpleClass(2)}, t);
     }
 
     [Test]
@@ -99,7 +138,7 @@ public class PieksonTest
     {
         var json = "{\"names\":[\"Arnold\",\"Marian\",\"Fedrynand\"]}";
         var t = Piekson.FromJson<TestNestedCollection>(json);
-        Assert.AreEqual(new TestNestedCollection(new List<string> { "Arnold", "Marian", "Fedrynand" }), t);
+        Assert.AreEqual(new TestNestedCollection(new List<string> {"Arnold", "Marian", "Fedrynand"}), t);
     }
 
     [Test]
@@ -107,7 +146,7 @@ public class PieksonTest
     {
         var json = "{\"a\":1,\"b\":2,\"c\":3,\"d\":4}";
         var t = Piekson.FromJson<Dictionary<string, int>>(json);
-        CollectionAssert.AreEquivalent(new Dictionary<string, int>() { { "a", 1 }, { "b", 2 }, { "c", 3 }, { "d", 4 }, }, t);
+        CollectionAssert.AreEquivalent(new Dictionary<string, int>() {{"a", 1}, {"b", 2}, {"c", 3}, {"d", 4},}, t);
     }
 
     [Test]
@@ -115,7 +154,7 @@ public class PieksonTest
     {
         var json = "{\"test\":{\"a\":1, \"b\":3}}";
         var t = Piekson.FromJson<TestDictionaryInObject>(json);
-        CollectionAssert.AreEquivalent(new Dictionary<string, int>() { { "a", 1 }, { "b", 3 } }, t.test);
+        CollectionAssert.AreEquivalent(new Dictionary<string, int>() {{"a", 1}, {"b", 3}}, t.test);
     }
 
     [Test]
@@ -123,7 +162,77 @@ public class PieksonTest
     {
         var json = "{\"testObj1\":{\"test\":1}, \"testObj2\":{\"test\":2}}";
         var t = Piekson.FromJson<Dictionary<string, TestSimpleClass>>(json);
-        CollectionAssert.AreEquivalent(new Dictionary<string, TestSimpleClass>() { { "testObj1", new TestSimpleClass(1) }, { "testObj2", new TestSimpleClass(2) } }, t);
+        CollectionAssert.AreEquivalent(
+            new Dictionary<string, TestSimpleClass>()
+                {{"testObj1", new TestSimpleClass(1)}, {"testObj2", new TestSimpleClass(2)}}, t);
+    }
+
+    [Test]
+    public void TestFromEnum()
+    {
+        var json = "{\"TestDirection\":\"DOWN\"}";
+        var t = Piekson.FromJson<TestClassWithEnum>(json);
+        Assert.AreEqual(new TestClassWithEnum(TestDirection.DOWN).TestDirection, t.TestDirection);
+    }
+
+    [Test]
+    public void TestFromType()
+    {
+        var json = "{\"type\":\"TestNamespace.TestClassWithType, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null\"}";
+        var t = Piekson.FromJson<TestClassWithType>(json);
+        Assert.AreEqual(typeof(TestClassWithType), t.type);
+    }
+}
+
+
+namespace TestNamespace
+{
+    public class TestClassWithType
+    {
+        public Type type;
+
+        public TestClassWithType()
+        {
+        }
+
+        public TestClassWithType(Type type)
+        {
+            this.type = type;
+        }
+    }
+}
+
+public class TestClassWithEnum
+{
+    public TestDirection TestDirection;
+
+    public TestClassWithEnum()
+    {
+    }
+
+    public TestClassWithEnum(TestDirection testDirection)
+    {
+        TestDirection = testDirection;
+    }
+}
+
+public enum TestDirection
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
+public class TestLoop
+{
+    public int a;
+    public TestLoop testLoop;
+
+    public TestLoop(int i)
+    {
+        a = i;
+        testLoop = this;
     }
 }
 
@@ -131,7 +240,9 @@ public class TestDictionaryInObject
 {
     public Dictionary<string, int> test;
 
-    public TestDictionaryInObject() { }
+    public TestDictionaryInObject()
+    {
+    }
 
     public TestDictionaryInObject(Dictionary<string, int> test)
     {
@@ -145,7 +256,6 @@ public class TestSimpleClass
 
     public TestSimpleClass()
     {
-
     }
 
     public TestSimpleClass(int test)
@@ -173,7 +283,9 @@ public class TestClass
     public int a;
     public string b;
 
-    public TestClass() { }
+    public TestClass()
+    {
+    }
 
     public TestClass(float d, bool state, int a, string b)
     {
@@ -183,7 +295,12 @@ public class TestClass
         this.b = b;
     }
 
-    public float d { get { return _d; } set { _d = value; } }
+    public float d
+    {
+        get { return _d; }
+        set { _d = value; }
+    }
+
     public bool GetState()
     {
         return state;
@@ -224,7 +341,9 @@ public class TestMainClass
 {
     public TestNestedClass nested;
 
-    public TestMainClass() { }
+    public TestMainClass()
+    {
+    }
 
     public TestMainClass(TestNestedClass nested)
     {
@@ -267,7 +386,6 @@ public class TestNestedCollection
 
     public TestNestedCollection()
     {
-
     }
 
     public TestNestedCollection(List<string> names)
@@ -293,6 +411,7 @@ public class TestNestedCollection
         {
             result += ", " + name;
         }
+
         return result + "]";
     }
 }

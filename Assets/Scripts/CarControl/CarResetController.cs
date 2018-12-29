@@ -1,20 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
-class CarResetController : Resetable
+public class CarResetController : Resetable
 {
-    private HashSet<KeyValuePair<GameObject, FixedJointData>> gameObjectFixedJointSet = new HashSet<KeyValuePair<GameObject, FixedJointData>>();
-    public Car Car;
+    private HashSet<KeyValuePair<GameObject, FixedJointData>> gameObjectFixedJointSet =
+        new HashSet<KeyValuePair<GameObject, FixedJointData>>();
 
-    protected virtual void Awake()
+    private Car car;
+    public CarHolder CarHolder;
+
+    [OnEvent(EventNames.LEVEL_INSTANTIATED)]
+    private void OnLevelInstantiate()
     {
-        SetTarget(Car.gameObject);
-        var fixedJoints = Car.GetComponentsInChildren<FixedJoint2D>();
+        car = CarHolder.Car;
+        SetTarget(car.gameObject);
+        var fixedJoints = car.GetComponentsInChildren<FixedJoint2D>();
         foreach (var joint in fixedJoints)
         {
-            gameObjectFixedJointSet.Add(new KeyValuePair<GameObject, FixedJointData>(joint.gameObject, new FixedJointData(joint)));
+            gameObjectFixedJointSet.Add(
+                new KeyValuePair<GameObject, FixedJointData>(joint.gameObject, new FixedJointData(joint)));
         }
+
+        Init();
     }
 
     public override void Reset()
@@ -32,6 +40,7 @@ class CarResetController : Resetable
             joint.connectedAnchor = entry.Value.ConnectedAnchor;
             newSet.Add(new KeyValuePair<GameObject, FixedJointData>(entry.Key, new FixedJointData(joint)));
         }
+
         gameObjectFixedJointSet = newSet;
     }
 }

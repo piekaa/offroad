@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.U2D;
 
 [ExecuteInEditMode]
@@ -9,6 +7,11 @@ public class ObjectWithMaterial : MonoBehaviour
     public PiekaMaterial PiekaMaterial;
 
     void OnEnable()
+    {
+        Apply();
+    }
+
+    public void Apply()
     {
         if (PiekaMaterial == null)
         {
@@ -20,7 +23,15 @@ public class ObjectWithMaterial : MonoBehaviour
         {
             spriteShapeController.spriteShape = PiekaMaterial.SpriteShape;
         }
-        var collider = GetComponent<Collider2D>();
-        collider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
+
+        var attachedCollider = GetComponent<Collider2D>();
+        if (attachedCollider == null)
+        {
+            Debug.Log("Collider is not attched to object with collider!");
+        }
+        else
+        {
+            attachedCollider.sharedMaterial = PiekaMaterial.PhysicsMaterial2D;
+        }
     }
 }

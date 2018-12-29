@@ -23,7 +23,7 @@ public class CarBurnDetector : CarStateDetector
 
     private void detect(Car car, ContactPoint2D[] burnContacts, PiekaMaterial frontWheelMaterial, PiekaMaterial rearWheelMaterial)
     {
-        var velocityInKmPerH = CalculateUtils.UnitsPerSecondToKmPerH(car.middlePartRigidbody.velocity.magnitude);
+        var velocityInKmPerH = CalculateUtils.UnitsPerSecondToKmPerH(car.FrontPartRigidbody.velocity.magnitude);
         handleBurn(car.FrontWheelCollider, car.FrontWheelSpriteRenderer, BurnInfo.WhichWheelEnum.FRONT, car.FrontWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, car.Drive.FrontWheelKmPerH, velocityInKmPerH, burnContacts, frontWheelMaterial);
         handleBurn(car.RearWheelCollider, car.RearWheelSpriteRenderer, BurnInfo.WhichWheelEnum.REAR, car.RearWheel.AngularVelocity < 0 ? BurnInfo.DirectionEnum.LEFT : BurnInfo.DirectionEnum.RIGHT, car.Drive.RearWheelKmPerH, velocityInKmPerH, burnContacts, rearWheelMaterial);
     }
